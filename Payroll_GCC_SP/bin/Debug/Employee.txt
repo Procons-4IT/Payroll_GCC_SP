@@ -1,0 +1,2 @@
+﻿SN	EMP.NO	NAME	NO OF DAYS	MONTHLY BASIC SALARY	Bonus	Arrears	Housing Alowance	Travel Allowance	Tour	TOTAL EARNING	Deduction 11	Deduction 2	Deduction 4	TOTAL DEDUCTION	Contribution1	Contribution 2	Contribution 3	TOTAL CONTRIBUTION	NET PAY
+1	1	Senthil Kumar B	30	7453	0	0	600	400	500	1500	0	0	0	0	0	0	0	0	8953

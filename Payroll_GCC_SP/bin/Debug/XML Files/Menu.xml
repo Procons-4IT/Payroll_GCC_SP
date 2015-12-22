@@ -1,0 +1,201 @@
+<Application>
+	<Menus>
+		<action type="add">
+			
+			<!--<Menu Checked="0" Enabled="1" FatherUID="2048" Image="" Position="2" String="Sales Order Line Closure"
+			Type="1" UniqueID="DABT_910">
+			</Menu>-->
+				
+			
+			
+			<!--<Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="1" String="Payroll"
+				Type="2" UniqueID="Z_mnu_Pay001"></Menu>-->
+
+
+			<Menu Checked="0" Enabled="1" FatherUID="43525" Image="" Position="2" String="Payroll "
+				Type="2" UniqueID="Z_mnu_Pay002"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="0" String="Company Setup"
+				Type="1" UniqueID="Z_mnu_CMPSetup"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="1" String="Work Schedule"
+				Type="1" UniqueID="Z_mnu_WORK"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="2" String="OverTime Master"
+				Type="1" UniqueID="Z_mnu_Pay011"></Menu>
+			<!--<Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="1" String="Payroll Setup"
+				Type="2" UniqueID="Z_mnu_Pay002"></Menu>-->
+			<!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="0" String="Company Setup"
+				Type="1" UniqueID="Z_mnu_CMPSetup"></Menu>-->
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="4" String="Allowance Setup"
+				Type="1" UniqueID="Z_mnu_Pay003"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="4" String="Variable Earning Setup"
+      Type="1" UniqueID="Z_Mnu_VEARNING"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="5" String="Deduction Setup"
+				Type="1" UniqueID="Z_mnu_Pay004"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="6" String="Contribution Setup"
+				Type="1" UniqueID="Z_mnu_Pay005"></Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="7" String="Hourly Transaction Setup"
+      Type="1" UniqueID="Z_Mnu_OTRANS"></Menu>
+			<!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="8" String="Medical Details"
+				Type="1" UniqueID="Z_mnu_Pay006"></Menu>-->
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="9" String="Tax Master"
+				Type="1" UniqueID="Z_mnu_Pay008"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="10" String="Working Days - Master"
+				Type="1" UniqueID="Z_mnu_Pay019"></Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="11" String="Working Days Setup-Employee level"
+      Type="1" UniqueID="Z_mnu_Pay119"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="12" String="End of Service"
+						Type="1" UniqueID="Z_mnu_Pay020"></Menu>
+			<!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="0" String="Shift Master"
+				Type="1" UniqueID="Z_mnu_Pay010"></Menu>-->
+			
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="13" String="Payroll G/L Account Master"
+				Type="1" UniqueID="Z_mnu_Pay013"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="14" String="Social Security Master"
+				Type="1" UniqueID="Z_mnu_Pay014"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="15" String="Leave Type Master"
+			Type="1" UniqueID="Z_mnu_Leave"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="16" String="Loan Type Master"
+				Type="1" UniqueID="Z_mnu_Loan"></Menu>
+
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="17" String="Air Ticket Master"
+				Type="1" UniqueID="Z_mnu_AirTkt"></Menu>
+
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="18" String="Card Type Master"
+				Type="1" UniqueID="Z_Mnu_Type"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="19" String="Contract Term Master"
+							Type="1" UniqueID="Z_Mnu_Terms"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="20" String="Leave Entitlement Master"
+							Type="1" UniqueID="Z_Mnu_ALMapping"></Menu>
+
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="21" String="Relationship  Master"
+							Type="1" UniqueID="Z_Mnu_Relationship"></Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="22" String="Religion  Master"
+							Type="1" UniqueID="Z_Mnu_Religion"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="23" String="Job Code  Master"
+										Type="1" UniqueID="Z_Mnu_Job"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="24" String="Medical Claim Type Master"
+                     Type="1" UniqueID="Z_Mnu_Claim"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="25" String="Saving Scheme Master"
+                        Type="1" UniqueID="Z_Mnu_OSAV"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="26" String="Update Social Security Basic Salary"
+                       Type="1" UniqueID="Z_Mnu_OUPSO"></Menu>
+
+			<Menu Checked="0" Enabled="1" FatherUID="43520" Image="" Position="13" String="Payroll"
+							Type="2" UniqueID="Z_mnu_Pay601"></Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay601" Image="" Position="0" String="Payroll Transactions"
+            Type="2" UniqueID="Z_mnu_PayTrns1"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="0" String="Employee Transactions"
+              Type="1" UniqueID="Z_mnu_PayTrans"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="1" String="Leave Transactions"
+              Type="1" UniqueID="Z_mnu_PayLeaveTrans"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="2" String="Leave Adjustment Transactions"
+             Type="1" UniqueID="Z_mnu_PayAdjTrans"></Menu>
+            <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="3" String="Ticket Transactions"
+            Type="1" UniqueID="Z_mnu_PayTktTrans"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="4" String="Termination Transactions"
+           Type="1" UniqueID="Z_mnu_PayTerTrans"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="5" String="Medical Transaction Details"
+         Type="1" UniqueID="Z_Mnu_MeTrns"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="6" String="Loan Mgmt Transactions"
+        Type="1" UniqueID="Z_Mnu_LoanTrns"></Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="7" String="On Hold Transactions"
+       Type="1" UniqueID="Z_mnu_OnHold"></Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_PayTrns1" Image="" Position="8" String="Stop Installment Transactions"
+     Type="1" UniqueID="Z_mnu_StopIns"></Menu>
+
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay601" Image="" Position="1" String="Payroll Generation"
+				Type="2" UniqueID="Z_mnu_Pay101"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay101" Image="" Position="0" String="Payroll WorkSheet"
+				Type="1" UniqueID="Z_mnu_Pay102"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay101" Image="" Position="1" String="Worksheet ReGeneration"
+      Type="1" UniqueID="Z_mnu_Re01"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay101" Image="" Position="2" String="Payroll Posting"
+				Type="1" UniqueID="Z_mnu_Pay103"></Menu>
+			
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay601" Image="" Position="2" String="Payroll OffCycle"
+						Type="2" UniqueID="Z_mnu_Pay181"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay181" Image="" Position="0" String="Payroll OffCycle Worksheet"
+				Type="1" UniqueID="mnu_offCycle"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay181" Image="" Position="1" String="Payroll OffCycle Posting"
+				Type="1" UniqueID="mnu_offCyclePost"></Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay601" Image="" Position="3" String="OffCycle Transaction Tool"
+          Type="2" UniqueID="Z_mnu_Pay381"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay381" Image="" Position="0" String="Transactions"
+				Type="1" UniqueID="Z_mnu_Pay382"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay381" Image="" Position="1" String="Leave Encashement"
+      Type="1" UniqueID="Z_mnu_Pay384"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay381" Image="" Position="21" String="Posting"
+				Type="1" UniqueID="Z_mnu_Pay383"></Menu>
+
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay601" Image="" Position="4" String="Time and Attendance Module"
+			Type="2" UniqueID="Z_mnu_Time"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Time" Image="" Position="0" String="Import Time data from external File"
+				Type="1" UniqueID="Z_mnu_Time1"></Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Time" Image="" Position="1" String="Import Time data from external Database"
+      Type="1" UniqueID="Z_mnu_Time13"></Menu>-->
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Time" Image="" Position="2" String="Import Hourly Time sheet"
+      Type="1" UniqueID="Z_mnu_Time12"></Menu>-->
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Time" Image="" Position="3" String="Time Sheet Approval"
+				Type="1" UniqueID="Z_mnu_Time2"></Menu>
+
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay601" Image="" Position="5" String="Batch Upload"
+  Type="2" UniqueID="Z_mnu_BatchUpload"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_BatchUpload" Image="" Position="0" String="Work Schedule Upload"
+				Type="1" UniqueID="Z_mnu_ShtUpdate"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_BatchUpload" Image="" Position="1" String="Salary Increment Upload"
+       Type="1" UniqueID="Z_mnu_IncUpdate"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_BatchUpload" Image="" Position="2" String="Payroll Transaction Import"
+    Type="1" UniqueID="Z_mnu_TrnsImport"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_BatchUpload" Image="" Position="3" String="Payroll OffCycle Tool Transaction Import"
+  Type="1" UniqueID="Z_mnu_TrnsOffImport"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_BatchUpload" Image="" Position="4" String="Payroll OnHold Transaction Import"
+  Type="1" UniqueID="Z_mnu_OnHoldImport"></Menu>
+
+
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay601" Image="" Position="6" String="Payroll Reports"
+		Type="2" UniqueID="Z_mnu_Pay104"></Menu>
+			<!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay104" Image="" Position="0" String="PaySlip - Printing"
+			Type="1" UniqueID="Z_mnu_Pay105"></Menu>-->
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay104" Image="" Position="1" String="Export WPS File"
+			Type="1" UniqueID="Z_mnu_Pay106"></Menu>
+			<!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay104" Image="" Position="2" String="Management Reports"
+			Type="1" UniqueID="Z_mnu_Pay107"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay104" Image="" Position="3" String="Detaild Payroll Worksheet Reports"
+		Type="1" UniqueID="Z_mnu_Details"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay104" Image="" Position="4" String="Financial House Files"
+					Type="1" UniqueID="Z_mnu_PayFR"></Menu>-->
+
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay104" Image="" Position="6" String="Employee Time Attendance Report"
+				Type="1" UniqueID="Z_mnu_Time3"></Menu>
+
+
+
+
+			<!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay001" Image="" Position="1" String="Employee Master Details"
+				Type="1" UniqueID="Z_mnu_Pay007"></Menu>-->
+			<!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="2" String="Social Benifits Master"
+				Type="1" UniqueID="Z_mnu_Pay012"></Menu>-->
+
+			<!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Pay002" Image="" Position="3" String="Holiday Entitlement"
+				Type="1" UniqueID="Z_mnu_Pay009"></Menu>-->
+
+			<!--<Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="2" String="Payroll Reports"
+				Type="2" UniqueID="Z_mnu_Reports"></Menu>
+			<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_Reports" Image="" Position="1" String="WPS and SIF"
+				Type="2" UniqueID="Z_mnu_GOV"></Menu>-->
+
+		</action>
+	</Menus>
+</Application>

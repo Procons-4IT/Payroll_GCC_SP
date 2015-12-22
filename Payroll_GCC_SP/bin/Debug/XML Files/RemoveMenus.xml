@@ -1,0 +1,96 @@
+﻿<Application>
+  <Menus>
+    <action type="remove">
+      <!--<Menu UniqueID="DABT_910"></Menu>-->
+      <Menu UniqueID="Z_mnu_Pay002"></Menu>
+      <Menu UniqueID="Z_mnu_CMPSetup"></Menu>
+      <Menu UniqueID="Z_mnu_WORK"></Menu>
+      <menu unitqueID="Z_mnu_Re01"></menu>
+
+
+      <Menu UniqueID="Z_mnu_Pay011"></Menu>
+      <Menu UniqueID="Z_mnu_Pay003"></Menu>
+      <Menu UniqueID="Z_Mnu_VEARNING"></Menu>
+      <Menu UniqueID="Z_mnu_Pay004"></Menu>
+      <Menu UniqueID="Z_mnu_Pay005"></Menu>
+      <Menu UniqueID="Z_Mnu_OTRANS"></Menu>
+      <Menu UniqueID="Z_mnu_Pay008"></Menu>
+      <Menu UniqueID="Z_mnu_Pay019"></Menu>
+      <menu UniqueID="Z_mnu_Pay119"></menu>
+      <menu UniqueID="Z_mnu_OnHold"></menu>
+
+
+      <Menu UniqueID="Z_mnu_BatchUpload"></Menu>
+      <Menu UniqueID="Z_mnu_ShtUpdate"></Menu>
+      <Menu UniqueID="Z_mnu_IncUpdate"></Menu>
+      <menu UniqueID="Z_mnu_TrnsImport"></menu>
+      <Menu UniqueID="Z_mnu_TrnsOffImport"></Menu>
+      <menu UniqueID="Z_mnu_OnHoldImport"></menu>
+
+
+
+      <Menu UniqueID="Z_mnu_Pay020"></Menu>
+      <Menu UniqueID="Z_mnu_Pay013"></Menu>
+      <Menu UniqueID="Z_mnu_Pay014"></Menu>
+      <Menu UniqueID="Z_mnu_Leave"></Menu>
+      <Menu UniqueID="Z_mnu_Loan"></Menu>
+      <Menu UniqueID="Z_mnu_AirTkt"></Menu>
+      <Menu UniqueID="Z_Mnu_Type"></Menu>
+      <Menu UniqueID="Z_Mnu_Terms"></Menu>
+
+      <Menu UniqueID="Z_Mnu_ALMapping"></Menu>
+      <Menu UniqueID="Z_Mnu_Relationship"></Menu>
+      <Menu UniqueID="Z_Mnu_Religion"></Menu>
+      <Menu UniqueID="Z_Mnu_Job"></Menu>
+      <Menu UniqueID="Z_Mnu_Claim"></Menu>
+      <Menu UniqueID="Z_Mnu_OSAV"></Menu>
+      <Menu UniqueID="Z_Mnu_OUPSO"></Menu>
+      <Menu UniqueID="mnu_Act"></Menu>
+
+
+
+      <Menu UniqueID="Z_mnu_Pay601"></Menu>
+      <Menu UniqueID="Z_mnu_PayTrns1"></Menu>
+      <Menu UniqueID="Z_mnu_PayTrans"></Menu>
+      <Menu UniqueID="Z_mnu_PayLeaveTrans"></Menu>
+      <Menu UniqueID="Z_mnu_PayAdjTrans"></Menu>
+      <Menu UniqueID="Z_mnu_PayTktTrans"></Menu>
+      <Menu UniqueID="Z_mnu_PayTerTrans"></Menu>
+      <Menu UniqueID="Z_Mnu_MeTrns"></Menu>
+      <menu uniqueid="Z_Mnu_LoanTrns"></menu>
+      <menu uniqueid="Z_mnu_StopIns"></menu>
+
+
+
+
+      <Menu UniqueID="Z_mnu_Pay101"></Menu>
+      <Menu UniqueID="Z_mnu_Pay102"></Menu>
+      <Menu UniqueID="Z_mnu_Pay103"></Menu>
+      <Menu UniqueID="Z_mnu_Pay181"></Menu>
+      <Menu UniqueID="mnu_offCycle"></Menu>
+      <Menu UniqueID="mnu_offCyclePost"></Menu>
+
+      <Menu UniqueID="Z_mnu_Pay381"></Menu>
+      <Menu UniqueID="Z_mnu_Pay382"></Menu>
+      <Menu UniqueID="Z_mnu_Pay383"></Menu>
+      <Menu UniqueID="Z_mnu_Pay384"></Menu>
+      
+      <Menu UniqueID="Z_mnu_Time"></Menu>
+      <Menu UniqueID="Z_mnu_Time1"></Menu>
+      <Menu UniqueID="Z_mnu_Time13"></Menu>
+      <Menu UniqueID="Z_mnu_Time12"></Menu>
+      <Menu UniqueID="Z_mnu_Time2"></Menu>
+
+
+
+
+      <Menu UniqueID="Z_mnu_Pay104"></Menu>
+      <Menu UniqueID="Z_mnu_Pay105"></Menu>
+      <Menu UniqueID="Z_mnu_Pay106"></Menu>
+      <Menu UniqueID="Z_mnu_Pay107"></Menu>
+      <Menu UniqueID="Z_mnu_Details"></Menu>
+      <Menu UniqueID="Z_mnu_PayFR"></Menu>
+      <Menu UniqueID="Z_mnu_Time3"></Menu>
+    </action>
+  </Menus>
+</Application>
