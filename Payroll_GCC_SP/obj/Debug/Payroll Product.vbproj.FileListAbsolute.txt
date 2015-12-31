@@ -1537,3 +1537,18 @@ G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payr
 G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151217_Payroll_GCC 5.0.12_SP\obj\Debug\Payroll.frmReportViewer.resources
 G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151217_Payroll_GCC 5.0.12_SP\obj\Debug\Payroll.Resources.resources
 G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151217_Payroll_GCC 5.0.12_SP\obj\Debug\Payroll Product.vbproj.GenerateResource.Cache
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Interop.SAPbobsCOM.dll
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Interop.SAPbouiCOM.dll
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Payroll Product.vbproj.ResolveComReference.cache
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Payroll.exe
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Payroll.xml
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Payroll.pdb
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\bin\Debug\Payroll.exe
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\bin\Debug\Payroll.pdb
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\bin\Debug\Payroll.xml
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\bin\Debug\Interop.SAPbobsCOM.dll
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\bin\Debug\Interop.SAPbouiCOM.dll
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Payroll Product.vbprojResolveAssemblyReference.cache
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Payroll.frmReportViewer.resources
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Payroll.Resources.resources
+G:\International Projects_SAP9.0\Procons-4IT\Payroll\Kuwait\Payroll with NE\Payroll Phase III\GCC_SP\20151231_Payroll_GCC 5.0.13_SP\obj\Debug\Payroll Product.vbproj.GenerateResource.Cache
