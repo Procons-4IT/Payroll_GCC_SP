@@ -1571,6 +1571,46 @@ Public Class clsPayrollOffCycle
                         oUserTable1.UserFields.Fields.Item("U_Z_ExSalAmt").Value = dblExtraSalary ' + dblExOPenignBalance
                     End If
                     oUserTable1.UserFields.Fields.Item("U_Z_ExSalPaid").Value = dblExtPaid
+
+                    'Newly Added to check the Extra salary amount should be less than or equal to Monthly salary 2016-01-14
+                    Dim blnFullSalary As Boolean = True
+                    Dim dtExtraSalaryStartDate, dtEmpJoiningDate, dtExtraSalaryEndDate As Date
+                    Dim oInsRec As SAPbobsCOM.Recordset
+                    oInsRec = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                    oInsRec.DoQuery("Select * from OHEM where empId=" & strempID)
+                    dtEmpJoiningDate = oInsRec.Fields.Item("startDate").Value
+                    If str13th = aMonth Or str14th = aMonth Then
+                        If str13th = aMonth Then
+                            dtExtraSalaryStartDate = New DateTime(ayear, 1, 1)
+                            dtExtraSalaryEndDate = New DateTime(ayear, aMonth, DateTime.DaysInMonth(ayear, aMonth))
+                        ElseIf str14th = aMonth Then
+                            dtExtraSalaryStartDate = New DateTime(ayear, 7, 1)
+                            dtExtraSalaryEndDate = New DateTime(ayear, aMonth, DateTime.DaysInMonth(ayear, aMonth))
+                        Else
+                            blnFullSalary = False
+                            dtExtraSalaryStartDate = New DateTime(ayear, aMonth, 1)
+                            dtExtraSalaryEndDate = New DateTime(ayear, aMonth, DateTime.DaysInMonth(ayear, aMonth))
+                        End If
+                        If dtEmpJoiningDate > dtExtraSalaryStartDate Then 'Joining date is greater than the Extra Salary Paid date
+                            blnFullSalary = False
+
+                        ElseIf dtEmpJoiningDate <= dtExtraSalaryStartDate Then 'Joining Date id less than Extra Salary Paid Date
+                            stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & oTempRec.Fields.Item(0).Value & "' and ('" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "'<=U_Z_StartDate ) and '" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and isnull(U_Z_EndDate,'" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "')"
+                            oInsRec.DoQuery(stString)
+                            If oInsRec.RecordCount > 0 Then
+                                blnFullSalary = False
+                            End If
+                            stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & oTempRec.Fields.Item(0).Value & "' and ('" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "'<=U_Z_StartDate ) and '" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and isnull(U_Z_EndDate,'" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "')"
+                            oInsRec.DoQuery(stString)
+                            If oInsRec.RecordCount > 0 Then
+                                blnFullSalary = False
+                            End If
+                        End If
+                        If blnFullSalary = True Then
+                            dblExtCL = dblMonthSala
+                        End If
+                    End If
+
                     oUserTable1.UserFields.Fields.Item("U_Z_ExSalCL").Value = dblExtCL
                     'End Newly added
 
