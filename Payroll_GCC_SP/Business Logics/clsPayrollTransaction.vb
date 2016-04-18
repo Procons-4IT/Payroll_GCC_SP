@@ -416,6 +416,7 @@ Public Class clsPayrollTransaction
                     oGrid.Columns.Item("U_Z_Notes").TitleObject.Caption = "Notes"
                     oGrid.Columns.Item("U_Z_Year").TitleObject.Caption = "Year"
                     oGrid.Columns.Item("U_Z_Month").TitleObject.Caption = "Month"
+                    oGrid.Columns.Item("U_Z_DefPer").TitleObject.Caption = "Percentage"
                     oGrid.AutoResizeColumns()
                     oGrid.AutoResizeColumns()
                     oGrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single
@@ -473,7 +474,6 @@ Public Class clsPayrollTransaction
                     oComboColumn.ValidValues.Add("H", "Hourly Transactions")
                     oComboColumn.DisplayType = SAPbouiCOM.BoComboDisplayType.cdt_both
                     oComboColumn.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly
-
                     oGrid.Columns.Item("U_Z_Type").TitleObject.Caption = "Transaction Type"
                     oGrid.Columns.Item("U_Z_TrnsCode").TitleObject.Caption = "Transaction Code"
                     oGrid.Columns.Item("U_Z_StartDate").TitleObject.Caption = "Transaction Date"
@@ -484,6 +484,7 @@ Public Class clsPayrollTransaction
                     oGrid.Columns.Item("U_Z_Notes").TitleObject.Caption = "Notes"
                     oGrid.Columns.Item("U_Z_Posted").TitleObject.Caption = "Posted"
                     oGrid.Columns.Item("U_Z_Posted").Editable = False
+                    oGrid.Columns.Item("U_Z_DefPer").TitleObject.Caption = "Percentage"
                     oGrid.AutoResizeColumns()
                     oGrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single
                     oApplication.Utilities.assignMatrixLineno(oGrid, aform)
@@ -605,6 +606,7 @@ Public Class clsPayrollTransaction
                     oUserTable.UserFields.Fields.Item("U_Z_offTool").Value = "N"
                     oUserTable.UserFields.Fields.Item("U_Z_CreationDate").Value = Now.Date
                     oUserTable.UserFields.Fields.Item("U_Z_CreatedBy").Value = oApplication.Company.UserName
+                    oUserTable.UserFields.Fields.Item("U_Z_DefPer").Value = oGrid.DataTable.GetValue("U_Z_DefPer", intRow)
                     If oUserTable.Add() <> 0 Then
                         oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                         Committrans("Cancel")
@@ -632,6 +634,7 @@ Public Class clsPayrollTransaction
                         oUserTable.UserFields.Fields.Item("U_Z_NoofHours").Value = oGrid.DataTable.GetValue("U_Z_NoofHours", intRow)
                         oUserTable.UserFields.Fields.Item("U_Z_Notes").Value = oGrid.DataTable.GetValue("U_Z_Notes", intRow)
                         oUserTable.UserFields.Fields.Item("U_Z_offTool").Value = "N"
+                        oUserTable.UserFields.Fields.Item("U_Z_DefPer").Value = oGrid.DataTable.GetValue("U_Z_DefPer", intRow)
                         If oUserTable.Update() <> 0 Then
                             oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                             Committrans("Cancel")
@@ -766,7 +769,7 @@ Public Class clsPayrollTransaction
                 strEmpCondition = strEmpCondition & "  and  1=1 ) "
             End If
 
-            strQuery = "SELECT T0.[U_Z_EmpId],T0.[empID], T0.[firstName] + isnull( T0.[middleName],'') + isnull(T0.[lastName],'') 'Name', T1.[U_Z_Type], T1.[U_Z_TrnsCode], convert(varchar,T1.U_Z_Month) 'U_Z_Month',convert(varchar,T1.U_Z_Year) 'U_Z_Year', T1.[U_Z_StartDate], T1.[U_Z_EndDate], T1.[U_Z_Amount], T1.[U_Z_NoofHours], T1.[U_Z_Notes] FROM OHEM T0 left outer Join  [dbo].[@Z_PAY_TRANS]  T1 on T1.U_Z_EMPID=T0.empID"
+            strQuery = "SELECT T0.[U_Z_EmpId],T0.[empID], T0.[firstName] + isnull( T0.[middleName],'') + isnull(T0.[lastName],'') 'Name', T1.[U_Z_Type], T1.[U_Z_TrnsCode], convert(varchar,T1.U_Z_Month) 'U_Z_Month',convert(varchar,T1.U_Z_Year) 'U_Z_Year', T1.[U_Z_StartDate], T1.[U_Z_EndDate], T1.[U_Z_Amount],T1.[U_Z_DefPer], T1.[U_Z_NoofHours], T1.[U_Z_Notes] FROM OHEM T0 left outer Join  [dbo].[@Z_PAY_TRANS]  T1 on T1.U_Z_EMPID=T0.empID"
             strQuery = strQuery & " where  isnull(T1.U_Z_OffTool,'N')='N' and " & strEmpCondition & " and " & strDept & " and " & strPosition & " and " & strBranch & " and  U_Z_Year=" & CInt(strYear) & " and U_Z_Month=" & CInt(strMonth) & " and T0.""U_Z_CompNo""='" & strCompany & "'  order by Convert(Numeric,T1.Code)"
 
             oGrid = aForm.Items.Item("17").Specific
@@ -862,7 +865,7 @@ Public Class clsPayrollTransaction
                 strEmpCondition = strEmpCondition & "  and  1=1 ) "
             End If
 
-            strQuery = "SELECT T0.[U_Z_EmpId1], T0.[Code], T0.[Name], T0.[U_Z_EMPID],T0.""U_Z_EMPNAME"", T0.[U_Z_Type], T0.[U_Z_TrnsCode], Convert(Varchar,T0.[U_Z_Month]) 'U_Z_Month', Convert(varchar,T0.[U_Z_Year]) 'U_Z_Year', T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_Amount], T0.[U_Z_NoofHours], T0.[U_Z_Notes] ,T0.U_Z_Posted  FROM [dbo].[@Z_PAY_TRANS]  T0 Inner Join OHEM T1 on T1.empID=T0.U_Z_EMPID "
+            strQuery = "SELECT T0.[U_Z_EmpId1], T0.[Code], T0.[Name], T0.[U_Z_EMPID],T0.""U_Z_EMPNAME"", T0.[U_Z_Type], T0.[U_Z_TrnsCode], Convert(Varchar,T0.[U_Z_Month]) 'U_Z_Month', Convert(varchar,T0.[U_Z_Year]) 'U_Z_Year', T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_Amount],T0.[U_Z_DefPer], T0.[U_Z_NoofHours], T0.[U_Z_Notes] ,T0.U_Z_Posted  FROM [dbo].[@Z_PAY_TRANS]  T0 Inner Join OHEM T1 on T1.empID=T0.U_Z_EMPID "
             strQuery = strQuery & " where  isnull(T0.U_Z_OffTool,'N')='N' and " & strEmpCondition & " and U_Z_MOnth=" & CInt(strmonth) & " and U_Z_Year=" & CInt(stryear) & " and T1.""U_Z_CompNo""='" & strCompany & "' order by Convert(Numeric,T0.Code) "
             'strQuery = strQuery & " where 1=2"
             'strQuery = "SElect * from [@Z_PAY_TRANS] where U_Z_EmpID='" & strEmp & "' and U_Z_MOnth=" & CInt(strmonth) & " and U_Z_Year=" & CInt(stryear)
@@ -1116,10 +1119,26 @@ Public Class clsPayrollTransaction
                         dblBaisc = dblBaisc + dblAllowance
                         dblRate = dblBaisc / dblRate
                         dblhours = oGrid.DataTable.GetValue("U_Z_NoofHours", intRow)
+                        Dim dblPer As Double
+                        dblPer = oGrid.DataTable.GetValue("U_Z_DefPer", intRow)
                         If strType = "D" Then
                             If dblhours > 0 Then
                                 dblRate = dblRate * dblhours
+
+                                If dblPer > 0 Then
+                                    dblRate = dblRate * dblPer / 100
+                                End If
                                 oGrid.DataTable.SetValue("U_Z_Amount", intRow, dblRate)
+                            Else
+                                dblBaisc = dblBaisc '+ dblAllowance
+                                If dblPer > 0 Then
+                                    dblRate = dblBaisc * dblPer / 100
+                                End If
+                                If strType = "D" Then
+                                    If dblPer > 0 Then
+                                        oGrid.DataTable.SetValue("U_Z_Amount", intRow, dblRate)
+                                    End If
+                                End If
                             End If
                         Else
                             dblRate = dblRate * dblhours
@@ -1225,6 +1244,21 @@ Public Class clsPayrollTransaction
                                     End If
                                 End If
 
+                                If (pVal.ItemUID = "18" And pVal.ColUID = "U_Z_DefPer") And pVal.CharPressed <> 9 Then
+                                    oGrid = oForm.Items.Item("18").Specific
+                                    Dim strtype As String
+                                    oComboColumn = oGrid.Columns.Item("U_Z_Type")
+                                    Try
+                                        strtype = oComboColumn.GetSelectedValue(pVal.Row).Value
+                                    Catch ex As Exception
+                                        strtype = ""
+                                    End Try
+                                    If strtype <> "D" Then
+                                        BubbleEvent = False
+                                        Exit Sub
+                                    End If
+                                End If
+
                                 If (pVal.ItemUID = "18" And pVal.ColUID = "U_Z_Amount") And pVal.CharPressed <> 9 Then
                                     oGrid = oForm.Items.Item("18").Specific
                                     Dim strtype As String
@@ -1268,6 +1302,20 @@ Public Class clsPayrollTransaction
                                         Exit Sub
                                     End If
                                 End If
+                                If (pVal.ItemUID = "18" And pVal.ColUID = "U_Z_DefPer") And pVal.CharPressed <> 9 Then
+                                    oGrid = oForm.Items.Item("18").Specific
+                                    Dim strtype As String
+                                    oComboColumn = oGrid.Columns.Item("U_Z_Type")
+                                    Try
+                                        strtype = oComboColumn.GetSelectedValue(pVal.Row).Value
+                                    Catch ex As Exception
+                                        strtype = ""
+                                    End Try
+                                    If strtype <> "D" Then
+                                        BubbleEvent = False
+                                        Exit Sub
+                                    End If
+                                End If
                                 If (pVal.ItemUID = "18" And pVal.ColUID = "U_Z_NoofHours") And pVal.CharPressed <> 9 Then
                                     oGrid = oForm.Items.Item("18").Specific
                                     Dim strtype As String
@@ -1299,9 +1347,46 @@ Public Class clsPayrollTransaction
 
                             Case SAPbouiCOM.BoEventTypes.et_KEY_DOWN
                                 oForm = oApplication.SBO_Application.Forms.Item(FormUID)
-                                If pVal.ItemUID = "18" And pVal.ColUID = "U_Z_NoofHours" And pVal.CharPressed = 9 Then
+                                If pVal.ItemUID = "18" And pVal.ColUID = "U_Z_DefPer" And pVal.CharPressed = 9 Then
                                     oGrid = oForm.Items.Item("18").Specific
 
+                                    Dim strtype As String
+                                    oComboColumn = oGrid.Columns.Item("U_Z_Type")
+                                    Try
+                                        strtype = oComboColumn.GetSelectedValue(pVal.Row).Value
+                                    Catch ex As Exception
+                                        strtype = ""
+                                    End Try
+                                    Dim strEMpid As String = oGrid.DataTable.GetValue("U_Z_EMPID", pVal.Row)
+                                    If (strtype = "D") And strEMpid <> "" Then
+                                        Dim oTest As SAPbobsCOM.Recordset
+                                        oTest = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                                        oApplication.Utilities.UpdateWorkingHours_EMP(strEMpid)
+                                        oTest.DoQuery("Select isnull(""U_Z_HOURS"",1) from OHEM where empID=" & CInt(strEMpid))
+                                        Dim dblRate, dblhours, dblBaisc As Double
+                                        Dim strMonth, strYear As String
+                                        Dim oCom As SAPbouiCOM.ComboBoxColumn
+                                        oCom = oGrid.Columns.Item("U_Z_Month")
+                                        strMonth = oCom.GetSelectedValue(pVal.Row).Value
+                                        oCom = oGrid.Columns.Item("U_Z_Year")
+                                        strYear = oCom.GetSelectedValue(pVal.Row).Value
+                                        Dim dblPercentage As Double = oGrid.DataTable.GetValue("U_Z_DefPer", pVal.Row)
+                                        dblBaisc = oApplication.Utilities.getCurrentmonthbasic(CInt(strMonth), CInt(strYear), strEMpid)
+                                        dblRate = oTest.Fields.Item(0).Value
+                                        Dim dblAllowance As Double = oApplication.Utilities.getCurrentMonthAllowance(CInt(strMonth), CInt(strYear), strEMpid)
+                                        dblBaisc = dblBaisc '+ dblAllowance
+                                        If dblPercentage > 0 Then
+                                            dblRate = dblBaisc * dblPercentage / 100
+                                        End If
+                                        If strtype = "D" Then
+                                            If dblPercentage > 0 Then
+                                                oGrid.DataTable.SetValue("U_Z_Amount", pVal.Row, dblRate)
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                                If pVal.ItemUID = "18" And pVal.ColUID = "U_Z_NoofHours" And pVal.CharPressed = 9 Then
+                                    oGrid = oForm.Items.Item("18").Specific
                                     Dim strtype As String
                                     oComboColumn = oGrid.Columns.Item("U_Z_Type")
                                     Try
@@ -1328,10 +1413,26 @@ Public Class clsPayrollTransaction
                                         dblBaisc = dblBaisc + dblAllowance
                                         dblRate = dblBaisc / dblRate
                                         dblhours = oGrid.DataTable.GetValue("U_Z_NoofHours", pVal.Row)
+                                        Dim dblPer As Double
+                                        dblPer = oGrid.DataTable.GetValue("U_Z_DefPer", pVal.Row)
                                         If strtype = "D" Then
                                             If dblhours > 0 Then
                                                 dblRate = dblRate * dblhours
+
+                                                If dblPer > 0 Then
+                                                    dblRate = dblRate * dblPer / 100
+                                                End If
                                                 oGrid.DataTable.SetValue("U_Z_Amount", pVal.Row, dblRate)
+                                            Else
+                                                dblBaisc = dblBaisc '+ dblAllowance
+                                                If dblPer > 0 Then
+                                                    dblRate = dblBaisc * dblPer / 100
+                                                End If
+                                                If strtype = "D" Then
+                                                    If dblPer > 0 Then
+                                                        oGrid.DataTable.SetValue("U_Z_Amount", pVal.Row, dblRate)
+                                                    End If
+                                                End If
                                             End If
                                         Else
                                             dblRate = dblRate * dblhours

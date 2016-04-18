@@ -942,7 +942,7 @@ Public Class clsTicketTransactions
 
 #Region "Validate Grid details"
     Private Function validation(ByVal aGrid As SAPbouiCOM.Grid, ByVal aCompany As String) As Boolean
-        Dim strECode, strECode1, strEname, strEname1, strType, strMonth, strYear, strStartDate, strEndDate As String
+        Dim strECode, strECode1, strEname, strEname1, strType, strMonth, strYear, strStartDate, strEndDate, strTicketCode As String
         For intRow As Integer = 0 To aGrid.DataTable.Rows.Count - 1
             strECode = aGrid.DataTable.GetValue("U_Z_EMPID", intRow)
 
@@ -955,6 +955,8 @@ Public Class clsTicketTransactions
                     oApplication.Utilities.Message("Ticket code is missing..", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                     aGrid.Columns.Item("U_Z_TktCode").Click(intRow)
                     Return False
+                Else
+                    strTicketCode = aGrid.DataTable.GetValue("U_Z_TktCode", intRow)
                 End If
                 If strMonth = "" Then
                     oApplication.Utilities.Message("Transaction Month is missing", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
@@ -1000,14 +1002,25 @@ Public Class clsTicketTransactions
                     dblHours = oGrid.DataTable.GetValue("U_Z_AmtperTkt", intRow)
                     dblRate = dblRate * dblHours
                     aGrid.DataTable.SetValue("U_Z_Amount", intRow, dblRate)
-
+                    Dim oTe As SAPbobsCOM.Recordset
+                    oTe = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                    oTe.DoQuery("Select isnull(U_Z_BalChk,'N') from [@Z_PAY_AIR] where Code='" & strTicketCode & "'")
                     If aGrid.DataTable.GetValue("Code", intRow) = "" Then
-                        If aGrid.DataTable.GetValue("U_Z_NoofTkts", intRow) > aGrid.DataTable.GetValue("U_Z_TktsBal", intRow) Then
-                            If oApplication.SBO_Application.MessageBox("No of tickets exceeds the available balanace. Do you want to continue ?", , "Continue", "Cancel") = 2 Then
+                        If oTe.Fields.Item(0).Value = "Y" Then
+                            If aGrid.DataTable.GetValue("U_Z_NoofTkts", intRow) > aGrid.DataTable.GetValue("U_Z_TktsBal", intRow) Then
+                                oApplication.Utilities.Message("Number of tickects exceed  the available balance", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                                 aGrid.Columns.Item("U_Z_NoofTkts").Click(intRow, , 1)
                                 Return False
                             End If
+                        Else
+                            If aGrid.DataTable.GetValue("U_Z_NoofTkts", intRow) > aGrid.DataTable.GetValue("U_Z_TktsBal", intRow) Then
+                                If oApplication.SBO_Application.MessageBox("No of tickets exceeds the available balance. Do you want to continue ?", , "Continue", "Cancel") = 2 Then
+                                    aGrid.Columns.Item("U_Z_NoofTkts").Click(intRow, , 1)
+                                    Return False
+                                End If
+                            End If
                         End If
+
                     End If
                 End If
             End If

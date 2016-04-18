@@ -673,9 +673,7 @@ Public Class clsPayrollLeaveTransaction
                         Committrans("Cancel")
                         Return False
                     Else
-
                         oApplication.Utilities.UpdateLeaveBalance_Transaction(oGrid.DataTable.GetValue("U_Z_EMPID", intRow), strType, oGrid.DataTable.GetValue("U_Z_Year", intRow), oGrid.DataTable.GetValue("U_Z_Month", intRow))
-
                         Dim strQry = "Select ""AttachPath"" From OADP"
                         oRec.DoQuery(strQry)
                         Dim SPath As String = oGrid.DataTable.GetValue("U_Z_Attachment", intRow).ToString()
@@ -1053,14 +1051,26 @@ Public Class clsPayrollLeaveTransaction
             Dim s As String
             stEarning = " and '" & dtPayrollDate.ToString("yyyy-MM-dd") & "' between isnull(U_Z_Startdate,'" & dtPayrollDate.ToString("yyyy-MM-dd") & "') and isnull(U_Z_EndDate,'" & dtPayrollDate.ToString("yyyy-MM-dd") & "')"
             If LeaveCode = "" Then
-                s = "Select sum(isnull(U_Z_EARN_VALUE,0)) from [@Z_PAY1] where U_Z_EMPID='" & aCode & "'  " & stEarning & " and U_Z_EARN_TYPE in (Select T0.U_Z_CODE from [@Z_PAY_OLEMAP] T0 inner Join [@Z_PAY_LEAVE] T1 on T1.Code=T0.U_Z_Code  where isnull(T1.U_Z_PaidLeave,'N')='A' and isnull(U_Z_Type,'E')='E' and  isnull(T0.U_Z_EFFPAY,'N')='Y' )"
+                s = "Select sum(isnull(U_Z_EARN_VALUE,0)) from [@Z_PAY1] where  U_Z_Percentage =0 and U_Z_EMPID='" & aCode & "'  " & stEarning & " and U_Z_EARN_TYPE in (Select T0.U_Z_CODE from [@Z_PAY_OLEMAP] T0 inner Join [@Z_PAY_LEAVE] T1 on T1.Code=T0.U_Z_Code  where isnull(T1.U_Z_PaidLeave,'N')='A' and isnull(U_Z_Type,'E')='E' and  isnull(T0.U_Z_EFFPAY,'N')='Y' )"
                 oRateRS.DoQuery(s)
             Else
-                s = "Select sum(isnull(U_Z_EARN_VALUE,0)) from [@Z_PAY1] where U_Z_EMPID='" & aCode & "'  " & stEarning & " and U_Z_EARN_TYPE in (Select U_Z_CODE from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFPAY,'N')='Y' and isnull(U_Z_Type,'E')='E' and U_Z_LEVCODE='" & LeaveCode & "')"
+                s = "Select sum(isnull(U_Z_EARN_VALUE,0)) from [@Z_PAY1] where U_Z_Percentage =0 and U_Z_EMPID='" & aCode & "'  " & stEarning & " and U_Z_EARN_TYPE in (Select U_Z_CODE from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFPAY,'N')='Y' and isnull(U_Z_Type,'E')='E' and U_Z_LEVCODE='" & LeaveCode & "')"
                 oRateRS.DoQuery(s)
             End If
             dblBasic = dblBasic
             dblEarning = oRateRS.Fields.Item(0).Value
+
+            'Earning for Percentage
+            '( " & dblTotalBasic & "  * T1.U_Z_Percentage) / 100
+            If LeaveCode = "" Then
+                s = "Select sum( " & dblBasic & " *  isnull(U_Z_Percentage,0)/100) from [@Z_PAY1] where U_Z_Percentage >0 and  U_Z_EMPID='" & aCode & "'  " & stEarning & " and U_Z_EARN_TYPE in (Select T0.U_Z_CODE from [@Z_PAY_OLEMAP] T0 inner Join [@Z_PAY_LEAVE] T1 on T1.Code=T0.U_Z_Code  where isnull(T1.U_Z_PaidLeave,'N')='A' and isnull(U_Z_Type,'E')='E' and isnull(T0.U_Z_EFFPAY,'N')='Y' )"
+                oRateRS.DoQuery(s)
+            Else
+                s = "Select sum( " & dblBasic & " *  isnull(U_Z_Percentage,0)/100) from [@Z_PAY1] where  U_Z_Percentage >0 and  U_Z_EMPID='" & aCode & "'  " & stEarning & " and U_Z_EARN_TYPE in (Select U_Z_CODE from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFPAY,'N')='Y' and isnull(U_Z_Type,'E')='E' and U_Z_LEVCODE='" & LeaveCode & "')"
+                oRateRS.DoQuery(s)
+            End If
+            dblBasic = dblBasic
+            dblEarning = dblEarning + oRateRS.Fields.Item(0).Value
 
             If LeaveCode = "" Then
                 s = "Select sum(isnull(U_Z_DEDUC_VALUE,0)) from [@Z_PAY2] where U_Z_EMPID='" & aCode & "'" & stEarning & " and U_Z_DEDUC_TYPE in (Select T0.U_Z_CODE from [@Z_PAY_OLEMAP] T0 inner Join [@Z_PAY_LEAVE] T1 on T1.Code=T0.U_Z_Code  where isnull(T1.U_Z_PaidLeave,'N')='A' and isnull(U_Z_Type,'E')='D' and isnull(T0.U_Z_EFFPAY,'N')='Y' )"
@@ -2063,6 +2073,18 @@ Public Class clsPayrollLeaveTransaction
 
                             Case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK
                                 oForm = oApplication.SBO_Application.Forms.Item(FormUID)
+                                If pVal.ItemUID = "18" And pVal.ColUID = "U_Z_Attachment" Then
+                                    oGrid = oForm.Items.Item("18").Specific
+                                    Dim strPath As String = oGrid.DataTable.Columns.Item("U_Z_Attachment").Cells.Item(pVal.Row).Value.ToString()
+                                    FileOpen()
+                                    If strFilepath = "" Then
+                                        '  oApplication.Utilities.Message("Please Select a File", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                        BubbleEvent = False
+                                    Else
+                                        oGrid.DataTable.Columns.Item("U_Z_Attachment").Cells.Item(pVal.Row).Value = strFilepath
+                                    End If
+                                End If
+
                                 If (pVal.ItemUID = "18" And pVal.ColUID = "U_Z_TrnsCode") Then
                                     Dim objChooseForm As SAPbouiCOM.Form
                                     Dim objChoose As New clsChooseFromList_Leave
@@ -2192,18 +2214,18 @@ Public Class clsPayrollLeaveTransaction
                                     End If
                                 End If
 
-                            Case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK
-                                If pVal.ItemUID = "18" And pVal.ColUID = "U_Z_Attachment" Then
-                                    oGrid = oForm.Items.Item("18").Specific
-                                    Dim strPath As String = oGrid.DataTable.Columns.Item("U_Z_Attachment").Cells.Item(pVal.Row).Value.ToString()
-                                    FileOpen()
-                                    If strFilepath = "" Then
-                                        '  oApplication.Utilities.Message("Please Select a File", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
-                                        BubbleEvent = False
-                                    Else
-                                        oGrid.DataTable.Columns.Item("U_Z_Attachment").Cells.Item(pVal.Row).Value = strFilepath
-                                    End If
-                                End If
+                                'Case SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK
+                                '    If pVal.ItemUID = "18" And pVal.ColUID = "U_Z_Attachment" Then
+                                '        oGrid = oForm.Items.Item("18").Specific
+                                '        Dim strPath As String = oGrid.DataTable.Columns.Item("U_Z_Attachment").Cells.Item(pVal.Row).Value.ToString()
+                                '        FileOpen()
+                                '        If strFilepath = "" Then
+                                '            '  oApplication.Utilities.Message("Please Select a File", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                '            BubbleEvent = False
+                                '        Else
+                                '            oGrid.DataTable.Columns.Item("U_Z_Attachment").Cells.Item(pVal.Row).Value = strFilepath
+                                '        End If
+                                '    End If
 
 
 

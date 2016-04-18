@@ -439,7 +439,7 @@ Public Class clsLeaveEncashement
                     oComboColumn.DisplayType = SAPbouiCOM.BoComboDisplayType.cdt_both
                     oComboColumn.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly
                     oGrid.Columns.Item("U_Z_TrnsCode").TitleObject.Caption = "Leave Code (Double Click to Select Leave Code)"
-                    oGrid.Columns.Item("U_Z_TrnsCode").Editable = False
+                    oGrid.Columns.Item("U_Z_TrnsCode").Editable = True
                     oGrid.Columns.Item("U_Z_LeaveName").TitleObject.Caption = "Leave Name"
                     oGrid.Columns.Item("U_Z_LeaveName").Editable = False
                     'oGrid.Columns.Item("U_Z_TrnsCode").Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox
@@ -944,6 +944,7 @@ Public Class clsLeaveEncashement
 
         oRateRS.DoQuery("Select isnull(Salary,0) from OHEM where empID=" & aCode)
         dblBasic = oRateRS.Fields.Item(0).Value
+
         If LeaveCode <> "A" Then
             oRateRS.DoQuery("Select sum(isnull(U_Z_EARN_VALUE,0)) from [@Z_PAY1] where U_Z_EMPID='" & aCode & "' and U_Z_EARN_TYPE in (Select U_Z_CODE from [@Z_PAY_OLEMAP] where  isnull(U_Z_Type,'E')='E' and isnull(U_Z_EFFPAY,'N')='Y' and U_Z_LEVCODE='" & LeaveCode & "')")
             dblBasic = dblBasic
@@ -952,7 +953,8 @@ Public Class clsLeaveEncashement
             If LeaveCode = "" Then
                 oRateRS.DoQuery("Select sum(isnull(U_Z_DEDUC_VALUE,0)) from [@Z_PAY2] where U_Z_EMPID='" & aCode & "' and U_Z_DEDUC_TYPE in (Select T0.U_Z_CODE from [@Z_PAY_OLEMAP] T0 inner Join [@Z_PAY_LEAVE] T1 on T1.Code=T0.U_Z_Code  where  isnull(U_Z_Type,'E')='D' and isnull(T1.U_Z_PaidLeave,'N')='A' and isnull(T0.U_Z_EFFPAY,'N')='Y' )")
             Else
-                oRateRS.DoQuery("Select sum(isnull(U_Z_DEDUC_VALUE,0)) from [@Z_PAY2] where U_Z_EMPID='" & aCode & "' and U_Z_DEDUC_TYPE in (Select U_Z_CODE from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFPAY,'N')='Y' isnull(U_Z_Type,'E')='D' and  and U_Z_LEVCODE='" & LeaveCode & "')")
+                Dim s As String = "Select sum(isnull(U_Z_DEDUC_VALUE,0)) from [@Z_PAY2] where U_Z_EMPID='" & aCode & "' and U_Z_DEDUC_TYPE in (Select U_Z_CODE from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFPAY,'N')='Y' isnull(U_Z_Type,'E')='D' and  and U_Z_LEVCODE='" & LeaveCode & "')"
+                oRateRS.DoQuery("Select sum(isnull(U_Z_DEDUC_VALUE,0)) from [@Z_PAY2] where U_Z_EMPID='" & aCode & "' and U_Z_DEDUC_TYPE in (Select U_Z_CODE from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFPAY,'N')='Y' and isnull(U_Z_Type,'E')='D'   and U_Z_LEVCODE='" & LeaveCode & "')")
             End If
             dblBasic = dblBasic
             dblDeduction = oRateRS.Fields.Item(0).Value
@@ -969,7 +971,8 @@ Public Class clsLeaveEncashement
         Dim dblBasic, dblEarning, dblRate As Double
         oRateRS = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
         otemp3 = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-        stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & aCode & "' and '" & dtPayrollDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and isnull(U_Z_EndDate,'" & dtPayrollDate.ToString("yyyy-MM-dd") & "')"
+        ' stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & aCode & "' and '" & dtPayrollDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and isnull(U_Z_EndDate,'" & dtPayrollDate.ToString("yyyy-MM-dd") & "')"
+        stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & aCode & "' and '" & dtPayrollDate.ToString("yyyy-MM-dd") & "' >= U_Z_StartDate order by U_Z_StartDate Desc"
         otemp3.DoQuery(stString)
         Dim dblInc As Double = 0
         If otemp3.RecordCount > 0 Then

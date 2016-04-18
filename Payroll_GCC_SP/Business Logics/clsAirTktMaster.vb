@@ -111,6 +111,8 @@ Public Class clsAirTktMaster
         '  agrid.Columns.Item("U_Z_AmtperTkt").Visible = False
         agrid.Columns.Item("U_Z_EOS").TitleObject.Caption = "Accrual in EOS Calculation"
         agrid.Columns.Item("U_Z_EOS").Type = SAPbouiCOM.BoGridColumnType.gct_CheckBox
+        agrid.Columns.Item("U_Z_BalChk").TitleObject.Caption = "Balance Check Required"
+        agrid.Columns.Item("U_Z_BalChk").Type = SAPbouiCOM.BoGridColumnType.gct_CheckBox
 
 
         agrid.AutoResizeColumns()
@@ -217,6 +219,13 @@ Public Class clsAirTktMaster
                     oUserTable.UserFields.Fields.Item("U_Z_GLACC1").Value = (oGrid.DataTable.GetValue("U_Z_GLACC1", intRow))
                     oUserTable.UserFields.Fields.Item("U_Z_AmtperTkt").Value = oGrid.DataTable.GetValue("U_Z_AmtperTkt", intRow)
                     oUserTable.UserFields.Fields.Item("U_Z_EOS").Value = strAccural
+
+                    OCHECKBOXCOLUMN = oGrid.Columns.Item("U_Z_BalChk")
+                    If OCHECKBOXCOLUMN.IsChecked(intRow) Then
+                        oUserTable.UserFields.Fields.Item("U_Z_BalChk").Value = "Y"
+                    Else
+                        oUserTable.UserFields.Fields.Item("U_Z_BalChk").Value = "N"
+                    End If
                     If oUserTable.Update() <> 0 Then
                         oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                         Committrans("Cancel")
@@ -258,6 +267,13 @@ Public Class clsAirTktMaster
                         oUserTable.UserFields.Fields.Item("U_Z_AmtperTkt").Value = oGrid.DataTable.GetValue("U_Z_AmtperTkt", intRow)
                         oUserTable.UserFields.Fields.Item("U_Z_GLACC1").Value = (oGrid.DataTable.GetValue("U_Z_GLACC1", intRow))
                         oUserTable.UserFields.Fields.Item("U_Z_EOS").Value = strAccural
+
+                        OCHECKBOXCOLUMN = oGrid.Columns.Item("U_Z_BalChk")
+                        If OCHECKBOXCOLUMN.IsChecked(intRow) Then
+                            oUserTable.UserFields.Fields.Item("U_Z_BalChk").Value = "Y"
+                        Else
+                            oUserTable.UserFields.Fields.Item("U_Z_BalChk").Value = "N"
+                        End If
                         If oUserTable.Add() <> 0 Then
                             oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                             Committrans("Cancel")

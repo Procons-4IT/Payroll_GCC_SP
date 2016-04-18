@@ -414,10 +414,12 @@
             oTemprec.DoQuery("Update ""@Z_PAY15"" set ""Name""=""Code"" where ""Name"" Like '%_XD'")
             oTemprec.DoQuery("Select Sum(U_Z_EMIAmount),Count(*) from ""@Z_PAY15"" where ""U_Z_TrnsRefCode""='" & aCode & "'")
             oItemRec.DoQuery("Update ""@Z_PAY5"" set U_Z_NoEMI=" & oTemprec.Fields.Item(1).Value & " where Code='" & aCode & "'")
+            oItemRec.DoQuery("Update [@Z_PAY5] set U_Z_Balance = U_Z_NoEMI - U_Z_PaidEMI  where Code='" & aCode & "'")
         Else
             oTemprec.DoQuery("Delete from  ""@Z_PAY15""  where  ""Name"" Like '%_XD'")
             oTemprec.DoQuery("Select Sum(U_Z_EMIAmount),Count(*) from ""@Z_PAY15"" where ""U_Z_TrnsRefCode""='" & aCode & "'")
             oItemRec.DoQuery("Update ""@Z_PAY5"" set U_Z_NoEMI=" & oTemprec.Fields.Item(1).Value & " where Code='" & aCode & "'")
+            oItemRec.DoQuery("Update [@Z_PAY5] set U_Z_Balance = U_Z_NoEMI - U_Z_PaidEMI  where Code='" & aCode & "'")
         End If
     End Sub
 #End Region

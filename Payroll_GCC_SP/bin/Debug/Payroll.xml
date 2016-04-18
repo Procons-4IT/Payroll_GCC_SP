@@ -6,34 +6,14 @@ Payroll
 </name>
 </assembly>
 <members>
-<member name="T:Payroll.dtHouseFile.HeaderDataTable">
+<member name="F:Payroll.clsUtilities.toDate">
 	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.DetailsDataTable">
+ contain To Date
+ </summary>
+</member><member name="F:Payroll.clsUtilities.year1">
 	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.HeaderRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.DetailsRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.HeaderRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Payroll.dtHouseFile.DetailsRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Payroll.dtHouseFile">
-	<summary>
-Represents a strongly typed in-memory cache of data.
-</summary>
+ this three variable for output representation..
+ </summary>
 </member><member name="P:Payroll.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
@@ -175,14 +155,34 @@ Row event argument class
 	<summary>
 Represents a strongly typed in-memory cache of data.
 </summary>
-</member><member name="F:Payroll.clsUtilities.toDate">
+</member><member name="T:Payroll.dtHouseFile.HeaderDataTable">
 	<summary>
- contain To Date
- </summary>
-</member><member name="F:Payroll.clsUtilities.year1">
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Payroll.dtHouseFile.DetailsDataTable">
 	<summary>
- this three variable for output representation..
- </summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Payroll.dtHouseFile.HeaderRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Payroll.dtHouseFile.DetailsRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Payroll.dtHouseFile.HeaderRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Payroll.dtHouseFile.DetailsRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Payroll.dtHouseFile">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
 </member>
 </members>
 </doc>

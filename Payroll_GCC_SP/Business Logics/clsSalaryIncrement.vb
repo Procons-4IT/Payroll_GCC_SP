@@ -167,6 +167,7 @@ Public Class clsSalaryIncrement
         Dim strCode, strECode, strESocial, strEname, strETax, strGLAcc, strEmp As String
         Dim OCHECKBOXCOLUMN As SAPbouiCOM.CheckBoxColumn
         strEmp = oApplication.Utilities.getEdittextvalue(aform, "4")
+        Dim strEndDate As String
         oGrid = aform.Items.Item("7").Specific
         For intRow As Integer = 0 To oGrid.DataTable.Rows.Count - 1
             strESocial = oGrid.DataTable.GetValue(3, intRow)
@@ -181,7 +182,9 @@ Public Class clsSalaryIncrement
                     oUserTable.Name = strCode
                     oUserTable.UserFields.Fields.Item("U_Z_EmpID").Value = oApplication.Utilities.getEdittextvalue(aform, "4")
                     oUserTable.UserFields.Fields.Item("U_Z_StartDate").Value = oGrid.DataTable.GetValue(3, intRow)
-                    If oGrid.DataTable.GetValue(4, intRow) <> "" Then
+                    strEndDate = oGrid.DataTable.GetValue("U_Z_EndDate", intRow)
+
+                    If strEndDate <> "" Then ' oGrid.DataTable.GetValue("U_Z_EndDate", intRow) <> "" Then
                         oUserTable.UserFields.Fields.Item("U_Z_EndDate").Value = oGrid.DataTable.GetValue(4, intRow)
                     End If
                     oUserTable.UserFields.Fields.Item("U_Z_Amount").Value = oGrid.DataTable.GetValue(5, intRow)
@@ -200,7 +203,9 @@ Public Class clsSalaryIncrement
                         oUserTable.UserFields.Fields.Item("U_Z_EmpID").Value = oApplication.Utilities.getEdittextvalue(aform, "4")
                         oUserTable.UserFields.Fields.Item("U_Z_StartDate").Value = oGrid.DataTable.GetValue(3, intRow)
                         ' oUserTable.UserFields.Fields.Item("U_Z_EndDate").Value = oGrid.DataTable.GetValue(4, intRow)
-                        If oGrid.DataTable.GetValue(4, intRow) <> "" Then
+                        strEndDate = oGrid.DataTable.GetValue("U_Z_EndDate", intRow)
+
+                        If strEndDate <> "" Then ' oGrid.DataTable.GetValue("U_Z_EndDate", intRow) <> "" Then
                             oUserTable.UserFields.Fields.Item("U_Z_EndDate").Value = oGrid.DataTable.GetValue(4, intRow)
                         End If
                         oUserTable.UserFields.Fields.Item("U_Z_Amount").Value = oGrid.DataTable.GetValue(5, intRow)

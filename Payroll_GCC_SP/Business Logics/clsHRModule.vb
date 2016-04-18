@@ -1901,6 +1901,7 @@ Public Class clsHRModule
                     oGrid.Columns.Item(4).TitleObject.Caption = "Value"
                     oGrid.Columns.Item(5).TitleObject.Caption = "GLAccount"
                     oGrid.Columns.Item(5).Editable = False
+                    oGrid.Columns.Item("U_Z_DefPer").TitleObject.Caption = "Percentage"
                     oGrid.AutoResizeColumns()
                     oGrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single
 
@@ -2269,14 +2270,16 @@ Public Class clsHRModule
 
                     oGrid = aForm.Items.Item("grdDed").Specific
                     oGrid.DataTable = aForm.DataSources.DataTables.Item("dtDed")
-                    oGrid.DataTable.ExecuteQuery("SELECT T0.""Code"", T0.""Name"", T0.""U_Z_EmpID"", T0.""U_Z_DEDUC_TYPE"", T0.""U_Z_DEDUC_VALUE"", T0.""U_Z_StartDate"", T0.""U_Z_EndDate"", T0.""U_Z_GLACC"",T0.""U_Z_Remarks"",U_Z_CreatedBy,U_Z_CreationDate,U_Z_UpdateBy,U_Z_UpdateDate FROM ""@Z_PAY2""  T0 where ""U_Z_EmpID""='" & aCode & "'")
+                    oGrid.DataTable.ExecuteQuery("SELECT T0.""Code"", T0.""Name"", T0.""U_Z_EmpID"", T0.""U_Z_DEDUC_TYPE"", T0.""U_Z_DEDUC_VALUE"", T0.""U_Z_DefPer"" ,T0.""U_Z_StartDate"", T0.""U_Z_EndDate"", T0.""U_Z_GLACC"",T0.""U_Z_Remarks"",U_Z_CreatedBy,U_Z_CreationDate,U_Z_UpdateBy,U_Z_UpdateDate FROM ""@Z_PAY2""  T0 where ""U_Z_EmpID""='" & aCode & "'")
                     oGrid.Columns.Item(3).Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox
                     oComboColumn = oGrid.Columns.Item(3)
-                    oGrid.Columns.Item(0).Visible = False
-                    oGrid.Columns.Item(1).Visible = False
-                    oGrid.Columns.Item(2).Visible = False
-                    oGrid.Columns.Item(3).TitleObject.Caption = "Deduction Type"
-                    oGrid.Columns.Item(4).TitleObject.Caption = "Value"
+                    oGrid.Columns.Item("Code").Visible = False
+                    oGrid.Columns.Item("Name").Visible = False
+                    oGrid.Columns.Item("U_Z_EmpID").Visible = False
+                    oGrid.Columns.Item("U_Z_DEDUC_TYPE").TitleObject.Caption = "Deduction Type"
+                    oGrid.Columns.Item("U_Z_DEDUC_VALUE").TitleObject.Caption = "Value"
+                    oGrid.Columns.Item("U_Z_DefPer").TitleObject.Caption = "Percentage"
+                    oGrid.Columns.Item("U_Z_DefPer").Editable = True
                     oGrid.Columns.Item("U_Z_GLACC").TitleObject.Caption = "GLAccount"
                     oGrid.Columns.Item("U_Z_StartDate").TitleObject.Caption = "Start Date"
                     oGrid.Columns.Item("U_Z_EndDate").TitleObject.Caption = "End Date"
@@ -2530,13 +2533,13 @@ Public Class clsHRModule
                     End If
                     oRecS.DoQuery("Select isnull(U_Z_Terms,'') from OHEM where empID=" & aCode)
                     If oRecS.Fields.Item(0).Value = "" Then
-                        str1 = "SELECT T0.[Code], T0.[Name], T0.[U_Z_EmpID], T0.[U_Z_Year], T0.[U_Z_LeaveCode], T0.[U_Z_LeaveName], T0.[U_Z_OB], T0.[U_Z_CAFWD], T0.[U_Z_Entile], T0.[U_Z_CAFWDAMT], T0.[U_Z_ACCR], T0.[U_Z_Trans], T0.[U_Z_Adjustment],T0.[U_Z_EnCash] 'Encashment',T0.[U_Z_CashOut] ,  T0.[U_Z_Balance], T0.[U_Z_BalanceAmt], T0.[U_Z_GLACC], T0.[U_Z_GLACC1] FROM [dbo].[@Z_EMP_LEAVE_BALANCE]  T0  "
+                        str1 = "SELECT T0.[Code], T0.[Name], T0.[U_Z_EmpID], T0.[U_Z_Year], T0.[U_Z_LeaveCode], T0.[U_Z_LeaveName], T0.[U_Z_OB], T0.[U_Z_CAFWD], T0.[U_Z_Entile], T0.[U_Z_CAFWDAMT], T0.[U_Z_ACCR], T0.[U_Z_Trans], T0.[U_Z_Adjustment],T0.[U_Z_EnCash] 'Encashment',T0.[U_Z_CashOut] ,  T0.[U_Z_Balance], T0.[U_Z_BalanceAmt],T0.[U_Z_YTDBalance] , T0.[U_Z_GLACC], T0.[U_Z_GLACC1] FROM [dbo].[@Z_EMP_LEAVE_BALANCE]  T0  "
                         str1 = str1 & " where U_Z_EmpID='" & aCode & "' order by T0.""U_Z_Year"" Desc, T0.""U_Z_LeaveCode"""
                         oGrid.DataTable.ExecuteQuery(str1)
                     Else
                         Dim s As String
                         s = " T0.U_Z_LeaveCode in (Select U_Z_LeaveCode from  [@Z_PAY_OALMP] T1 where U_Z_Terms='" & oRecS.Fields.Item(0).Value & "')"
-                        str1 = "SELECT T0.[Code], T0.[Name], T0.[U_Z_EmpID], T0.[U_Z_Year], T0.[U_Z_LeaveCode], T0.[U_Z_LeaveName], T0.[U_Z_OB], T0.[U_Z_CAFWD], T0.[U_Z_Entile], T0.[U_Z_CAFWDAMT], T0.[U_Z_ACCR], T0.[U_Z_Trans], T0.[U_Z_Adjustment],T0.[U_Z_EnCash] 'Encashment',T0.[U_Z_CashOut] ,T0.[U_Z_Balance], T0.[U_Z_BalanceAmt], T0.[U_Z_GLACC], T0.[U_Z_GLACC1] FROM [dbo].[@Z_EMP_LEAVE_BALANCE]  T0  "
+                        str1 = "SELECT T0.[Code], T0.[Name], T0.[U_Z_EmpID], T0.[U_Z_Year], T0.[U_Z_LeaveCode], T0.[U_Z_LeaveName], T0.[U_Z_OB], T0.[U_Z_CAFWD], T0.[U_Z_Entile], T0.[U_Z_CAFWDAMT], T0.[U_Z_ACCR], T0.[U_Z_Trans], T0.[U_Z_Adjustment],T0.[U_Z_EnCash] 'Encashment',T0.[U_Z_CashOut] ,T0.[U_Z_Balance], T0.[U_Z_BalanceAmt],T0.[U_Z_YTDBalance] , T0.[U_Z_GLACC], T0.[U_Z_GLACC1] FROM [dbo].[@Z_EMP_LEAVE_BALANCE]  T0  "
                         str1 = str1 & " where U_Z_EmpID='" & aCode & "' and " & s & " order by T0.""U_Z_Year"" Desc, T0.""U_Z_LeaveCode"""
                         oGrid.DataTable.ExecuteQuery(str1)
                     End If
@@ -2577,7 +2580,8 @@ Public Class clsHRModule
                     oGrid.Columns.Item("U_Z_CAFWDAMT").Visible = False
                     oGrid.Columns.Item("U_Z_BalanceAmt").TitleObject.Caption = "Balance Amount"
                     oGrid.Columns.Item("U_Z_BalanceAmt").Visible = False
-
+                    oGrid.Columns.Item("U_Z_YTDBalance").TitleObject.Caption = "End of Year Balance"
+                    oGrid.Columns.Item("U_Z_YTDBalance").Editable = False
                     oGrid.Columns.Item("U_Z_OB").TitleObject.Caption = "Opening Balance"
                     oGrid.Columns.Item("U_Z_OB").Visible = True
 
@@ -2865,51 +2869,42 @@ Public Class clsHRModule
                         oGrid.Columns.Item("U_Z_EARN_VALUE").Click(intRow)
                         Return False
                     End If
-                    For intLoop As Integer = intRow To oGrid.DataTable.Rows.Count - 1
-                        oComboColumn1 = oGrid.Columns.Item(3)
-                        Try
-                            strType1 = oComboColumn1.GetSelectedValue(intLoop).Value
-                        Catch ex As Exception
-                            strType1 = ""
-                        End Try
+                    'For intLoop As Integer = intRow To oGrid.DataTable.Rows.Count - 1
+                    '    oComboColumn1 = oGrid.Columns.Item(3)
+                    '    Try
+                    '        strType1 = oComboColumn1.GetSelectedValue(intLoop).Value
+                    '    Catch ex As Exception
+                    '        strType1 = ""
+                    '    End Try
 
-                        If intRow <> intLoop And strType = strType1 Then
-                            '  oApplication.Utilities.Message("Allowance code already selected", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
-                            ' oGrid.Columns.Item(3).Click(intLoop)
-                            ' Return False
-                        End If
-                    Next
+                    '    If intRow <> intLoop And strType = strType1 Then
+                    '        '  oApplication.Utilities.Message("Allowance code already selected", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                    '        ' oGrid.Columns.Item(3).Click(intLoop)
+                    '        ' Return False
+                    '    End If
+                    'Next
 
                 End If
             Next
 
 
             oGrid = aForm.Items.Item("grdDed").Specific
-            'For intRow As Integer = 0 To oGrid.DataTable.Rows.Count - 1
-            '    oComboColumn = oGrid.Columns.Item(3)
-            '    Try
-            '        strType = oComboColumn.GetSelectedValue(intRow).Value
-            '    Catch ex As Exception
-            '        strType = ""
-            '    End Try
-
-            '    If strType <> "" Then
-            '        For intLoop As Integer = intRow To oGrid.DataTable.Rows.Count - 1
-            '            oComboColumn1 = oGrid.Columns.Item(3)
-            '            Try
-            '                strType1 = oComboColumn1.GetSelectedValue(intLoop).Value
-            '            Catch ex As Exception
-            '                strType1 = ""
-            '            End Try
-            '            If intRow <> intLoop And strType = strType1 Then
-            '                ' oApplication.Utilities.Message("Deduction code already selected", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
-            '                ' oGrid.Columns.Item(3).Click(intLoop)
-            '                '  Return False
-            '            End If
-            '        Next
-
-            '    End If
-            'Next
+            For intRow As Integer = 0 To oGrid.DataTable.Rows.Count - 1
+                oComboColumn = oGrid.Columns.Item(3)
+                Try
+                    strType = oComboColumn.GetSelectedValue(intRow).Value
+                Catch ex As Exception
+                    strType = ""
+                End Try
+                If strType <> "" Then
+                    Dim dblAMount, dblPercentage As Double
+                    If oGrid.DataTable.GetValue("U_Z_DEDUC_VALUE", intRow) <> 0 And oGrid.DataTable.GetValue("U_Z_DefPer", intRow) <> 0 Then
+                        oApplication.Utilities.Message("Either Amount or Percentage only selected", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                        oGrid.Columns.Item("U_Z_DEDUC_VALUE").Click(intRow)
+                        Return False
+                    End If
+                End If
+            Next
 
             oGrid = aForm.Items.Item("grdCon").Specific
             For intRow As Integer = 0 To oGrid.DataTable.Rows.Count - 1
@@ -3294,6 +3289,7 @@ Public Class clsHRModule
                     oUserTable.UserFields.Fields.Item("U_Z_EMPID").Value = strEmpId
                     oUserTable.UserFields.Fields.Item("U_Z_DEDUC_TYPE").Value = strType
                     oUserTable.UserFields.Fields.Item("U_Z_DEDUC_VALUE").Value = dblValue
+                    oUserTable.UserFields.Fields.Item("U_Z_DefPer").Value = oGrid.DataTable.GetValue("U_Z_DefPer", intRow)
                     '  oUserTable.UserFields.Fields.Item("U_Z_GLACC").Value = GLCODE("[@Z_PAY_ODED]", "Code", strType, "U_Z_DED_GLACC") ' oGrid.DataTable.GetValue(5, intRow)
                     If oGrid.DataTable.GetValue("U_Z_GLACC", intRow) = "" Then
                         oUserTable.UserFields.Fields.Item("U_Z_GLACC").Value = GLCODE("[@Z_PAY_ODED]", "Code", strType, "U_Z_DED_GLACC") 'oGrid.DataTable.GetValue(5, intRow)
@@ -3323,6 +3319,7 @@ Public Class clsHRModule
                     oUserTable.UserFields.Fields.Item("U_Z_EMPID").Value = strEmpId
                     oUserTable.UserFields.Fields.Item("U_Z_DEDUC_TYPE").Value = strType
                     oUserTable.UserFields.Fields.Item("U_Z_DEDUC_VALUE").Value = dblValue
+                    oUserTable.UserFields.Fields.Item("U_Z_DefPer").Value = oGrid.DataTable.GetValue("U_Z_DefPer", intRow)
                     ' oUserTable.UserFields.Fields.Item("U_Z_GLACC").Value = GLCODE("[@Z_PAY_ODED]", "Code", strType, "U_Z_DED_GLACC") ' oGrid.DataTable.GetValue(5, intRow)
                     If oGrid.DataTable.GetValue("U_Z_GLACC", intRow) = "" Then
                         oUserTable.UserFields.Fields.Item("U_Z_GLACC").Value = GLCODE("[@Z_PAY_ODED]", "Code", strType, "U_Z_DED_GLACC") 'oGrid.DataTable.GetValue(5, intRow)
@@ -3730,11 +3727,14 @@ Public Class clsHRModule
         Dim otst As SAPbobsCOM.Recordset
         otst = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
         strquery = "Select Code from [@Z_PAY_LEAVE] where isnull(U_Z_Accured,'N')='Y'"
-        strquery = "Update [@Z_EMP_LEAVE_BALANCE] set U_Z_Balance=U_Z_OB+U_Z_CAFWD+ U_Z_ACCR+ U_Z_Adjustment-U_Z_Trans where U_Z_EmpID='" & strEmpId & "' and U_Z_LeaveCode in (" & strquery & ") "
+        strquery = "Update [@Z_EMP_LEAVE_BALANCE] set U_Z_Balance=isnull(U_Z_OB,0)+isnull(U_Z_CAFWD,0)+ isnull(U_Z_ACCR,0)+ isnull(U_Z_Adjustment,0)-isnull(U_Z_Trans,0)-isnull(U_Z_CashOut,0)-isnull(U_Z_EnCash ,0) where U_Z_EmpID='" & strEmpId & "' and U_Z_LeaveCode in (" & strquery & ") "
         otst.DoQuery(strquery)
         strquery = "Select Code from [@Z_PAY_LEAVE] where isnull(U_Z_Accured,'N')='N'"
-        strquery = "Update [@Z_EMP_LEAVE_BALANCE] set U_Z_Balance=U_Z_Entile+U_Z_OB+U_Z_CAFWD+ U_Z_ACCR+ U_Z_Adjustment-U_Z_Trans where U_Z_EmpID='" & strEmpId & "' and U_Z_LeaveCode in (" & strquery & ") "
+        strquery = "Update [@Z_EMP_LEAVE_BALANCE] set U_Z_Balance=isnull(U_Z_Entile,0)+isnull(U_Z_OB,0)+isnull(U_Z_CAFWD,0)+ isnull(U_Z_ACCR,0)+ isnull(U_Z_Adjustment,0)-isnull(U_Z_Trans,0)-isnull(U_Z_CashOut,0)-isnull(U_Z_EnCash ,0) where U_Z_EmpID='" & strEmpId & "' and U_Z_LeaveCode in (" & strquery & ") "
+        otst.DoQuery(strquery)
 
+        strquery = "Update [@Z_EMP_LEAVE_BALANCE]  set  U_Z_YTDBalance= isnull(U_Z_Entile ,0)+isnull(U_Z_CAFWD ,0)+isnull(U_Z_OB ,0)-isnull(U_Z_CashOut,0)-isnull(U_Z_EnCash ,0)+isnull(U_Z_Adjustment ,0)-isnull(U_Z_Trans ,0)  WHERE  U_Z_EmpID='" & strEmpId & "'"
+        otst.DoQuery(strquery)
 
         Dim strdate As String
         oGrid = aForm.Items.Item("grdSOB").Specific
@@ -4183,6 +4183,7 @@ Public Class clsHRModule
                                         otest.DoQuery("Select * from [@Z_PAY_ODED] where CODE='" & strCode & "'")
                                         oGrid.DataTable.SetValue("U_Z_GLACC", pVal.Row, otest.Fields.Item("U_Z_DED_GLACC").Value)
                                         oGrid.DataTable.SetValue("U_Z_DEDUC_VALUE", pVal.Row, otest.Fields.Item("U_Z_DefAmt").Value)
+                                        oGrid.DataTable.SetValue("U_Z_DefPer", pVal.Row, otest.Fields.Item("U_Z_DefPer").Value)
                                         oForm.Freeze(False)
                                     End If
                                 End If

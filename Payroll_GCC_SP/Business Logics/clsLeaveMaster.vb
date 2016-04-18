@@ -43,7 +43,7 @@ Public Class clsLeaveMaster
             aform.Freeze(True)
             oGrid = aform.Items.Item("5").Specific
             dtTemp = oGrid.DataTable
-            dtTemp.ExecuteQuery("SELECT T0.[Code], T0.[Name], T0.[U_Z_FrgnName],T0.[U_Z_DedRate], T0.[U_Z_PaidLeave], T0.[U_Z_DaysYear], T0.[U_Z_NoofDays], T0.[U_Z_Accured], T0.[U_Z_Cutoff], T0.[U_Z_EOS], T0.[U_Z_Basic],T0.[U_Z_EntAft], T0.[U_Z_TimesTaken], T0.[U_Z_MaxDays], T0.[U_Z_DailyRate], T0.[U_Z_LifeTime],T0.[U_Z_StopProces], T0.[U_Z_BalCheck],T0.[U_Z_GLACC], T0.[U_Z_GLACC1], T0.[U_Z_OffCycle], T0.[U_Z_OB], T0.[U_Z_SickLeave] FROM [dbo].[@Z_PAY_LEAVE]  T0 order by Code")
+            dtTemp.ExecuteQuery("SELECT T0.[Code], T0.[Name], T0.[U_Z_FrgnName],T0.[U_Z_DedRate], T0.[U_Z_PaidLeave], T0.[U_Z_DaysYear], T0.[U_Z_NoofDays], T0.[U_Z_Accured], T0.[U_Z_Cutoff], T0.[U_Z_EOS], T0.[U_Z_Basic],T0.[U_Z_EntAft], T0.[U_Z_TimesTaken], T0.[U_Z_MaxDays], T0.[U_Z_DailyRate], T0.[U_Z_LifeTime],T0.[U_Z_StopProces], T0.[U_Z_BalCheck],T0.[U_Z_Validate],T0.[U_Z_GLACC], T0.[U_Z_GLACC1], T0.[U_Z_OffCycle], T0.[U_Z_OB], T0.[U_Z_SickLeave] FROM [dbo].[@Z_PAY_LEAVE]  T0 order by Code")
             oGrid.DataTable = dtTemp
             Formatgrid(oGrid)
             oApplication.Utilities.assignMatrixLineno(oGrid, aform)
@@ -179,6 +179,15 @@ Public Class clsLeaveMaster
 
         agrid.Columns.Item("U_Z_Basic").Type = SAPbouiCOM.BoGridColumnType.gct_CheckBox
         agrid.Columns.Item("U_Z_Basic").TitleObject.Caption = "Not Affecting Basic Salary"
+
+        agrid.Columns.Item("U_Z_Validate").TitleObject.Caption = "Balance Check based on"
+        agrid.Columns.Item("U_Z_Validate").Type = SAPbouiCOM.BoGridColumnType.gct_ComboBox
+        oCombobox = agrid.Columns.Item("U_Z_Validate")
+        oCombobox.ValidValues.Add("", "")
+        oCombobox.ValidValues.Add("A", "Accrued Balance")
+        oCombobox.ValidValues.Add("Y", "EOY Balance")
+        oCombobox.DisplayType = SAPbouiCOM.BoComboDisplayType.cdt_both
+        oCombobox.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly
         agrid.AutoResizeColumns()
         agrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single
     End Sub
@@ -273,6 +282,22 @@ Public Class clsLeaveMaster
                         oUserTable.UserFields.Fields.Item("U_Z_BalCheck").Value = "N"
                     End If
 
+                    oCombobox = oGrid.Columns.Item("U_Z_Validate")
+                    Dim strBalanace As String = "A"
+                    Try
+                        strBalanace = oGrid.DataTable.GetValue("U_Z_Validate", intRow)
+                    Catch ex As Exception
+                        strBalanace = "A"
+                    End Try
+                    If strBalanace = "" Then
+                        strBalanace = "A"
+                    End If
+                    Try
+                        oUserTable.UserFields.Fields.Item("U_Z_Validate").Value = strBalanace
+                    Catch ex As Exception
+                        oUserTable.UserFields.Fields.Item("U_Z_Validate").Value = "A"
+                    End Try
+
                     oUserTable.UserFields.Fields.Item("U_Z_EntAft").Value = oGrid.DataTable.GetValue("U_Z_EntAft", intRow)
                     oUserTable.UserFields.Fields.Item("U_Z_TimesTaken").Value = (oGrid.DataTable.GetValue("U_Z_TimesTaken", intRow))
                     oUserTable.UserFields.Fields.Item("U_Z_MaxDays").Value = oGrid.DataTable.GetValue("U_Z_MaxDays", intRow)
@@ -364,6 +389,22 @@ Public Class clsLeaveMaster
                         Else
                             oUserTable.UserFields.Fields.Item("U_Z_Basic").Value = "N"
                         End If
+
+                        oCombobox = oGrid.Columns.Item("U_Z_Validate")
+                        Dim strBalanace As String = "A"
+                        Try
+                            strBalanace = oGrid.DataTable.GetValue("U_Z_Validate", intRow)
+                        Catch ex As Exception
+                            strBalanace = "A"
+                        End Try
+                        If strBalanace = "" Then
+                            strBalanace = "A"
+                        End If
+                        Try
+                            oUserTable.UserFields.Fields.Item("U_Z_Validate").Value = strBalanace
+                        Catch ex As Exception
+                            oUserTable.UserFields.Fields.Item("U_Z_Validate").Value = "A"
+                        End Try
                         If oUserTable.Update() <> 0 Then
                             oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                             Committrans("Cancel")

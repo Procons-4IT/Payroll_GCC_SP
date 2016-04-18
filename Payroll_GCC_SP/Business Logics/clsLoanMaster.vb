@@ -74,7 +74,7 @@ Public Class clsLoanMaster
             oGrid = aform.Items.Item("5").Specific
             dtTemp = oGrid.DataTable
             dtTemp.ExecuteQuery("Select *,Code 'Ref' from [@Z_PAY_LOAN] order by Code")
-            dtTemp.ExecuteQuery("SELECT T0.""Code"", T0.""Name"", T0.""U_Z_OverLap"", T0.""U_Z_DefAmt"",T0.""U_Z_DefEMI"", T0.""U_Z_InsMaxPer"",T0.""U_Z_InsMaxPeriod"", T0.""U_Z_LoanMin"", T0.""U_Z_LoanMax"", T0.""U_Z_LoanAmtMin"", T0.""U_Z_LoanAmtMax"", T0.""U_Z_LoanInt"" ,T0.""U_Z_EMIPERCENTAGE"",T0.""U_Z_EOSPERCENTAGE"", T0.""U_Z_ReqESS"", T0.""U_Z_EarnAfter"", T0.""U_Z_GLACC"", T0.""U_Z_PostType"",""Code"" ""Ref"" FROM ""@Z_PAY_LOAN"" T0 order by ""Code""")
+            dtTemp.ExecuteQuery("SELECT T0.""Code"", T0.""Name"",T0.""U_Z_FrgnName"", T0.""U_Z_OverLap"", T0.""U_Z_DefAmt"",T0.""U_Z_DefEMI"", T0.""U_Z_InsMaxPer"",T0.""U_Z_InsMaxPeriod"", T0.""U_Z_LoanMin"", T0.""U_Z_LoanMax"", T0.""U_Z_LoanAmtMin"", T0.""U_Z_LoanAmtMax"", T0.""U_Z_LoanInt"" ,T0.""U_Z_EMIPERCENTAGE"",T0.""U_Z_EOSPERCENTAGE"", T0.""U_Z_ReqESS"", T0.""U_Z_EarnAfter"", T0.""U_Z_GLACC"", T0.""U_Z_PostType"",""Code"" ""Ref"" FROM ""@Z_PAY_LOAN"" T0 order by ""Code""")
 
             oGrid.DataTable = dtTemp
             Formatgrid(oGrid)
@@ -91,6 +91,7 @@ Public Class clsLoanMaster
     Private Sub Formatgrid(ByVal agrid As SAPbouiCOM.Grid)
         agrid.Columns.Item("Code").TitleObject.Caption = "Loan Code"
         agrid.Columns.Item("Name").TitleObject.Caption = "Loan Name"
+        agrid.Columns.Item("U_Z_FrgnName").TitleObject.Caption = "Second Lanugage Name"
         agrid.Columns.Item("U_Z_OverLap").TitleObject.Caption = "Overlapping"
         agrid.Columns.Item("U_Z_OverLap").Type = SAPbouiCOM.BoGridColumnType.gct_CheckBox
         agrid.Columns.Item("U_Z_InsMaxPer").TitleObject.Caption = "Installment Max.Percentage"
@@ -179,6 +180,7 @@ Public Class clsLoanMaster
                     oUserTable.Name = strECode
                     oUserTable.UserFields.Fields.Item("U_Z_GLACC").Value = (oGrid.DataTable.GetValue("U_Z_GLACC", intRow))
                     oUserTable.UserFields.Fields.Item("U_Z_PostType").Value = stPosttype
+                    oUserTable.UserFields.Fields.Item("U_Z_FrgnName").Value = oGrid.DataTable.GetValue("U_Z_FrgnName", intRow)
                     oUserTable.UserFields.Fields.Item("U_Z_InsMaxPer").Value = oGrid.DataTable.GetValue("U_Z_InsMaxPer", intRow)
                     oUserTable.UserFields.Fields.Item("U_Z_InsMaxPeriod").Value = oGrid.DataTable.GetValue("U_Z_InsMaxPeriod", intRow)
                     oUserTable.UserFields.Fields.Item("U_Z_LoanMin").Value = oGrid.DataTable.GetValue("U_Z_LoanMin", intRow)
@@ -219,6 +221,7 @@ Public Class clsLoanMaster
                         oUserTable.Name = strECode
                         oUserTable.UserFields.Fields.Item("U_Z_GLACC").Value = (oGrid.DataTable.GetValue("U_Z_GLACC", intRow))
                         oUserTable.UserFields.Fields.Item("U_Z_PostType").Value = stPosttype
+                        oUserTable.UserFields.Fields.Item("U_Z_FrgnName").Value = oGrid.DataTable.GetValue("U_Z_FrgnName", intRow)
                         oUserTable.UserFields.Fields.Item("U_Z_InsMaxPer").Value = oGrid.DataTable.GetValue("U_Z_InsMaxPer", intRow)
                         oUserTable.UserFields.Fields.Item("U_Z_InsMaxPeriod").Value = oGrid.DataTable.GetValue("U_Z_InsMaxPeriod", intRow)
                         oUserTable.UserFields.Fields.Item("U_Z_LoanMin").Value = oGrid.DataTable.GetValue("U_Z_LoanMin", intRow)

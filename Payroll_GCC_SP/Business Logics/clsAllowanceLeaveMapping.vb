@@ -129,9 +129,9 @@ Public Class clsAllowanceLeaveMapping
         oTemprec = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
         oItemRec = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
         If strChoice = "Cancel" Then
-            oTemprec.DoQuery("Update [@Z_PAY_OLEMAP] set Name=Code where Name Like '%_XD' and U_Z_CODE='" & aCode & "'")
+            oTemprec.DoQuery("Update [@Z_PAY_OLEMAP] set Name=Code where Name Like '%_XD'")
         Else
-            oTemprec.DoQuery("Delete from  [@Z_PAY_OLEMAP]  where Name Like '%_XD'  and U_Z_CODE='" & aCode & "'")
+            oTemprec.DoQuery("Delete from  [@Z_PAY_OLEMAP]  where Name Like '%_XD' ")
         End If
 
     End Sub

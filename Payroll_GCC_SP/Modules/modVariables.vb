@@ -26,6 +26,8 @@ Public Module modVariables
 
     Public intSelectedMatrixrow As Integer = 0
     Public strFilepath As String
+    Public dtJEPostingdate As DateTime
+    Public strPostingType As String = "L"
 
     Public Enum ValidationResult As Integer
         CANCEL = 0

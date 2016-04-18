@@ -343,8 +343,11 @@ Public Class clsoffToolPosting
                 Dim strEmpName As String
                 Dim strEmpID1, strMonth, strYear As String
                 For intRow As Integer = 0 To oPay1.RecordCount - 1
-                    strEmpID = oApplication.Utilities.getEmployeeRef(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value, strRefCode)
-                    strEmpID1 = oApplication.Utilities.getEmpIDFromMaster(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value) 'oPay1.Fields.Item("U_Z_EmpID").Value
+                    strDim13 = oPay1.Fields.Item("Dim3").Value
+                    strDim14 = oPay1.Fields.Item("Dim4").Value
+                    strDim15 = oPay1.Fields.Item("Dim5").Value
+                    strEmpID = oApplication.Utilities.getEmployeeRef(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value, strRefCode, strDim13, strDim14, strDim15)
+                    strEmpID1 = oApplication.Utilities.getEmpIDFromMaster(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value, strDim13, strDim14, strDim15) 'oPay1.Fields.Item("U_Z_EmpID").Value
                     strMonth = aMonth.ToString
                     strYear = aYear.ToString
                     'strEmpID = getEmployeeRef_Employee(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value, strRefCode, oPay1.Fields.Item("U_Z_EmpID").Value)
@@ -650,7 +653,7 @@ Public Class clsoffToolPosting
                                 oPay4.MoveNext()
                             Next
                         End If
-                     
+
                     End If
                     oPay1.MoveNext()
                 Next
@@ -758,8 +761,11 @@ Public Class clsoffToolPosting
                 Dim strEmpName As String
                 Dim strEmpID1, strMonth, strYear As String
                 For intRow As Integer = 0 To oPay1.RecordCount - 1
-                    strEmpID = oApplication.Utilities.getEmployeeRef(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value, strRefCode)
-                    strEmpID1 = oApplication.Utilities.getEmpIDFromMaster(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value) 'oPay1.Fields.Item("U_Z_EmpID").Value
+                    strDim13 = oPay1.Fields.Item("Dim3").Value
+                    strDim14 = oPay1.Fields.Item("Dim4").Value
+                    strDim15 = oPay1.Fields.Item("Dim5").Value
+                    strEmpID = oApplication.Utilities.getEmployeeRef(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value, strRefCode, strDim13, strDim14, strDim15)
+                    strEmpID1 = oApplication.Utilities.getEmpIDFromMaster(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value, strDim13, strDim14, strDim15) 'oPay1.Fields.Item("U_Z_EmpID").Value
                     strMonth = aMonth.ToString
                     strYear = aYear.ToString
                     'strEmpID = getEmployeeRef_Employee(oPay1.Fields.Item(0).Value, oPay1.Fields.Item(1).Value, strRefCode, oPay1.Fields.Item("U_Z_EmpID").Value)
@@ -1187,7 +1193,7 @@ Public Class clsoffToolPosting
                     strHeaderCreditaccount = ""
                     strheaderDebitAccount = ""
 
-                    oTest.DoQuery("Select * from OHEM where empiD=" & CInt(oPay1.Fields.Item("U_Z_EmpID").Value))
+                    oTest.DoQuery("Select * from OHEM where empiD=" & CInt(oPay1.Fields.Item("empID").Value))
                     If oTest.RecordCount > 0 Then
                         strSalaryCreditAct = oTest.Fields.Item("U_Z_SALCRE_ACC").Value
                         strHeaderCreditaccount = strSalaryCreditAct
@@ -1615,7 +1621,7 @@ Public Class clsoffToolPosting
                     strHeaderCreditaccount = ""
                     strheaderDebitAccount = ""
 
-                    oTest.DoQuery("Select * from OHEM where empiD=" & CInt(oPay1.Fields.Item("U_Z_EmpID").Value))
+                    oTest.DoQuery("Select * from OHEM where empiD=" & CInt(oPay1.Fields.Item("empID").Value))
                     If oTest.RecordCount > 0 Then
                         strSalaryCreditAct = oTest.Fields.Item("U_Z_SALCRE_ACC").Value
                         strHeaderCreditaccount = strSalaryCreditAct

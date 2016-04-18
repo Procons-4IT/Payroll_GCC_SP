@@ -197,6 +197,22 @@ Public Class clsOffCyclePayrollGeneration
                     strmonth = oCombobox.Selected.Description
                 End If
             End If
+
+            If oApplication.Utilities.getEdittextvalue(aForm, "26") = "" Then
+                oApplication.Utilities.Message("Posting date is missing...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                aForm.Freeze(False)
+                Return False
+            Else
+                Dim dt As Date = oApplication.Utilities.GetDateTimeValue(oApplication.Utilities.getEdittextvalue(aForm, "26"))
+                If Year(dt) = intYear And Month(dt) = intMonth Then
+                Else
+
+                    If oApplication.SBO_Application.MessageBox("Posting date is differ from selected year and month. Do you want to continue?", , "Yes", "No") = 2 Then
+                        aForm.Freeze(False)
+                        Return False
+                    End If
+                End If
+            End If
             Dim strCompany As String
             oCombobox = aForm.Items.Item("cmbCmp").Specific
             If oCombobox.Selected.Value = "" Then
@@ -219,7 +235,7 @@ Public Class clsOffCyclePayrollGeneration
             '    aForm.Items.Item("5").Enabled = True
             'End If
 
-           
+
             oPayrec.DoQuery("Select * from [@Z_PAYROLL] where U_Z_OffCycle='Y' and  U_Z_CompNo='" & strCompany & "' and U_Z_YEAR=" & intYear & " and U_Z_MONTH=" & intMonth)
             If oPayrec.RecordCount <= 0 Then
                 oApplication.Utilities.Message("Payroll Worksheet not prepared for this selected month and year", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
@@ -258,7 +274,7 @@ Public Class clsOffCyclePayrollGeneration
                 If 1 = 1 Then
                     ' strsql = "Select * from [@Z_PAYROLL1] where U_Z_RefCode='" & strrefcode & "'"
                     ' strsql = "SELECT T0.[Code], T0.[Name], T0.[U_Z_RefCode], T0.[U_Z_PersonalID], T0.[U_Z_empid], T0.[U_Z_EmpName], T0.[U_Z_JobTitle], T0.[U_Z_Department], T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary], T0.[U_Z_SalaryType], T0.[U_Z_CostCentre], T0.[U_Z_Earning], T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave], T0.[U_Z_Contri], T0.[U_Z_Cost], T0.[U_Z_NetSalary], T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo], T0.[U_Z_EOS], T0.[U_Z_CompNo], T0.[U_Z_Branch], T0.[U_Z_Dept], T0.[U_Z_AirAmt], T0.[U_Z_AcrAmt] FROM [dbo].[@Z_PAYROLL1]  T0 where T0.U_Z_RefCode='" & strrefcode & "'"
-                    strsql = "SELECT T0.[Code], T0.[Name], T0.[U_Z_RefCode], T0.[U_Z_PersonalID], T0.[U_Z_TANO] 'TANO', T0.[U_Z_empid], T0.[U_Z_EmpName], Case T0.U_Z_OnHold when 'H' then 'On Hold' else 'Active' end 'Status', T0.[U_Z_JobTitle], T0.[U_Z_Department], T0.[U_Z_TermName] 'Contract Term',T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary],t0.U_Z_MonthlyBasic 'Monthly Basic', T0.[U_Z_SalaryType],T0.[U_Z_CostCentre],T0.[U_Z_Cost], T0.[U_Z_NetSalary], isnull(T0.U_Z_MonthlyBasic,0) + isnull(T0.U_Z_Earning,0)  'GrossSalary', T0.[U_Z_Earning],  T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave], T0.[U_Z_Contri], T0.[U_Z_AirAmt], T0.[U_Z_AcrAmt] ,T0.[U_Z_AcrAirAmt],  T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo], T0.[U_Z_EOSYTD] ,T0.[U_Z_EOSBalance], T0.[U_Z_EOS],T0.U_Z_WorkingDays1, T0.[U_Z_CalenderDays] 'Working Days of month',T0.[U_Z_TotalLeave] 'Leave Utilized',T0.[U_Z_ActWork] 'Total Worked days', T0.[U_Z_CompNo], T0.[U_Z_Branch], T0.[U_Z_Dept] FROM [dbo].[@Z_PAYROLL1]  T0 where isnull(U_Z_OffCycle,'N')='Y' and T0.U_Z_RefCode='" & strrefcode & "' and T0.U_Z_OnHold='" & strPostMethod & "'"
+                    strsql = "SELECT T0.[Code], T0.[Name], T0.[U_Z_RefCode], T0.[U_Z_PersonalID], T0.[U_Z_TANO] 'TANO', T0.[U_Z_empid], T0.[U_Z_EmpName], Case T0.U_Z_OnHold when 'H' then 'On Hold' else 'Active' end 'Status', T0.[U_Z_JobTitle], T0.[U_Z_Department], T0.[U_Z_TermName] 'Contract Term',T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary],t0.U_Z_MonthlyBasic 'Monthly Basic', T0.[U_Z_SalaryType],T0.[U_Z_CostCentre],T0.[U_Z_Cost], T0.[U_Z_NetSalary], isnull(T0.U_Z_MonthlyBasic,0) + isnull(T0.U_Z_Earning,0)  'GrossSalary', T0.[U_Z_Earning],  T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave], T0.[U_Z_Contri], T0.[U_Z_AirAmt], T0.[U_Z_AcrAmt] ,T0.[U_Z_AcrAirAmt],  T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo], T0.[U_Z_EOSYTD] ,T0.[U_Z_EOSBalance], T0.[U_Z_EOS],T0.U_Z_WorkingDays1, T0.[U_Z_CalenderDays] 'Working Days of month',T0.[U_Z_TotalLeave] 'Leave Utilized',T0.[U_Z_ActWork] 'Total Worked days', T0.[U_Z_CompNo], T0.[U_Z_Branch], T0.[U_Z_Dept],T0.[U_Z_PrjCode] 'Project' FROM [dbo].[@Z_PAYROLL1]  T0 where isnull(U_Z_OffCycle,'N')='Y' and T0.U_Z_RefCode='" & strrefcode & "' and T0.U_Z_OnHold='" & strPostMethod & "'"
                     'oTempRec.DoQuery("SELECT T0.[empID], T0.[firstName]+T0.[LastName] 'Emplopyee name', T0.[jobTitle],T1.[Name], T0.[salary], T0.[salaryUnit], T2.[PrcName] FROM OHEM T0  INNER JOIN OUDP T1 ON T0.dept = T1.Code INNER JOIN OPRC T2 ON T0.U_Z_COST = T2.PrcCode")
                     oGrid.DataTable.ExecuteQuery(strsql)
                     Formatgrid(oGrid, "Payroll")
@@ -624,10 +640,12 @@ Public Class clsOffCyclePayrollGeneration
         'Else
         '    Return False
         'End If
+        dtJEPostingdate = oApplication.Utilities.GetDateTimeValue(oApplication.Utilities.getEdittextvalue(aForm, "26"))
         Dim strJVSeries As String
-        oTemp1.DoQuery("Select isnull(U_Z_PostType,'C'),isnull(U_Z_JVType,'V'),isnull(U_Z_DefSeries,'') 'Series' from [@Z_OADM] where U_Z_CompCode='" & oCombobox.Selected.Value & "'")
+        oTemp1.DoQuery("Select isnull(U_Z_PostType,'C'),isnull(U_Z_JVType,'V'),isnull(U_Z_DefSeries,'') 'Series',isnull(U_Z_Currency,'L') 'Currency' from [@Z_OADM] where U_Z_CompCode='" & oCombobox.Selected.Value & "'")
         If oTemp1.Fields.Item(1).Value = "V" Then
             strJVSeries = oTemp1.Fields.Item("Series").Value
+            strPostingType = oTemp1.Fields.Item("Currency").Value
             If oTemp1.Fields.Item(0).Value = "P" Then
                 If oApplication.Utilities.PostJournalVoucher_GroupbyBranch_Offcycle_Project(aMonth, aYear, oCombobox.Selected.Value, strPostMethod, strJVSeries) = True Then
                     oTemp1.DoQuery("Update [@Z_PAYROLL] set U_Z_Process='Y'  where  U_Z_OffCycle='Y' and  U_Z_CompNo='" & oCombobox.Selected.Value & "' and  U_Z_Year=" & aYear & " and U_Z_Month=" & aMonth & " and U_Z_Process='N'")
@@ -644,6 +662,14 @@ Public Class clsOffCyclePayrollGeneration
                 Else
                     Return False
                 End If
+            ElseIf oTemp1.Fields.Item(0).Value = "R" Then
+                If oApplication.Utilities.PostJournalVoucher_GroupbyBranch_OffCycle_CostProject(aMonth, aYear, oCombobox.Selected.Value, strPostMethod, strJVSeries) = True Then
+                    oTemp1.DoQuery("Update [@Z_PAYROLL] set U_Z_Process='Y'  where ""U_Z_OffCycle""='Y' and U_Z_CompNo='" & oCombobox.Selected.Value & "' and  U_Z_Year=" & aYear & " and U_Z_Month=" & aMonth & " and U_Z_Process='N'")
+                    PrepareWorkSheet(oForm)
+                    Return True
+                Else
+                    Return False
+                End If
             Else
                 If oApplication.Utilities.PostJournalVoucher_GroupbyBranch_OffCycle(aMonth, aYear, oCombobox.Selected.Value, strPostMethod, strJVSeries) = True Then
                     oTemp1.DoQuery("Update [@Z_PAYROLL] set U_Z_Process='Y'  where ""U_Z_OffCycle""='Y' and U_Z_CompNo='" & oCombobox.Selected.Value & "' and  U_Z_Year=" & aYear & " and U_Z_Month=" & aMonth & " and U_Z_Process='N'")
@@ -655,6 +681,7 @@ Public Class clsOffCyclePayrollGeneration
             End If
         Else 'Journal Entry
             strJVSeries = oTemp1.Fields.Item("Series").Value
+            strPostingType = oTemp1.Fields.Item("Currency").Value
             If oTemp1.Fields.Item(0).Value = "P" Then
                 If oApplication.Utilities.PostJournalEntry_GroupbyBranch_Offcycle_Project(aMonth, aYear, oCombobox.Selected.Value, strPostMethod, strJVSeries) = True Then
                     oTemp1.DoQuery("Update [@Z_PAYROLL] set U_Z_Process='Y'  where  U_Z_OffCycle='Y' and  U_Z_CompNo='" & oCombobox.Selected.Value & "' and  U_Z_Year=" & aYear & " and U_Z_Month=" & aMonth & " and U_Z_Process='N'")
@@ -671,6 +698,14 @@ Public Class clsOffCyclePayrollGeneration
                 Else
                     Return False
                 End If
+            ElseIf oTemp1.Fields.Item(0).Value = "R" Then
+                If oApplication.Utilities.PostJournalEntriy_GroupbyBranch_OffCycle_CostProject(aMonth, aYear, oCombobox.Selected.Value, strPostMethod, strJVSeries) = True Then
+                    oTemp1.DoQuery("Update [@Z_PAYROLL] set U_Z_Process='Y'  where ""U_Z_OffCycle""='Y' and U_Z_CompNo='" & oCombobox.Selected.Value & "' and  U_Z_Year=" & aYear & " and U_Z_Month=" & aMonth & " and U_Z_Process='N'")
+                    PrepareWorkSheet(oForm)
+                    Return True
+                Else
+                    Return False
+                End If
             Else
                 If oApplication.Utilities.PostJournalEntriy_GroupbyBranch_OffCycle(aMonth, aYear, oCombobox.Selected.Value, strPostMethod, strJVSeries) = True Then
                     oTemp1.DoQuery("Update [@Z_PAYROLL] set U_Z_Process='Y'  where ""U_Z_OffCycle""='Y' and U_Z_CompNo='" & oCombobox.Selected.Value & "' and  U_Z_Year=" & aYear & " and U_Z_Month=" & aMonth & " and U_Z_Process='N'")
@@ -679,7 +714,7 @@ Public Class clsOffCyclePayrollGeneration
                 Else
                     Return False
                 End If
-            End If
+                End If
         End If
 
         'If oTemp1.RecordCount > 0 Then

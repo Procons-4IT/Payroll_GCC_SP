@@ -101,7 +101,7 @@ Public Class clsChooseFromList_BOQ
                         strSQL = "Select Code 'Allowance Code',Name 'Allowance Name',""U_Z_DefAmt"" 'Default Amount',U_Z_AffDedu 'Affect Payroll Deduction' from [@Z_PAY_OEAR1]"
                         objform.Title = "Variable Earning - Selection"
                     Case "D"
-                        strSQL = "Select Code 'Deduction Code',Name 'Deduction Name',""U_Z_DefAmt"" 'Default Amount' from [@Z_PAY_ODED]"
+                        strSQL = "Select Code 'Deduction Code',Name 'Deduction Name',""U_Z_DefAmt"" 'Default Amount',""U_Z_DefPer"" 'Default Percentage' from [@Z_PAY_ODED]"
                         objform.Title = "Deduction - Selection"
 
                     Case "C"
@@ -280,6 +280,9 @@ Public Class clsChooseFromList_BOQ
                                     strSelectedItem3 = Convert.ToString(oMatrix.DataTable.GetValue(2, intRowId))
                                     strSelectedItem4 = Convert.ToString(oMatrix.DataTable.GetValue(3, intRowId))
                                 End If
+                                If CFLChoice = "D" Then
+                                    strSelectedItem6 = oMatrix.DataTable.GetValue("Default Percentage", intRowId)
+                                End If
                                 oForm.Close()
                                 oForm = GetForm(SourceFormUID)
                                 If choice <> "Ticket" Then
@@ -295,6 +298,9 @@ Public Class clsChooseFromList_BOQ
                                             Dim oobj As New clsPayrollTransaction
                                             If CFLChoice = "E" Then
                                                 objGrid.DataTable.SetValue("U_Z_Amount", sourcerowId, oobj.getAdvanceSalaryAmount(objGrid.DataTable.GetValue("U_Z_EMPID", sourcerowId), strSelectedItem1, objGrid.DataTable.GetValue("U_Z_StartDate", sourcerowId)))
+                                            End If
+                                            If CFLChoice = "D" Then
+                                                objGrid.DataTable.SetValue("U_Z_DefPer", sourcerowId, strSelectedItem6)
                                             End If
                                         End If
                                     End If
@@ -356,6 +362,9 @@ Public Class clsChooseFromList_BOQ
                                     strSelectedItem3 = Convert.ToString(oMatrix.DataTable.GetValue(2, intRowId))
                                     strSelectedItem4 = Convert.ToString(oMatrix.DataTable.GetValue(3, intRowId))
                                 End If
+                                If CFLChoice = "D" Then
+                                    strSelectedItem6 = oMatrix.DataTable.GetValue("Default Percentage", intRowId)
+                                End If
                                 oForm.Close()
                                 oForm = GetForm(SourceFormUID)
                                 If choice <> "Ticket" Then
@@ -372,6 +381,9 @@ Public Class clsChooseFromList_BOQ
                                             Dim oobj As New clsPayrollTransaction
                                             If CFLChoice = "E" Then
                                                 objGrid.DataTable.SetValue("U_Z_Amount", sourcerowId, oobj.getAdvanceSalaryAmount(objGrid.DataTable.GetValue("U_Z_EMPID", sourcerowId), strSelectedItem1, objGrid.DataTable.GetValue("U_Z_StartDate", sourcerowId)))
+                                            End If
+                                            If CFLChoice = "D" Then
+                                                objGrid.DataTable.SetValue("U_Z_DefPer", sourcerowId, strSelectedItem6)
                                             End If
                                         End If
                                     End If
@@ -425,6 +437,9 @@ Public Class clsChooseFromList_BOQ
                             strSelectedItem3 = Convert.ToString(oMatrix.DataTable.GetValue(2, intRowId))
                             strSelectedItem4 = Convert.ToString(oMatrix.DataTable.GetValue(3, intRowId))
                         End If
+                        If CFLChoice = "D" Then
+                            strSelectedItem6 = oMatrix.DataTable.GetValue("Default Percentage", intRowId)
+                        End If
                         oForm.Close()
                         oForm = GetForm(SourceFormUID)
                         If choice <> "Ticket" Then
@@ -440,6 +455,9 @@ Public Class clsChooseFromList_BOQ
                                     Dim oobj As New clsPayrollTransaction
                                     If CFLChoice = "E" Then
                                         objGrid.DataTable.SetValue("U_Z_Amount", sourcerowId, oobj.getAdvanceSalaryAmount(objGrid.DataTable.GetValue("U_Z_EMPID", sourcerowId), strSelectedItem1, objGrid.DataTable.GetValue("U_Z_StartDate", sourcerowId)))
+                                    End If
+                                    If CFLChoice = "D" Then
+                                        objGrid.DataTable.SetValue("U_Z_DefPer", sourcerowId, strSelectedItem6)
                                     End If
                                 End If
                             End If

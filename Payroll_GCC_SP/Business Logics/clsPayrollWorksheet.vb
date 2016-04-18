@@ -240,7 +240,7 @@ Public Class clsPayrollWorksheet
                 If 1 = 1 Then
                     '  strsql = "SELECT T0.[Code], T0.[Name], T0.[U_Z_RefCode], T0.[U_Z_PersonalID], T0.[U_Z_TANO] 'TANO',T0.[U_Z_empid], T0.[U_Z_EmpName], T0.[U_Z_JobTitle], T0.[U_Z_Department], T0.[U_Z_TermName] 'Contract Term', T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary], T0.[U_Z_MonthlyBasic],T0.[U_Z_SalaryType], T0.[U_Z_CostCentre], T0.[U_Z_Earning], T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave], T0.[U_Z_Contri], T0.[U_Z_AirAmt], ""U_Z_NetPayAmt"",""U_Z_CmpPayAmt"", T0.[U_Z_AcrAmt] ,T0.[U_Z_AcrAirAmt], T0.[U_Z_Cost], T0.[U_Z_NetSalary], T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo], T0.[U_Z_EOSYTD] ,T0.[U_Z_EOSBalance],T0.[U_Z_EOS], T0.[U_Z_CompNo], T0.[U_Z_Branch], T0.[U_Z_Dept],T0.""U_Z_EOS1"",T0.""U_Z_Leave"",T0.""U_Z_Ticket"",T0.""U_Z_Saving"",T0.""U_Z_PaidExtraSalary"" FROM [dbo].[@Z_PAYROLL1]  T0 where T0.U_Z_RefCode='" & strrefcode & "'"
 
-                    strsql = "SELECT T0.[Code], T0.[Name],T0.[U_Z_TANO] 'TANO',T0.[U_Z_empid], T0.[U_Z_EmpName], Case T0.""U_Z_OnHold"" when 'H' then 'On Hold' else 'Active' end ""Status"", T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary], T0.[U_Z_MonthlyBasic],T0.[U_Z_Cost], T0.[U_Z_NetSalary], isnull(T0.U_Z_MonthlyBasic,0) + isnull(T0.U_Z_Earning,0)  'GrossSalary',T0.[U_Z_Earning], T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave],T0.""U_Z_CashOutAmt"", T0.[U_Z_Contri], T0.[U_Z_AirAmt], ""U_Z_NetPayAmt"",""U_Z_CmpPayAmt"", T0.[U_Z_AcrAmt] ,T0.[U_Z_AcrAirAmt], T0.[U_Z_EOSYTD] ,T0.[U_Z_EOSBalance],T0.[U_Z_EOS],T0.U_Z_WorkingDays1, T0.[U_Z_CalenderDays] 'Working Days of month',T0.[U_Z_TotalLeave] 'Leave Utilized ',T0.[U_Z_ActWork] 'Total Worked days',T0.[U_Z_RefCode], T0.[U_Z_PersonalID],  T0.[U_Z_JobTitle], T0.[U_Z_Department],T0.[U_Z_EmpBranch], T0.[U_Z_TermName] 'Contract Term', T0.[U_Z_SalaryType], T0.[U_Z_CostCentre],  T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo],  T0.[U_Z_CompNo], T0.[U_Z_Branch], T0.[U_Z_Dept],T0.""U_Z_EOS1"",T0.""U_Z_Leave"",T0.""U_Z_Ticket"",T0.""U_Z_Saving"",T0.""U_Z_PaidExtraSalary"",T0.""U_Z_GOVAMT"" 'Social Gov.Amt' FROM [dbo].[@Z_PAYROLL1]  T0 where T0.U_Z_RefCode='" & strrefcode & "' order by T0.[U_Z_empid]"
+                    strsql = "SELECT T0.[Code], T0.[Name],T0.[U_Z_TANO] 'TANO',T0.[U_Z_empid], T0.[U_Z_EmpName], Case T0.""U_Z_OnHold"" when 'H' then 'On Hold' else 'Active' end ""Status"", T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary], T0.[U_Z_MonthlyBasic],T0.[U_Z_Cost], T0.[U_Z_NetSalary], isnull(T0.U_Z_MonthlyBasic,0) + isnull(T0.U_Z_Earning,0)  'GrossSalary',T0.[U_Z_Earning], T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave],T0.""U_Z_CashOutAmt"", T0.[U_Z_Contri], T0.[U_Z_AirAmt], ""U_Z_NetPayAmt"",""U_Z_CmpPayAmt"", T0.[U_Z_AcrAmt] ,T0.[U_Z_AcrAirAmt], T0.[U_Z_EOSYTD] ,T0.[U_Z_EOSBalance],T0.[U_Z_EOS],T0.U_Z_WorkingDays1, T0.[U_Z_CalenderDays] 'Working Days of month',T0.[U_Z_TotalLeave] 'Leave Utilized ',T0.[U_Z_ActWork] 'Total Worked days',T0.[U_Z_RefCode], T0.[U_Z_PersonalID],  T0.[U_Z_JobTitle], T0.[U_Z_Department],T0.[U_Z_EmpBranch], T0.[U_Z_TermName] 'Contract Term', T0.[U_Z_SalaryType], T0.[U_Z_CostCentre],  T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo],  T0.[U_Z_CompNo], T0.[U_Z_Branch],T0.[U_Z_PrjCode] 'Project', T0.[U_Z_Dept],T0.""U_Z_EOS1"",T0.""U_Z_Leave"",T0.""U_Z_Ticket"",T0.""U_Z_Saving"",T0.""U_Z_PaidExtraSalary"",T0.""U_Z_GOVAMT"" 'Social Gov.Amt' FROM [dbo].[@Z_PAYROLL1]  T0 where T0.U_Z_RefCode='" & strrefcode & "' order by T0.[U_Z_empid]"
                     oGrid.DataTable.ExecuteQuery(strsql)
                     Formatgrid(oGrid, "Payroll")
                     oApplication.Utilities.assignMatrixLineno_Payroll(oGrid, aForm)
@@ -611,8 +611,8 @@ Public Class clsPayrollWorksheet
                     intFrom = oTst.Fields.Item(1).Value
                     intTo = oTst.Fields.Item(2).Value
                     If aMonth = 2 Then
-                        If intTo > 28 Then
-                            intTo = 28
+                        If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                            intTo = DateTime.DaysInMonth(ayear, aMonth)
                         End If
                     End If
                     Select Case aMonth
@@ -626,8 +626,8 @@ Public Class clsPayrollWorksheet
                             End If
                         Case 2
                             'dtenddate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-28"
-                            If intTo > 28 Then
-                                intTo = 28
+                            If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                intTo = DateTime.DaysInMonth(ayear, aMonth)
                             End If
                     End Select
 
@@ -845,7 +845,24 @@ Public Class clsPayrollWorksheet
                         dblValue = Math.Round(dblValue, intRoundingNumber)
                         ousertable2.UserFields.Fields.Item("U_Z_Value").Value = dblValue
                         ousertable2.UserFields.Fields.Item("U_Z_Rate").Value = 1
-                        ousertable2.UserFields.Fields.Item("U_Z_GLACC").Value = ""
+                        Dim oTest As SAPbobsCOM.Recordset
+                        oTest = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                        oTest.DoQuery("Select * from OHEM where empiD=" & strempID)
+                        Dim strSalaryCreditAct, strheaderDebitAccount As String
+
+                        If oTest.RecordCount > 0 Then
+                            strSalaryCreditAct = oTest.Fields.Item("U_Z_SALCRE_ACC").Value
+                            strheaderDebitAccount = oTest.Fields.Item("U_Z_SALDEB_ACC").Value
+                        End If
+
+                        oTest.DoQuery("Select * from [@Z_PAY_OGLA]")
+                       
+                        If strheaderDebitAccount = "" Then
+                            strheaderDebitAccount = oTest.Fields.Item("U_Z_SALDEB_ACC").Value
+                        End If
+
+                        ousertable2.UserFields.Fields.Item("U_Z_GLACC").Value = strheaderDebitAccount
+
                         ousertable2.UserFields.Fields.Item("U_Z_PostType").Value = "D"
                         If blnEarningapply = True Then
                             If strCustomerCode = "" Then
@@ -890,7 +907,23 @@ Public Class clsPayrollWorksheet
                         dblValue = Math.Round(dblValue, intRoundingNumber)
                         ousertable2.UserFields.Fields.Item("U_Z_Value").Value = dblValue
                         ousertable2.UserFields.Fields.Item("U_Z_Rate").Value = 1
-                        ousertable2.UserFields.Fields.Item("U_Z_GLACC").Value = ""
+                        Dim oTest As SAPbobsCOM.Recordset
+                        oTest = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                        oTest.DoQuery("Select * from OHEM where empiD=" & strempID)
+                        Dim strSalaryCreditAct, strheaderDebitAccount As String
+
+                        If oTest.RecordCount > 0 Then
+                            strSalaryCreditAct = oTest.Fields.Item("U_Z_SALCRE_ACC").Value
+                            strheaderDebitAccount = oTest.Fields.Item("U_Z_SALDEB_ACC").Value
+                        End If
+
+                        oTest.DoQuery("Select * from [@Z_PAY_OGLA]")
+
+                        If strheaderDebitAccount = "" Then
+                            strheaderDebitAccount = oTest.Fields.Item("U_Z_SALDEB_ACC").Value
+                        End If
+                        ousertable2.UserFields.Fields.Item("U_Z_GLACC").Value = strheaderDebitAccount
+                        ' ousertable2.UserFields.Fields.Item("U_Z_GLACC").Value = ""
                         ousertable2.UserFields.Fields.Item("U_Z_PostType").Value = "D"
                         If blnEarningapply = True Then
                             If strCustomerCode = "" Then
@@ -1017,7 +1050,7 @@ Public Class clsPayrollWorksheet
                 oTemp.DoQuery("Delete from [@Z_PAY_BANK] where U_Z_RefCode in (" & strQuery & ")")
                 oTemp.DoQuery("Delete from [@Z_PAYROLL12] where U_Z_RefCode in (" & strQuery & ")")
                 oTemp.DoQuery("Delete from [@Z_PAY_EMP_OSAV] where U_Z_RefCode in (" & strQuery & ")")
-                '   oApplication.Utilities.UpdateEmployeeLeavedetails_EMployee_Month_Company("A", strPayRefcod)
+                'oApplication.Utilities.UpdateEmployeeLeavedetails_EMployee_Month_Company("A", strPayRefcod)
                 oTemp2.DoQuery("Exec RESETPARYROLLWORKSHEET_REGULAR  " & aYear & "," & aMonth & ",'" & aCompany & "'")
                 oTemp2.DoQuery("Delete from [@Z_PAYROLL1] where U_Z_RefCode='" & strPayRefcod & "'")
                 oTemp2.DoQuery("Delete from [@Z_PAYROLL] where isnull(U_Z_OffCycle,'N')='N' and U_Z_CompNo='" & aCompany & "' and  U_Z_Year=" & aYear & " and U_Z_Month=" & aMonth & " and U_Z_Process='N'")
@@ -1120,8 +1153,8 @@ Public Class clsPayrollWorksheet
                     strExtraSalary = "2"
             End Select
             If intMonth = 2 Then
-                If intTo > 28 Then
-                    intTo = 28
+                If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                    intTo = DateTime.DaysInMonth(ayear, aMonth)
                 End If
             End If
             If intMonth - 1 = 0 Then
@@ -1139,7 +1172,7 @@ Public Class clsPayrollWorksheet
                     stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-30"
                     '  IntCaldenerDays = 30
                 Case 2
-                    stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-28"
+                    stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-" & DateTime.DaysInMonth(ayear, aMonth).ToString("00")
                     '  IntCaldenerDays = 28
             End Select
               strDate = Newyear.ToString("0000") & "-" & newMonth & "-" & intFrom.ToString("00")
@@ -1283,8 +1316,8 @@ Public Class clsPayrollWorksheet
                             intTo = oTst.Fields.Item(2).Value
                             blnCuttoffdaysRegular = oTst.Fields.Item("U_Z_RegCutoff").Value
                             If intMonth = 2 Then
-                                If intTo > 28 Then
-                                    intTo = 28
+                                If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                    intTo = DateTime.DaysInMonth(ayear, aMonth)
                                 End If
                             End If
                         Else
@@ -1424,9 +1457,9 @@ Public Class clsPayrollWorksheet
                                     stOffEnddate = "30" & aMonth.ToString("00") & ayear.ToString("0000")
                                     '  IntCaldenerDays = 30
                                 Case 2
-                                    stEndDate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-28"
+                                    stEndDate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-" & DateTime.DaysInMonth(ayear, aMonth).ToString("00")
                                     'eosenddate = ayear.ToString("0000") & "-" & (aMonth + 1).ToString("00") & "-01"
-                                    stOffEnddate = "28" & aMonth.ToString("00") & ayear.ToString("0000")
+                                    stOffEnddate = DateTime.DaysInMonth(ayear, aMonth).ToString("00") & aMonth.ToString("00") & ayear.ToString("0000")
                                     '  IntCaldenerDays = 28
                             End Select
                             '  stEndDate = ayear & "-" & aMonth.ToString("00") & "-" & intTo.ToString("00")
@@ -1450,7 +1483,7 @@ Public Class clsPayrollWorksheet
                                     stEndDate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-30"
                                     '  IntCaldenerDays = 30
                                 Case 2
-                                    stEndDate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-28"
+                                    stEndDate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-" & DateTime.DaysInMonth(ayear, aMonth).ToString("00")
                                     '  IntCaldenerDays = 28
                             End Select
                         End If
@@ -1485,9 +1518,9 @@ Public Class clsPayrollWorksheet
                                 stPayOffEnddate = "30" & aMonth.ToString("00") & ayear.ToString("0000")
                                 IntCaldenerDays = 30
                             Case 2
-                                strPayEndDate = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-28"
-                                stPayOffEnddate = "28" & aMonth.ToString("00") & ayear.ToString("0000")
-                                IntCaldenerDays = 28
+                                strPayEndDate = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-" & DateTime.DaysInMonth(ayear, aMonth).ToString("00")
+                                stPayOffEnddate = DateTime.DaysInMonth(ayear, aMonth).ToString("00") & aMonth.ToString("00") & ayear.ToString("0000")
+                                IntCaldenerDays = DateTime.DaysInMonth(ayear, aMonth)
                         End Select
 
 
@@ -1532,11 +1565,11 @@ Public Class clsPayrollWorksheet
                             Dim dtSt As Date
                             If blncurrentstart = True And blncurrentend = False Then
                                 dblDays = dblDays + 1
-                                If IntCaldenerDays >= dblNoofDaysfromSEtup Then ' as per Lara advise changed the days as per setup days 2015-03-19
-                                    dblDays = dblDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
-                                Else
-                                    dblDays = dblDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
-                                End If
+                                'If IntCaldenerDays >= dblNoofDaysfromSEtup Then ' as per Lara advise changed the days as per setup days 2015-03-19
+                                '    dblDays = dblDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
+                                'Else
+                                '    dblDays = dblDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
+                                'End If
 
                             Else
                                 If blncurrentend = True Then
@@ -1626,42 +1659,52 @@ Public Class clsPayrollWorksheet
                         Dim dblWorkingDaysfromAnnualLeave As Double = 0 ' oApplication.Utilities.GetWorkingDaysfromAnnualLeave(strempID, aMonth, ayear)
                         intNumberofWorkingDays = intNumberofWorkingDays + dblWorkingDaysfromAnnualLeave
                         'End New Change 
+
+                        'New Changes for Validate if the Days in Setup for Feb is more than Calender Days-20160322
+                        If intMonth = 2 Then
+                            If dblNoofDaysfromSEtup >= DateTime.DaysInMonth(intYear, intMonth) Then
+                                dblNoofDaysfromSEtup = DateTime.DaysInMonth(intYear, intMonth)
+                            End If
+                        End If 'New Changes for Validate if the Days in Setup for Feb is more than Calender Days-20160322
+
+
                         If blnCurrentMonth = False Then
                             If blnReJoinCycle = False Then
-                                If dblannualleavedays > 0 Then
-                                    If IntCaldenerDays > 30 Then
-                                        ' intNumberofWorkingDays = IntCaldenerDays - dblWeekEnds
-                                        intNumberofWorkingDays = oApplication.Utilities.GetnumberofworkgDays_BasicSalary(ayear, aMonth, CInt(strempID)) ' dblNoofDaysfromSEtup ' IntCaldenerDays - dblWeekEnds
-                                        If intNumberofWorkingDays - dblannualleavedays > dblNoofDaysfromSEtup Then
-                                            intNumberofWorkingDays = dblNoofDaysfromSEtup
-                                        End If
-                                    Else
-                                        If dblNoofDaysfromSEtup >= IntCaldenerDays Then
-                                            intNumberofWorkingDays = intNumberofWorkingDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
-                                        Else
-                                            intNumberofWorkingDays = intNumberofWorkingDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
-                                        End If
-                                        If intNumberofWorkingDays > dblNoofDaysfromSEtup Then
-                                            intNumberofWorkingDays = dblNoofDaysfromSEtup
-                                        End If
-                                    End If
-                                Else
-                                    If dblNoofDaysfromSEtup >= IntCaldenerDays Then
-                                        intNumberofWorkingDays = intNumberofWorkingDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
-                                    Else
-                                        intNumberofWorkingDays = intNumberofWorkingDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
-                                    End If
-                                    If intNumberofWorkingDays > dblNoofDaysfromSEtup Then
-                                        intNumberofWorkingDays = dblNoofDaysfromSEtup
-                                    End If
-                                End If
+                                'If dblannualleavedays > 200 Then 'Commented as per Lara on 11-02-2016
+                                '    If IntCaldenerDays > 31 Then
+                                '        ' intNumberofWorkingDays = IntCaldenerDays - dblWeekEnds
+                                '        intNumberofWorkingDays = oApplication.Utilities.GetnumberofworkgDays_BasicSalary(ayear, aMonth, CInt(strempID)) ' dblNoofDaysfromSEtup ' IntCaldenerDays - dblWeekEnds
+                                '        If intNumberofWorkingDays - dblannualleavedays > dblNoofDaysfromSEtup Then
+                                '            intNumberofWorkingDays = dblNoofDaysfromSEtup
+                                '        End If
+                                '    Else
+                                '        If dblNoofDaysfromSEtup >= IntCaldenerDays Then
+                                '            intNumberofWorkingDays = intNumberofWorkingDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
+                                '        Else
+                                '            intNumberofWorkingDays = intNumberofWorkingDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
+                                '        End If
+                                '        If intNumberofWorkingDays > dblNoofDaysfromSEtup Then
+                                '            intNumberofWorkingDays = dblNoofDaysfromSEtup
+                                '        End If
+                                '    End If
+                                'Else
+                                '    If dblNoofDaysfromSEtup >= IntCaldenerDays Then
+                                '        intNumberofWorkingDays = intNumberofWorkingDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
+                                '    Else
+                                '        intNumberofWorkingDays = intNumberofWorkingDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
+                                '    End If
+                                '    If intNumberofWorkingDays > dblNoofDaysfromSEtup Then
+                                '        intNumberofWorkingDays = dblNoofDaysfromSEtup
+                                '    End If
+                                'End If
+                                intNumberofWorkingDays = intNumberofWorkingDays - dblWeekEnds
                             Else
                                 If dblNoofDaysfromSEtup >= IntCaldenerDays Then
                                     intNumberofWorkingDays = intNumberofWorkingDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
                                 Else
                                     intNumberofWorkingDays = intNumberofWorkingDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
                                 End If
-                                intNumberofWorkingDays = intNumberofWorkingDays - dblWeekEnds
+                                '  intNumberofWorkingDays = intNumberofWorkingDays - dblWeekEnds
                                 If intNumberofWorkingDays > dblNoofDaysfromSEtup Then
                                     intNumberofWorkingDays = dblNoofDaysfromSEtup
                                 End If
@@ -1673,8 +1716,8 @@ Public Class clsPayrollWorksheet
                             '    intNumberofWorkingDays = intNumberofWorkingDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
                             'End If
                         End If
-
-                        If intNumberofWorkingDays > dblNoofDaysfromSEtup Then
+                        '  intNumberofWorkingDays = intNumberofWorkingDays - dblannualleavedays
+                        If (intNumberofWorkingDays - dblannualleavedays) > dblNoofDaysfromSEtup Then
                             intNumberofWorkingDays = dblNoofDaysfromSEtup
                         End If
 
@@ -1746,8 +1789,8 @@ Public Class clsPayrollWorksheet
                                 intFrom = oTst.Fields.Item(1).Value
                                 intTo = oTst.Fields.Item(2).Value
                                 If aMonth = 2 Then
-                                    If intTo > 28 Then
-                                        intTo = 28
+                                    If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                        intTo = DateTime.DaysInMonth(ayear, aMonth)
                                     End If
                                 End If
                                 Select Case aMonth
@@ -1764,8 +1807,8 @@ Public Class clsPayrollWorksheet
 
                                     Case 2
                                         'dtenddate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-28"
-                                        If intTo > 28 Then
-                                            intTo = 28
+                                        If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                            intTo = DateTime.DaysInMonth(ayear, aMonth)
                                         End If
                                 End Select
                                 If aMonth = 1 Then
@@ -1839,25 +1882,34 @@ Public Class clsPayrollWorksheet
                             End If
                             If dtEmpJoiningDate > dtExtraSalaryStartDate Then 'Joining date is greater than the Extra Salary Paid date
                                 blnFullSalary = False
-
                             ElseIf dtEmpJoiningDate <= dtExtraSalaryStartDate Then 'Joining Date id less than Extra Salary Paid Date
-                                stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & oTempRec.Fields.Item(0).Value & "' and ('" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "'<=U_Z_StartDate ) and '" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and isnull(U_Z_EndDate,'" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "')"
+                                ' stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & oTempRec.Fields.Item(0).Value & "' and ('" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "'<=U_Z_StartDate ) and '" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and isnull(U_Z_EndDate,'" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "')"
+                                stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & oTempRec.Fields.Item(0).Value & "' and (U_Z_StartDate between  '" & dtExtraSalaryStartDate.AddMonths(1).ToString("yyyy-MM-dd") & "' and '" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "')"
                                 oInsRec.DoQuery(stString)
                                 If oInsRec.RecordCount > 0 Then
                                     blnFullSalary = False
                                 End If
-                                stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & oTempRec.Fields.Item(0).Value & "' and ('" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "'<=U_Z_StartDate ) and '" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and isnull(U_Z_EndDate,'" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "')"
-                                oInsRec.DoQuery(stString)
-                                If oInsRec.RecordCount > 0 Then
-                                    blnFullSalary = False
-                                End If
+                                'stString = " select * from [@Z_PAY11] where U_Z_EmpID='" & oTempRec.Fields.Item(0).Value & "' and ('" & dtExtraSalaryStartDate.ToString("yyyy-MM-dd") & "'<=U_Z_StartDate ) and '" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and isnull(U_Z_EndDate,'" & dtExtraSalaryEndDate.ToString("yyyy-MM-dd") & "')"
+                                'oInsRec.DoQuery(stString)
+                                'If oInsRec.RecordCount > 0 Then
+                                '    blnFullSalary = False
+                                'End If
                             End If
                             If blnFullSalary = True Then
-                                dblExtCL = dblMonthSala
+                                If dblExtCL > dblMonthSala Then
+                                    dblExtCL = dblMonthSala
+                                Else
+                                    dblExtCL = dblMonthSala
+                                End If
                             End If
-                        End If
 
+                        End If
+                        If dblExtCL > dblMonthSala Then
+                            dblExtCL = dblMonthSala
+                        End If
+                        'END Newly Added to check the Extra salary amount should be less than or equal to Monthly salary 2016-01-14
                         oUserTable1.UserFields.Fields.Item("U_Z_ExSalCL").Value = dblExtCL
+                        'End Newly added
                         'End Newly added
 
                         'On hold validation 2014/07/23
@@ -1872,7 +1924,7 @@ Public Class clsPayrollWorksheet
                         'end 2014/07/23
 
                         oUserTable1.UserFields.Fields.Item("U_Z_CalenderDays").Value = CInt(dblNoofDaysfromSEtup) 'IntCaldenerDays
-                        oUserTable1.UserFields.Fields.Item("U_Z_WorkingDays").Value = intNumberofWorkingDays - CInt(dblannualleavedays)
+                        oUserTable1.UserFields.Fields.Item("U_Z_WorkingDays").Value = (intNumberofWorkingDays) - CInt(dblannualleavedays)
                         oUserTable1.UserFields.Fields.Item("U_Z_WorkingDays1").Value = intNumberofWorkingDays - (dblannualleavedays)
                         oUserTable1.UserFields.Fields.Item("U_Z_SalaryType").Value = oTempRec.Fields.Item(5).Value
                         oUserTable1.UserFields.Fields.Item("U_Z_CostCentre").Value = oTempRec.Fields.Item(6).Value
@@ -2188,8 +2240,8 @@ Public Class clsPayrollWorksheet
                                 intFrom = oTst.Fields.Item(1).Value
                                 intTo = oTst.Fields.Item(2).Value
                                 If aMonth = 2 Then
-                                    If intTo > 28 Then
-                                        intTo = 28
+                                    If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                        intTo = DateTime.DaysInMonth(ayear, aMonth)
                                     End If
                                 End If
 
@@ -2209,8 +2261,8 @@ Public Class clsPayrollWorksheet
 
                                     Case 2
                                         'dtenddate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-28"
-                                        If intTo > 28 Then
-                                            intTo = 28
+                                        If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                            intTo = DateTime.DaysInMonth(ayear, aMonth)
                                         End If
                                 End Select
 
@@ -2747,8 +2799,8 @@ Public Class clsPayrollWorksheet
                                 intFrom = oTst.Fields.Item(1).Value
                                 intTo = oTst.Fields.Item(2).Value
                                 If aMonth = 2 Then
-                                    If intTo > 28 Then
-                                        intTo = 28
+                                    If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                        intTo = DateTime.DaysInMonth(ayear, aMonth)
                                     End If
                                 End If
 
@@ -2768,8 +2820,8 @@ Public Class clsPayrollWorksheet
 
                                     Case 2
                                         'dtenddate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-28"
-                                        If intTo > 28 Then
-                                            intTo = 28
+                                        If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                            intTo = DateTime.DaysInMonth(ayear, aMonth)
                                         End If
                                 End Select
 
@@ -2989,8 +3041,8 @@ Public Class clsPayrollWorksheet
             '    If ousertable2.Add <> 0 Then
             '    End If
             'Next
-            otemp2.DoQuery("Update [@Z_PAYROLL2] set  U_Z_Amount=U_Z_Rate*U_Z_Value where U_Z_RefCode='" & strPayrollRefNo & "'")
-            otemp2.DoQuery("Update [@Z_PAYROLL2] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ") where U_Z_RefCode='" & strPayrollRefNo & "'")
+            otemp2.DoQuery("Update [@Z_PAYROLL2] set  U_Z_Amount=U_Z_Rate*U_Z_Value ")
+            otemp2.DoQuery("Update [@Z_PAYROLL2] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ")")
         End If
         'If oApplication.Company.InTransaction Then
         '    oApplication.Company.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit)
@@ -3173,8 +3225,8 @@ Public Class clsPayrollWorksheet
             Dim st As String = "Exec [Insert_EarAccrual] '" + strString + "'"
             otemp2.DoQuery("Exec [Insert_EarAccrual] '" + strString + "'")
 
-            otemp2.DoQuery("Update [@Z_PAYROLL22] set  U_Z_Amount=U_Z_Rate*U_Z_Value where U_Z_RefCode='" & strPayrollRefNo & "'")
-            otemp2.DoQuery("Update [@Z_PAYROLL22] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ")  where U_Z_RefCode='" & strPayrollRefNo & "'")
+            otemp2.DoQuery("Update [@Z_PAYROLL22] set  U_Z_Amount=U_Z_Rate*U_Z_Value ")
+            otemp2.DoQuery("Update [@Z_PAYROLL22] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ")  ")
         End If
         'If oApplication.Company.InTransaction Then
         '    oApplication.Company.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit)
@@ -3214,8 +3266,8 @@ Public Class clsPayrollWorksheet
                 intFrom = oTst.Fields.Item(0).Value
                 intTo = oTst.Fields.Item(1).Value
                 If intMonth = 2 Then
-                    If intTo > 28 Then
-                        intTo = 28
+                    If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                        intTo = DateTime.DaysInMonth(ayear, aMonth)
                     End If
                 End If
                 ' strDate = Newyear.ToString("0000") & "-" & newMonth.ToString("00") & "-" & intFrom.ToString("00")
@@ -3238,7 +3290,7 @@ Public Class clsPayrollWorksheet
                         stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-30"
                         '  IntCaldenerDays = 30
                     Case 2
-                        stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-28"
+                        stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-" & DateTime.DaysInMonth(ayear, aMonth).ToString("00")
                         '  IntCaldenerDays = 28
                 End Select
 
@@ -3255,7 +3307,7 @@ Public Class clsPayrollWorksheet
                         stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-30"
                         '  IntCaldenerDays = 30
                     Case 2
-                        stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-28"
+                        stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-" & DateTime.DaysInMonth(ayear, aMonth).ToString("00")
                         '  IntCaldenerDays = 28
                 End Select
 
@@ -3415,8 +3467,8 @@ Public Class clsPayrollWorksheet
                 intFrom = oTst.Fields.Item(0).Value
                 intTo = oTst.Fields.Item(1).Value
                 If intMonth = 2 Then
-                    If intTo > 28 Then
-                        intTo = 28
+                    If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                        intTo = DateTime.DaysInMonth(ayear, aMonth)
                     End If
                 End If
                 ' strDate = Newyear.ToString("0000") & "-" & newMonth.ToString("00") & "-" & intFrom.ToString("00")
@@ -3439,7 +3491,7 @@ Public Class clsPayrollWorksheet
                         stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-30"
                         '  IntCaldenerDays = 30
                     Case 2
-                        stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-28"
+                        stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-" & DateTime.DaysInMonth(ayear, aMonth).ToString("00")
                         '  IntCaldenerDays = 28
                 End Select
 
@@ -3456,7 +3508,7 @@ Public Class clsPayrollWorksheet
                         stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-30"
                         '  IntCaldenerDays = 30
                     Case 2
-                        stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-28"
+                        stEndDate1 = intYear.ToString("0000") & "-" & intMonth.ToString("00") & "-" & DateTime.DaysInMonth(ayear, aMonth).ToString("00")
                         '  IntCaldenerDays = 28
                 End Select
 
@@ -3516,12 +3568,17 @@ Public Class clsPayrollWorksheet
                     otemp2 = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
                     Dim dblEOSEarning, dblEOSDeduction, dblTotalEOS As Double
                     stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_EOS,'N')='Y'"
+
+                    stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and  isnull(U_Z_EOS,'N')='Y'"
                     otemp2.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                     dblEOSEarning = otemp2.Fields.Item(0).Value
 
-                    'stTemp = "Select Code from [@Z_PAY_OEAR1] where  isnull(U_Z_EOS,'N')='Y'"
-                    'otemp2.DoQuery("Select Sum(U_Z_Amount) from [@Z_PAYROLL2] where U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                    stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_EOS,'N')='Y'"
+                    otemp2.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                    dblEOSEarning = dblEOSEarning + otemp2.Fields.Item(0).Value
                     'dblEOSEarning = dblEOSEarning + otemp2.Fields.Item(0).Value
+
+                  
                     Dim dblAverageYear, dblAverageAmount, dblEOSAvgAmount As Double
                     Dim dblAvgStartYear, dblAvgEndyear As Integer
                     Dim stTemp1 As String
@@ -4050,8 +4107,8 @@ Public Class clsPayrollWorksheet
                             intFrom = oTst.Fields.Item(1).Value
                             intTo = oTst.Fields.Item(2).Value
                             If aMonth = 2 Then
-                                If intTo > 28 Then
-                                    intTo = 28
+                                If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                    intTo = DateTime.DaysInMonth(ayear, aMonth)
                                 End If
                             End If
                             Select Case aMonth
@@ -4068,8 +4125,8 @@ Public Class clsPayrollWorksheet
                                     End If
                                 Case 2
                                     'dtenddate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-28"
-                                    If intTo > 28 Then
-                                        intTo = 28
+                                    If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                        intTo = DateTime.DaysInMonth(ayear, aMonth)
                                     End If
 
                             End Select
@@ -4479,8 +4536,8 @@ Public Class clsPayrollWorksheet
                             intFrom = oTst.Fields.Item(1).Value
                             intTo = oTst.Fields.Item(2).Value
                             If aMonth = 2 Then
-                                If intTo > 28 Then
-                                    intTo = 28
+                                If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                    intTo = DateTime.DaysInMonth(ayear, aMonth)
                                 End If
                             End If
                             Select Case aMonth
@@ -4497,8 +4554,8 @@ Public Class clsPayrollWorksheet
                                     End If
                                 Case 2
                                     'dtenddate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-28"
-                                    If intTo > 28 Then
-                                        intTo = 28
+                                    If intTo > DateTime.DaysInMonth(ayear, aMonth) Then
+                                        intTo = DateTime.DaysInMonth(ayear, aMonth)
                                     End If
 
                             End Select
@@ -4892,11 +4949,21 @@ Public Class clsPayrollWorksheet
         '    oApplication.Company.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit)
         'End If
         'oApplication.Company.StartTransaction()
+        Dim dtPayStartDate, dtJoiningDate As Date
+        Dim dblWorkingdays, dblCalenderDays As Double
+        Dim blnTerm As String
         If 1 = 1 Then
             strRefCode = arefCode
             oTempRec1.DoQuery("SELECT *,isnull(U_Z_DedType,'Y') 'DedInclude' from [@Z_PAYROLL1] where U_Z_RefCode='" & arefCode & "'")
             oUserTable1 = oApplication.Company.UserTables.Item("Z_PAYROLL1")
             For intRow As Integer = 0 To oTempRec1.RecordCount - 1
+                dtJoiningDate = oTempRec1.Fields.Item("U_Z_StartDate").Value
+                blnTerm = oTempRec1.Fields.Item("U_Z_IsTerm").Value
+                dblCalenderDays = oTempRec1.Fields.Item("U_Z_CalenderDays").Value
+                dblWorkingdays = oTempRec1.Fields.Item("U_Z_WorkingDays").Value
+                dblWorkingdays = oTempRec1.Fields.Item("U_Z_WorkingDays1").Value
+
+
                 strPayrollRefNo = oTempRec1.Fields.Item("Code").Value
                 strempID = oTempRec1.Fields.Item("U_Z_empid").Value
                 If oTempRec1.Fields.Item("DedInclude").Value = "N" Then
@@ -4926,7 +4993,16 @@ Public Class clsPayrollWorksheet
                         ousertable2.UserFields.Fields.Item("U_Z_OBAmt").Value = otemp2.Fields.Item("U_Z_OBAmt").Value
                         ousertable2.UserFields.Fields.Item("U_Z_CM").Value = otemp2.Fields.Item("U_Z_Balance").Value
                         ousertable2.UserFields.Fields.Item("U_Z_CMAmt").Value = otemp2.Fields.Item("U_Z_BalAmount").Value
-                        ousertable2.UserFields.Fields.Item("U_Z_NoofDays").Value = otemp2.Fields.Item("U_Z_NoofDays").Value
+
+                        Dim dblNoofDays1 As Double = otemp2.Fields.Item("U_Z_NoofDays").Value
+                        If dtJoiningDate.Year = ayear And dtJoiningDate.Month = aMonth Then
+                            blnTerm = "Y"
+                        End If
+                        If blnTerm = "Y" Then
+                            dblNoofDays1 = dblNoofDays1 / dblCalenderDays
+                            dblNoofDays1 = dblNoofDays1 * dblWorkingdays
+                        End If
+                        ousertable2.UserFields.Fields.Item("U_Z_NoofDays").Value = dblNoofDays1 ' otemp2.Fields.Item("U_Z_NoofDays").Value
                         'ousertable2.UserFields.Fields.Item("U_Z_CM").Value = otemp2.Fields.Item("U_Z_Balance").Value
                         'ousertable2.UserFields.Fields.Item("U_Z_NoofDays").Value = otemp2.Fields.Item("U_Z_NoofDays").Value
                         Dim oTest1 As SAPbobsCOM.Recordset
@@ -4978,26 +5054,11 @@ Public Class clsPayrollWorksheet
                 End If
                 oTempRec1.MoveNext()
             Next
-            ' otemp2.DoQuery("Update [@Z_PAYROLL6] set U_Z_TotalAvDays=U_Z_CM+U_Z_NoofDays, U_Z_Balance = U_Z_CM + U_Z_NoofDays-U_Z_Redim , U_Z_Amount=U_Z_TktRate * U_Z_Redim,U_Z_CurAmount=U_Z_TktRate/12 ") '* U_Z_NoofDays")
-            'otemp2.DoQuery("Update [@Z_PAYROLL6] set U_Z_TotalAvDays=U_Z_CM+U_Z_NoofDays, U_Z_Balance = U_Z_CM + U_Z_NoofDays-U_Z_Redim , U_Z_Amount=U_Z_TktRate * U_Z_Redim,U_Z_CurAmount=U_Z_TktRate * U_Z_NoofDays ") '* U_Z_NoofDays")
-            '            otemp2.DoQuery("Update [@Z_PAYROLL6] set U_Z_TotalAvDays=U_Z_CM+U_Z_NoofDays, U_Z_Balance = U_Z_CM + U_Z_NoofDays-U_Z_Redim , U_Z_Amount=U_Z_CmpPayAmt+ U_Z_NetPayAmt,U_Z_CurAmount=U_Z_NetPayAmt +U_Z_CmpPayAmt ") '* U_Z_NoofDays")
             otemp2.DoQuery("Update [@Z_PAYROLL6] set U_Z_TotalAvDays=U_Z_CM+U_Z_NoofDays, U_Z_Balance = U_Z_CM + U_Z_NoofDays-U_Z_Redim , U_Z_Amount=U_Z_CmpPayAmt+ U_Z_NetPayAmt,U_Z_CurAmount=U_Z_TktRate * U_Z_NoofDays") ' where U_Z_RefCode='" & strPayrollRefNo & "' ") '* U_Z_NoofDays")
             otemp2.DoQuery("Update [@Z_PAYROLL6] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & "),U_Z_CurAmount=Round(U_Z_CurAmount," & intRoundingNumber & ") ") ' where U_Z_RefCode='" & strPayrollRefNo & "'")
             otemp2.DoQuery("Update [@Z_PAYROLL6] set  U_Z_AcrAmount = (U_Z_CurAmount + U_Z_CMAmt)") ' where U_Z_RefCode='" & strPayrollRefNo & "'   ")
             otemp2.DoQuery("Update [@Z_PAYROLL6] set  U_Z_BalanceAmt = U_Z_AcrAmount-U_Z_Amount") ' where U_Z_RefCode='" & strPayrollRefNo & "' ")
-
-            'otemp2.DoQuery("Update [@Z_PAYROLL6] set  U_Z_Balance = U_Z_CM+ U_Z_NoofDays-U_Z_Redim , U_Z_CurAmount=U_Z_DailyRate * U_Z_NoofDays, U_Z_Amount=U_Z_DailyRate * U_Z_Redim")
-            'otemp2.DoQuery("Update [@Z_PAYROLL6] set  U_Z_Amount=Round(U_Z_Amount,0),U_Z_CurAmount=Round(U_Z_CurAmount,0)")
-            'otemp2.DoQuery("Update [@Z_PAYROLL6] set  U_Z_AcrAmount = (U_Z_Balance * U_Z_DailyRate) ")
-            'otemp2.DoQuery("Update [@Z_PAYROLL6] set  U_Z_YTDAMount = U_Z_CurAmount + U_Z_OBAmt  ")
-
-            ' otemp2.DoQuery("Update [@Z_PAYROLL5] set  U_Z_Balance = U_Z_CM+ U_Z_NoofDays-U_Z_Redim , U_Z_Amount=U_Z_DailyRate * U_Z_Redim")
         End If
-        'If oApplication.Company.InTransaction Then
-        '    oApplication.Company.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit)
-        'End If
-
-
         Return True
     End Function
 
@@ -5331,7 +5392,6 @@ Public Class clsPayrollWorksheet
                 Else
                     blnIsTerm = False
                 End If
-
                 If oTempRec1.Fields.Item("U_Z_IsLoan").Value = "Y" And blnIsTerm = True Then
                     blnLoadClosing = True
                 End If
@@ -5365,11 +5425,11 @@ Public Class clsPayrollWorksheet
                     strdate = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-01"
                     stLoan = "  select 'L' 'Type',Code,U_Z_LoanName,1,U_Z_EMIAmount,U_Z_EMIAmount,U_Z_GLAcc ,'C' 'Posting' from [@Z_PAY5] where   U_Z_Status<>'Close' and U_Z_Balance <> 0 and U_Z_EMPID='" & strempID & "'"
                     If stEarning <> "" Then
-                        stEarning = stEarning & " Union " & stLoan & " Union  select 'C' 'Type', T1.Code,t1.Name,1,t0.U_Z_DEDUC_VALUE ,0.00000,T0.U_Z_GLACC,'C' 'Posting' from [@Z_PAY2] T0 inner join [@Z_PAY_ODED] T1 on T1.Code=T0.U_Z_DEDUC_TYPE  where T0.U_Z_EmpID='" & strempID & "'"
+                        stEarning = stEarning & " Union " & stLoan & " Union  select 'C' 'Type', T1.Code,t1.Name,1,Case  when T0.U_Z_DefPer  > 0 then ( " & dblBasicPay & "  * T0.U_Z_DefPer) / 100 else T0.U_Z_DEDUC_VALUE end ,0.00000,T0.U_Z_GLACC,'C' 'Posting' from [@Z_PAY2] T0 inner join [@Z_PAY_ODED] T1 on T1.Code=T0.U_Z_DEDUC_TYPE  where T0.U_Z_EmpID='" & strempID & "'"
                         stEarning = stEarning & " and '" & dtPayrollDate.ToString("yyyy-MM-dd") & "' between ISNULL(T0.""U_Z_StartDate"",'" & dtPayrollDate.ToString("yyyy-MM-dd") & "') and ISNULL(T0.""U_Z_EndDate"",'" & dtPayrollDate.ToString("yyyy-MM-dd") & "')"
 
                     Else
-                        stEarning = stLoan & " Union  select 'C' 'Type', T1.Code,t1.Name,1,t0.U_Z_DEDUC_VALUE ,0.00000,T0.U_Z_GLACC,'C' 'Posting' from [@Z_PAY2] T0 inner join [@Z_PAY_ODED] T1 on T1.Code=T0.U_Z_DEDUC_TYPE  where T0.U_Z_EmpID='" & strempID & "'"
+                        stEarning = stLoan & " Union  select 'C' 'Type', T1.Code,t1.Name,1, Case when T0.U_Z_DefPer  > 0 then ( " & dblBasicPay & "  * T0.U_Z_DefPer) / 100 else T0.U_Z_DEDUC_VALUE end ,0.00000,T0.U_Z_GLACC,'C' 'Posting' from [@Z_PAY2] T0 inner join [@Z_PAY_ODED] T1 on T1.Code=T0.U_Z_DEDUC_TYPE  where T0.U_Z_EmpID='" & strempID & "'"
                         stEarning = stEarning & " and '" & dtPayrollDate.ToString("yyyy-MM-dd") & "' between ISNULL(T0.""U_Z_StartDate"",'" & dtPayrollDate.ToString("yyyy-MM-dd") & "') and ISNULL(T0.""U_Z_EndDate"",'" & dtPayrollDate.ToString("yyyy-MM-dd") & "')"
                     End If
 
@@ -5377,7 +5437,7 @@ Public Class clsPayrollWorksheet
                     Dim ststr As String
                     ststr = ayear.ToString("0000") & "-" & aMonth.ToString("00") & "-01"
                     If stEarning <> "" Then
-                        stEarning = stEarning & " Union  select 'C' 'Type', T1.Code,t1.Name,1,t0.U_Z_DEDUC_VALUE ,0.00000,T0.U_Z_GLACC,'C' 'Posting' from [@Z_PAY2] T0 inner join [@Z_PAY_ODED] T1 on T1.Code=T0.U_Z_DEDUC_TYPE  where T0.U_Z_EmpID='" & strempID & "'"
+                        stEarning = stEarning & " Union  select 'C' 'Type', T1.Code,t1.Name,1,Case when T0.U_Z_DefPer  > 0 then ( " & dblBasicPay & "  * T0.U_Z_DefPer) / 100 else T0.U_Z_DEDUC_VALUE end ,0.00000,T0.U_Z_GLACC,'C' 'Posting' from [@Z_PAY2] T0 inner join [@Z_PAY_ODED] T1 on T1.Code=T0.U_Z_DEDUC_TYPE  where T0.U_Z_EmpID='" & strempID & "'"
                         stEarning = stEarning & " and '" & ststr & "' between ISNULL(T0.""U_Z_StartDate"",'" & dtPayrollDate.ToString("yyyy-MM-dd") & "') and ISNULL(T0.""U_Z_EndDate"",'" & dtPayrollDate.ToString("yyyy-MM-dd") & "')"
                     End If
 
@@ -5433,7 +5493,7 @@ Public Class clsPayrollWorksheet
                                     strfieldname = "U_Z_EarValue"
 
                                 End If
-                                stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                 dtTemp5.DoQuery("Select Sum(" & strfieldname & ") from [@Z_PAYROLL2] where (""U_Z_Type"" ='D' or ""U_Z_Type""='F') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                 dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                 'dblSocialEarning = dblEOSEarning
@@ -5442,6 +5502,11 @@ Public Class clsPayrollWorksheet
 
                                 stTemp = "Select ""Code"" from [@Z_PAY_OEAR1] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                 dtTemp5.DoQuery("Select  Sum(" & strfieldname & ") from [@Z_PAYROLL2] where (""U_Z_Type"" ='E' or ""U_Z_Type""='F') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                dblSocialEarning = dblSocialEarning + dblEOSEarning
+
+                                stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                 dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                 dblSocialEarning = dblSocialEarning + dblEOSEarning
 
@@ -5545,7 +5610,7 @@ Public Class clsPayrollWorksheet
                                 If dtTemp5.RecordCount > 0 Then
                                     If dtTemp5.Fields.Item("U_Z_Type").Value <> "U" Then
                                         If blnIsKuwait = True Then
-                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_Amount) from [@Z_PAYROLL2] where (""U_Z_Type"" ='D') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = 0 ' dblEOSEarning
@@ -5556,14 +5621,23 @@ Public Class clsPayrollWorksheet
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = dblSocialEarning + dblEOSEarning
 
+                                            stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                            dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                            dblSocialEarning = dblSocialEarning + dblEOSEarning
+
                                         Else
-                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='D') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = 0 ' dblEOSEarning
                                             dblEarning = dblEOSEarning
                                             stTemp = "Select Code from [@Z_PAY_OEAR1] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='E' or ""U_Z_Type""='F') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                            dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                            dblSocialEarning = dblSocialEarning + dblEOSEarning
+                                            stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = dblSocialEarning + dblEOSEarning
 
@@ -5575,7 +5649,7 @@ Public Class clsPayrollWorksheet
                                         'dtTemp5.DoQuery("Select * from [@Z_PAY_EMP_OSBM] where U_Z_EmpID='" & strempID & "' and U_Z_Code='" & otemp2.Fields.Item(1).Value & "'")
                                     Else
                                         If blnIsKuwait = True Then
-                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where   isnull(U_Z_Accural,'N')='N' and isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='D') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = 0 ' dblEOSEarning
@@ -5586,14 +5660,24 @@ Public Class clsPayrollWorksheet
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = dblSocialEarning + dblEOSEarning
 
+                                            stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                            dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                            dblSocialEarning = dblSocialEarning + dblEOSEarning
+
                                         Else
-                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='D') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = 0 ' dblEOSEarning
                                             dblEarning = dblEOSEarning
                                             stTemp = "Select Code from [@Z_PAY_OEAR1] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='E' or ""U_Z_Type""='F') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                            dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                            dblSocialEarning = dblSocialEarning + dblEOSEarning
+
+                                            stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = dblSocialEarning + dblEOSEarning
                                         End If
@@ -5874,8 +5958,8 @@ Public Class clsPayrollWorksheet
 
             'Next
 
-            otemp2.DoQuery("Update [@Z_PAYROLL3] set  U_Z_Amount=U_Z_Rate*U_Z_Value where U_Z_RefCode='" & strPayrollRefNo & "'")
-            otemp2.DoQuery("Update [@Z_PAYROLL3] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ") where U_Z_RefCode='" & strPayrollRefNo & "'")
+            otemp2.DoQuery("Update [@Z_PAYROLL3] set  U_Z_Amount=U_Z_Rate*U_Z_Value")
+            otemp2.DoQuery("Update [@Z_PAYROLL3] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ") ")
         End If
         'If oApplication.Company.InTransaction Then
         '    oApplication.Company.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit)
@@ -6286,7 +6370,7 @@ Public Class clsPayrollWorksheet
                                     strfieldname = "U_Z_EarValue"
 
                                 End If
-                                stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where isnull(U_Z_Accural,'N')='N' and  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                 dtTemp5.DoQuery("Select Sum(" & strfieldname & ") from [@Z_PAYROLL2] where (""U_Z_Type"" ='D' or ""U_Z_Type""='F') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                 dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                 'dblSocialEarning = dblEOSEarning
@@ -6295,6 +6379,11 @@ Public Class clsPayrollWorksheet
 
                                 stTemp = "Select ""Code"" from [@Z_PAY_OEAR1] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                 dtTemp5.DoQuery("Select  Sum(" & strfieldname & ") from [@Z_PAYROLL2] where (""U_Z_Type"" ='E' or ""U_Z_Type""='F') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                dblSocialEarning = dblSocialEarning + dblEOSEarning
+
+                                stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                 dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                 dblSocialEarning = dblSocialEarning + dblEOSEarning
 
@@ -6404,7 +6493,7 @@ Public Class clsPayrollWorksheet
                                 If dtTemp5.RecordCount > 0 Then
                                     If dtTemp5.Fields.Item("U_Z_Type").Value <> "U" Then
                                         If blnIsKuwait = True Then
-                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_Amount) from [@Z_PAYROLL2] where (""U_Z_Type"" ='D') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = 0 ' dblEOSEarning
@@ -6415,14 +6504,24 @@ Public Class clsPayrollWorksheet
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = dblSocialEarning + dblEOSEarning
 
+                                            stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                            dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                            dblSocialEarning = dblSocialEarning + dblEOSEarning
+
                                         Else
-                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='D') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = 0 ' dblEOSEarning
                                             dblEarning = dblEOSEarning
                                             stTemp = "Select Code from [@Z_PAY_OEAR1] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='E' or ""U_Z_Type""='F') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                            dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                            dblSocialEarning = dblSocialEarning + dblEOSEarning
+
+                                            stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = dblSocialEarning + dblEOSEarning
 
@@ -6434,7 +6533,7 @@ Public Class clsPayrollWorksheet
                                         'dtTemp5.DoQuery("Select * from [@Z_PAY_EMP_OSBM] where U_Z_EmpID='" & strempID & "' and U_Z_Code='" & otemp2.Fields.Item(1).Value & "'")
                                     Else
                                         If blnIsKuwait = True Then
-                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='D') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = 0 ' dblEOSEarning
@@ -6445,14 +6544,24 @@ Public Class clsPayrollWorksheet
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = dblSocialEarning + dblEOSEarning
 
+                                            stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                            dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                            dblSocialEarning = dblSocialEarning + dblEOSEarning
+
                                         Else
-                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            stTemp = "Select U_Z_CODE from [@Z_PAY_OEAR] where  isnull(U_Z_Accural,'N')='N' and isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='D') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = 0 ' dblEOSEarning
                                             dblEarning = dblEOSEarning
                                             stTemp = "Select Code from [@Z_PAY_OEAR1] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
                                             dtTemp5.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where (""U_Z_Type"" ='E' or ""U_Z_Type""='F') and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
+                                            dblEOSEarning = dtTemp5.Fields.Item(0).Value
+                                            dblSocialEarning = dblSocialEarning + dblEOSEarning
+
+                                            stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_SOCI_BENE,'N')='Y'"
+                                            dtTemp5.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
                                             dblEOSEarning = dtTemp5.Fields.Item(0).Value
                                             dblSocialEarning = dblSocialEarning + dblEOSEarning
                                         End If
@@ -6660,8 +6769,8 @@ Public Class clsPayrollWorksheet
             '    End If
 
             'Next
-            otemp2.DoQuery("Update [@Z_PAYROLL4] set  U_Z_Amount=U_Z_Rate*U_Z_Value where U_Z_RefCode='" & strPayrollRefNo & "'")
-            otemp2.DoQuery("Update [@Z_PAYROLL4] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ") where U_Z_RefCode='" & strPayrollRefNo & "'")
+            otemp2.DoQuery("Update [@Z_PAYROLL4] set  U_Z_Amount=U_Z_Rate*U_Z_Value ")
+            otemp2.DoQuery("Update [@Z_PAYROLL4] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ") ")
         End If
         'If oApplication.Company.InTransaction Then
         '    oApplication.Company.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_Commit)

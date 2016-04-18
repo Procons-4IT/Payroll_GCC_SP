@@ -70,7 +70,7 @@ Public Class clsDeduction
             aform.Freeze(True)
             oGrid = aform.Items.Item("5").Specific
             dtTemp = oGrid.DataTable
-            dtTemp.ExecuteQuery("SELECT T0.[Code], T0.[Name], T0.[U_Z_FrgnName],T0.[U_Z_DefAmt], T0.[U_Z_SOCI_BENE], T0.[U_Z_INCOM_TAX], T0.[U_Z_EOS], T0.""U_Z_ProRate"", T0.[U_Z_Max], T0.[U_Z_DED_GLACC], T0.[U_Z_PostType] FROM [dbo].[@Z_PAY_ODED]  T0 order by Code")
+            dtTemp.ExecuteQuery("SELECT T0.[Code], T0.[Name], T0.[U_Z_FrgnName],T0.[U_Z_DefAmt], T0.[U_Z_DefPer] ,T0.[U_Z_SOCI_BENE], T0.[U_Z_INCOM_TAX], T0.[U_Z_EOS], T0.""U_Z_ProRate"", T0.[U_Z_Max], T0.[U_Z_DED_GLACC], T0.[U_Z_PostType] FROM [dbo].[@Z_PAY_ODED]  T0 order by Code")
             oGrid.DataTable = dtTemp
             '   AddChooseFromList(oForm)
             Formatgrid(oGrid)
@@ -121,6 +121,8 @@ Public Class clsDeduction
         agrid.Columns.Item("U_Z_ProRate").Type = SAPbouiCOM.BoGridColumnType.gct_CheckBox
         agrid.Columns.Item("U_Z_ProRate").Editable = True
 
+        agrid.Columns.Item("U_Z_DefPer").TitleObject.Caption = "Default Percentage"
+        agrid.Columns.Item("U_Z_DefPer").Editable = True
         agrid.AutoResizeColumns()
         agrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single
     End Sub
@@ -199,6 +201,7 @@ Public Class clsDeduction
                     oUserTable.UserFields.Fields.Item("U_Z_SOCI_BENE").Value = strESocial
                     oUserTable.UserFields.Fields.Item("U_Z_INCOM_TAX").Value = strETax
                     oUserTable.UserFields.Fields.Item("U_Z_DefAmt").Value = oGrid.DataTable.GetValue("U_Z_DefAmt", intRow)
+                    oUserTable.UserFields.Fields.Item("U_Z_DefPer").Value = oGrid.DataTable.GetValue("U_Z_DefPer", intRow)
                     oUserTable.UserFields.Fields.Item("U_Z_Max").Value = oGrid.DataTable.GetValue("U_Z_Max", intRow)
 
                     OCHECKBOXCOLUMN = oGrid.Columns.Item("U_Z_EOS")
@@ -231,6 +234,7 @@ Public Class clsDeduction
                     oUserTable.UserFields.Fields.Item("U_Z_SOCI_BENE").Value = strESocial
                     oUserTable.UserFields.Fields.Item("U_Z_INCOM_TAX").Value = strETax
                     oUserTable.UserFields.Fields.Item("U_Z_DefAmt").Value = oGrid.DataTable.GetValue("U_Z_DefAmt", intRow)
+                    oUserTable.UserFields.Fields.Item("U_Z_DefPer").Value = oGrid.DataTable.GetValue("U_Z_DefPer", intRow)
                     oUserTable.UserFields.Fields.Item("U_Z_Max").Value = oGrid.DataTable.GetValue("U_Z_Max", intRow)
                     OCHECKBOXCOLUMN = oGrid.Columns.Item("U_Z_EOS")
                     If OCHECKBOXCOLUMN.IsChecked(intRow) Then
@@ -370,6 +374,12 @@ Public Class clsDeduction
                     oGrid.Columns.Item("U_Z_DED_GLACC").Click(intRow)
                     Return False
                 End If
+            End If
+
+            If aGrid.DataTable.GetValue("U_Z_DefPer", intRow) > 0 And aGrid.DataTable.GetValue("U_Z_DefAmt", intRow) > 0 Then
+                oApplication.Utilities.Message("Either Default Amount or Percentage should be applicable", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                oGrid.Columns.Item("U_Z_DefAmt").Click(intRow)
+                Return False
             End If
             For intInnerLoop As Integer = intRow To aGrid.DataTable.Rows.Count - 1
                 strECode1 = aGrid.DataTable.GetValue(0, intInnerLoop)

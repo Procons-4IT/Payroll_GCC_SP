@@ -451,7 +451,7 @@ Public NotInheritable Class clsTable
             addField("@Z_PAY_ODED", "Z_EOS", "EOS Applicable", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
             addField("@Z_PAY_ODED", "Z_PostType", "Posting Type", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "B,A", "Business Partner,GL Account", "A")
             addField("@Z_PAY_ODED", "Z_ProRate", "Prorated", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
-
+            AddFields("Z_PAY_ODED", "Z_DefPer", "Default Percentage", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Percentage)
             'addField("@Z_PAY_ODED", "Z_EOS", "Effects EOS", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
             AddFields("Z_PAY_OCON", "Z_FrgnName", "Foreign Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
           
@@ -515,6 +515,7 @@ Public NotInheritable Class clsTable
             AddFields("Z_PAY2", "Z_EmpID", "Employee ID", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
             AddFields("Z_PAY2", "Z_DEDUC_TYPE", " DEDUCTION TYPE", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
             AddFields("Z_PAY2", "Z_DEDUC_VALUE", " DEDUCTION VALUE", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_PAY2", "Z_DefPer", "Default Percentage", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Percentage)
             AddFields("Z_PAY2", "Z_GLACC", "GL Account", SAPbobsCOM.BoFieldTypes.db_Alpha, , 100)
             AddFields("Z_PAY2", "Z_StartDate", "Start Date", SAPbobsCOM.BoFieldTypes.db_Date)
             AddFields("Z_PAY2", "Z_EndDate", "End Date", SAPbobsCOM.BoFieldTypes.db_Date)
@@ -609,7 +610,7 @@ Public NotInheritable Class clsTable
 
             AddFields("Z_OADM", "Z_OVStartDate", "Payroll Over time Start Date", SAPbobsCOM.BoFieldTypes.db_Numeric)
             AddFields("Z_OADM", "Z_OVEndDate", "Payroll Over Time End Date", SAPbobsCOM.BoFieldTypes.db_Numeric)
-            addField("@Z_OADM", "Z_PostType", "Posting Method", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "P,C,E", "Project,Cost Center,Employee Wise", "C")
+            addField("@Z_OADM", "Z_PostType", "Posting Method", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "P,C,E,R", "Project,Cost Center,Employee Wise,Project-Cost Center", "C")
             AddFields("Z_OADM", "Z_Hours", "Working Hours", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
             addField("@Z_OADM", "Z_JVType", "Journal Type", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "V,J", "Journal Voucher,Journal Entry", "V")
 
@@ -1064,6 +1065,7 @@ Public NotInheritable Class clsTable
             AddFields("Z_PAY_AIR", "Z_AmtperTkt", "Amount per Ticket", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Price)
             AddFields("Z_PAY_AIR", "Z_GLACC1", "Credit GL Account", SAPbobsCOM.BoFieldTypes.db_Alpha, , 100)
             addField("@Z_PAY_AIR", "Z_EOS", "Accrual in the EOS ", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
+            addField("@Z_PAY_AIR", "Z_BalChk", "Balance Check Required ", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
 
 
 
@@ -1291,6 +1293,8 @@ Public NotInheritable Class clsTable
             AddFields("Z_PAY_TRANS", "Z_Month", "Month", SAPbobsCOM.BoFieldTypes.db_Numeric)
             AddFields("Z_PAY_TRANS", "Z_Year", "Year", SAPbobsCOM.BoFieldTypes.db_Numeric)
             addField("@Z_PAY_TRANS", "Z_Posted", "Posted", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
+
+            AddFields("Z_PAY_TRANS", "Z_DefPer", "Percentage", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Percentage)
 
             AddTables("Z_PAY_OVTMAP", "OverTime and Leave Mapping", SAPbobsCOM.BoUTBTableType.bott_NoObject)
             AddFields("Z_PAY_OVTMAP", "Z_CODE", "OverTime Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
@@ -1917,6 +1921,14 @@ Public NotInheritable Class clsTable
             AddFields("Z_PAY21", "Z_EndDate", "Increment End  Date", SAPbobsCOM.BoFieldTypes.db_Date)
             AddFields("Z_PAY21", "Z_Amount", "Increment Amount", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
             AddFields("Z_PAY21", "Z_InrAmt", "Consolidated Increment Amount", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_EMP_LEAVE_BALANCE", "Z_YTDBalance", "YTD Balance", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            addField("@Z_PAY_LEAVE", "Z_Validate", "Leave Balance Validation", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "A,Y", "Accured Balace,YTD Balance", "A")
+
+
+            AddFields("Z_PAY_LOAN", "Z_FrgnName", "Second Language Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+
+
+            addField("@Z_OADM", "Z_Currency", "Posting Currency", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "L,S", "Local Currency,System Currency", "L")
 
             CreateUDO()
             oApplication.Utilities.Message("Initializing Database...", SAPbouiCOM.BoStatusBarMessageType.smt_Warning)
