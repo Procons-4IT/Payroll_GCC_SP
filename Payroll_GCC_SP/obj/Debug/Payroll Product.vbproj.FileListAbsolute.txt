@@ -1792,3 +1792,9 @@ F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160413_Payroll_GCC 
 F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160413_Payroll_GCC 5.0.29_SP\obj\Debug\Payroll.frmReportViewer.resources
 F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160413_Payroll_GCC 5.0.29_SP\obj\Debug\Payroll.Resources.resources
 F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160413_Payroll_GCC 5.0.29_SP\obj\Debug\Payroll Product.vbproj.GenerateResource.Cache
+F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160418_Payroll_GCC 5.0.30_SP\obj\Debug\Interop.SAPbobsCOM.dll
+F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160418_Payroll_GCC 5.0.30_SP\obj\Debug\Interop.SAPbouiCOM.dll
+F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160418_Payroll_GCC 5.0.30_SP\obj\Debug\Payroll Product.vbproj.ResolveComReference.cache
+F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160418_Payroll_GCC 5.0.30_SP\obj\Debug\Payroll.exe
+F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160418_Payroll_GCC 5.0.30_SP\obj\Debug\Payroll.xml
+F:\Internation Projects 2016\Procons4it\Payroll\GCC\GCC_SP\20160418_Payroll_GCC 5.0.30_SP\obj\Debug\Payroll.pdb
