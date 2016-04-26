@@ -1279,6 +1279,7 @@ Public NotInheritable Class clsTable
             AddFields("Z_PAY_OLEMAP", "Z_LEVCODE", "Leave Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 30)
             AddFields("Z_PAY_OLEMAP", "Z_LEVNAME", "Leave Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 100)
             addField("@Z_PAY_OLEMAP", "Z_EFFPAY", "Effect Leave Payment", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
+            addField("@Z_PAY_OLEMAP", "Z_EFFEAR", "Effect Paid Per Working Day", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
 
             AddTables("Z_PAY_TRANS", "Payroll Transaction", SAPbobsCOM.BoUTBTableType.bott_NoObject)
             AddFields("Z_PAY_TRANS", "Z_EMPID", "Employee ID", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)

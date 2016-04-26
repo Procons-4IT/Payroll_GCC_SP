@@ -91,7 +91,20 @@ Public Class clsPayrollOffCycle
         Next
     End Sub
 #End Region
-
+    Private Function getNoofLeavDaysforEarning(aEmpID As String, aEarnCode As String, dtPayrolldate As Date, aMonth As Integer, aYear As Integer) As Double
+        Dim oRateRs As SAPbobsCOM.Recordset
+        Dim strQuery, stString As String
+        strQuery = "(Select U_Z_LEVCode from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFEAR,'N')='Y' and isnull(U_Z_Type,'E')='E' and U_Z_CODE='" & aEarnCode & "')"
+        'stString = "select isnull(sum(U_Z_NoofDays),0),U_Z_EmpID  from [@Z_PAY_OLETRANS] where U_Z_StartDate >='" & dtPayrolldate.ToString("yyyy-MM-dd") & "' and  isnull(U_Z_OffCycle,'N')='N' and  U_Z_Trnscode in (select Code  from [@Z_PAY_LEAVE]  where isnull(U_Z_Basic,'N')='N' ) and U_Z_month=" & aMonth & " and U_Z_Year=" & aYear & " and U_Z_EmpID='" & strEmpID & "' group by U_Z_EmpID"
+        stString = "select isnull(sum(U_Z_NoofDays),0),U_Z_EmpID  from [@Z_PAY_OLETRANS] where U_Z_Trnscode in " & strQuery & " and U_Z_month=" & aMonth & " and isnull(U_Z_OffCycle,'N')='Y' and U_Z_Year=" & aYear & " and U_Z_EmpID='" & aEmpID & "' group by U_Z_EmpID"
+        oRateRs = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+        oRateRs.DoQuery(stString)
+        If oRateRs.RecordCount > 0 Then
+            Return oRateRs.Fields.Item(0).Value
+        Else
+            Return 0
+        End If
+    End Function
 
     Private Sub AddChooseFromList(ByVal objForm As SAPbouiCOM.Form)
         Try
@@ -3362,7 +3375,10 @@ Public Class clsPayrollOffCycle
                                     Else
                                         If oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
                                             dblValue = dblValue / dblCalenderdays
-                                            dblValue = dblValue * dblWorkingdays
+                                            Dim dblLeaveDays As Double = getNoofLeavDaysforEarning(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+                                            dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                            dblValue = dblValue * dblLeaveDays
+                                            '  dblValue = dblValue * dblWorkingdays
                                             dblValue = dblValue
                                         Else
                                             If blnEarninapplicable = False Then

@@ -74,7 +74,7 @@ Public Class clsAllowanceLeaveMapping
             aform.Freeze(True)
             oGrid = aform.Items.Item("1").Specific
             dtTemp = oGrid.DataTable
-            dtTemp.ExecuteQuery("SELECT T0.[Code], T0.[Name], T0.[U_Z_LEVCODE],T0.[U_Z_EFFPAY] FROM [dbo].[@Z_PAY_OLEMAP]  T0 where isnull(U_Z_Type,'E')='E' and  U_Z_CODE='" & oApplication.Utilities.getEdittextvalue(aform, "5") & "' order by Code")
+            dtTemp.ExecuteQuery("SELECT T0.[Code], T0.[Name], T0.[U_Z_LEVCODE],T0.[U_Z_EFFPAY],T0.[U_Z_EFFEAR] FROM [dbo].[@Z_PAY_OLEMAP]  T0 where isnull(U_Z_Type,'E')='E' and  U_Z_CODE='" & oApplication.Utilities.getEdittextvalue(aform, "5") & "' order by Code")
             oGrid.DataTable = dtTemp
             '   AddChooseFromList(oForm)
             Formatgrid(oGrid)
@@ -109,6 +109,10 @@ Public Class clsAllowanceLeaveMapping
         agrid.Columns.Item("U_Z_EFFPAY").TitleObject.Caption = "Effect Leave Payment"
         agrid.Columns.Item("U_Z_EFFPAY").Type = SAPbouiCOM.BoGridColumnType.gct_CheckBox
         agrid.Columns.Item("U_Z_EFFPAY").Visible = True
+        agrid.Columns.Item("U_Z_EFFEAR").TitleObject.Caption = "Effect Paid per workingday"
+        agrid.Columns.Item("U_Z_EFFEAR").Type = SAPbouiCOM.BoGridColumnType.gct_CheckBox
+        agrid.Columns.Item("U_Z_EFFEAR").Visible = True
+
         agrid.AutoResizeColumns()
         agrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single
     End Sub
@@ -168,7 +172,14 @@ Public Class clsAllowanceLeaveMapping
                 Else
                     strESocial = "N"
                 End If
+                Dim strPaid As String
+                OCHECKBOXCOLUMN = oGrid.Columns.Item("U_Z_EFFEAR")
 
+                If OCHECKBOXCOLUMN.IsChecked(intRow) = True Then
+                    strPaid = "Y"
+                Else
+                    strPaid = "N"
+                End If
                 oUserTable = oApplication.Company.UserTables.Item("Z_PAY_OLEMAP")
                 If oUserTable.GetByKey(strCode) Then
                     oUserTable.Code = strCode
@@ -178,6 +189,7 @@ Public Class clsAllowanceLeaveMapping
                     oUserTable.UserFields.Fields.Item("U_Z_LEVCODE").Value = stPosttype
                     oUserTable.UserFields.Fields.Item("U_Z_LEVNAME").Value = strETax
                     oUserTable.UserFields.Fields.Item("U_Z_EFFPAY").Value = strESocial
+                    oUserTable.UserFields.Fields.Item("U_Z_EFFEAR").Value = strPaid
                     oUserTable.UserFields.Fields.Item("U_Z_Type").Value = "E"
                     If oUserTable.Update <> 0 Then
                         oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
@@ -192,8 +204,8 @@ Public Class clsAllowanceLeaveMapping
                     oUserTable.UserFields.Fields.Item("U_Z_LEVCODE").Value = stPosttype
                     oUserTable.UserFields.Fields.Item("U_Z_LEVNAME").Value = strETax
                     oUserTable.UserFields.Fields.Item("U_Z_EFFPAY").Value = strESocial
+                    oUserTable.UserFields.Fields.Item("U_Z_EFFEAR").Value = strPaid
                     oUserTable.UserFields.Fields.Item("U_Z_Type").Value = "E"
-
                     If oUserTable.Add <> 0 Then
                         oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                         Return False

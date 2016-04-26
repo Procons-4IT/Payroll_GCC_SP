@@ -1470,7 +1470,7 @@ Public Class clsPayrollLoanMgmt
                                     oGrid.DataTable.SetValue("U_Z_EMIAmount", pVal.Row, dblLoanAmt / dblNoofEMI)
                                     Try
                                         dtstart = oGrid.DataTable.GetValue("U_Z_StartDate", pVal.Row)
-                                        dtstart = dtstart.AddMonths(dblNoofEMI)
+                                        dtstart = dtstart.AddMonths(dblNoofEMI - 1)
                                         oGrid.DataTable.SetValue("U_Z_EndDate", pVal.Row, dtstart)
                                     Catch ex As Exception
 

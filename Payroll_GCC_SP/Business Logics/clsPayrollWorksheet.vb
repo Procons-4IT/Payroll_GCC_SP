@@ -1581,6 +1581,9 @@ Public Class clsPayrollWorksheet
                             End If
                             dblDays = dblDays
                         End If
+                        'If blnReJoinCycle = True Then
+                        '    dblDays = dblDays + 1
+                        'End If
                         ' dblDays = DateDiff(DateInterval.Day, dtStartdate, dtEndDate)
                         If dblDays > 31 Then
                             dblDays = 31
@@ -1699,11 +1702,11 @@ Public Class clsPayrollWorksheet
                                 'End If
                                 intNumberofWorkingDays = intNumberofWorkingDays - dblWeekEnds
                             Else
-                                If dblNoofDaysfromSEtup >= IntCaldenerDays Then
-                                    intNumberofWorkingDays = intNumberofWorkingDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
-                                Else
-                                    intNumberofWorkingDays = intNumberofWorkingDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
-                                End If
+                                'If dblNoofDaysfromSEtup >= IntCaldenerDays Then
+                                '    intNumberofWorkingDays = intNumberofWorkingDays + (dblNoofDaysfromSEtup - IntCaldenerDays)
+                                'Else
+                                '    intNumberofWorkingDays = intNumberofWorkingDays - (IntCaldenerDays - dblNoofDaysfromSEtup)
+                                'End If
                                 '  intNumberofWorkingDays = intNumberofWorkingDays - dblWeekEnds
                                 If intNumberofWorkingDays > dblNoofDaysfromSEtup Then
                                     intNumberofWorkingDays = dblNoofDaysfromSEtup
@@ -2921,7 +2924,10 @@ Public Class clsPayrollWorksheet
                                     Else
                                         If oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
                                             dblValue = dblValue / dblCalenderdays
-                                            dblValue = dblValue * dblWorkingdays
+                                            Dim dblLeaveDays As Double = getNoofLeavDaysforEarning(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+                                            dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                            dblValue = dblValue * dblLeaveDays
+                                            ' dblValue = dblValue * dblWorkingdays
                                         Else
                                             If blnEarninapplicable = False Then
                                                 'Return True
@@ -3825,6 +3831,21 @@ Public Class clsPayrollWorksheet
             oTempRec1.MoveNext()
         Next
         Return True
+    End Function
+
+    Private Function getNoofLeavDaysforEarning(aEmpID As String, aEarnCode As String, dtPayrolldate As Date, aMonth As Integer, aYear As Integer) As Double
+        Dim oRateRs As SAPbobsCOM.Recordset
+        Dim strQuery, stString As String
+        strQuery = "(Select U_Z_LEVCode from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFEAR,'N')='Y' and isnull(U_Z_Type,'E')='E' and U_Z_CODE='" & aEarnCode & "')"
+        '  stString = "select isnull(sum(U_Z_NoofDays),0),U_Z_EmpID  from [@Z_PAY_OLETRANS] where U_Z_StartDate >='" & dtPayrolldate.ToString("yyyy-MM-dd") & "' and  isnull(U_Z_OffCycle,'N')='N' and  U_Z_Trnscode in (select Code  from [@Z_PAY_LEAVE]  where isnull(U_Z_Basic,'N')='N' ) and U_Z_month=" & aMonth & " and U_Z_Year=" & aYear & " and U_Z_EmpID='" & strEmpID & "' group by U_Z_EmpID"
+        stString = "select isnull(sum(U_Z_NoofDays),0),U_Z_EmpID  from [@Z_PAY_OLETRANS] where U_Z_Trnscode in " & strQuery & " and U_Z_month=" & aMonth & " and U_Z_Year=" & aYear & " and isnull(U_Z_OffCycle,'N')='N'  and U_Z_EmpID='" & aEmpID & "' group by U_Z_EmpID"
+        oRateRs = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+        oRateRs.DoQuery(stString)
+        If oRateRs.RecordCount > 0 Then
+            Return oRateRs.Fields.Item(0).Value
+        Else
+            Return 0
+        End If
     End Function
 
     Private Function getDailyrate(ByVal aCode As String, ByVal aLeaveType As String, ByVal aBasic As Double, ByVal dtPayrollDate As Date, Optional ByVal LeaveCode As String = "") As Double
@@ -5380,7 +5401,7 @@ Public Class clsPayrollWorksheet
                 Dim blnIsTerm As Boolean = False
                 Dim dtSalaryExceedDate As Date
                 Dim dtTermDate As Date = oTempRec1.Fields.Item("U_Z_TermDate").Value
-              
+
                 Dim dtJoiningDate As Date = oTempRec1.Fields.Item("U_Z_StartDate").Value
                 Dim blnIsJoin As Boolean = False
                 Dim blnLoadClosing As Boolean = False
@@ -5481,7 +5502,7 @@ Public Class clsPayrollWorksheet
                                 blnIsKuwait = True
                             End If
                             If blnIsTerm = False Then
-                                 Dim strfieldname As String
+                                Dim strfieldname As String
                                 If blnIsKuwait = True Then
                                     If blnIsJoin = True Then
                                         strfieldname = "U_Z_Amount"
@@ -5801,7 +5822,7 @@ Public Class clsPayrollWorksheet
                         '  ousertable2.UserFields.Fields.Item("U_Z_PostType").Value = otemp2.Fields.Item("Posting").Value
                         Dim st As SAPbobsCOM.Recordset
                         Dim s As String
-                        
+
                         oDRow.Item("GLACC") = otemp2.Fields.Item(6).Value
                         oDRow.Item("PostType") = otemp2.Fields.Item("Posting").Value
 
@@ -5821,7 +5842,7 @@ Public Class clsPayrollWorksheet
                         Dim dblValue As Double = otemp2.Fields.Item(4).Value
                         Dim dblEarvalue As Double = otemp2.Fields.Item(4).Value
                         If otemp2.Fields.Item(0).Value = "C" Then
-                           
+
                             st = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
                             s = "Select isnull(U_Z_PostType,'B'),isnull(""U_Z_ProRate"",'N') from [@Z_PAY_ODED] where Code='" & otemp2.Fields.Item(1).Value & "'"
                             st.DoQuery(s)
@@ -5866,7 +5887,7 @@ Public Class clsPayrollWorksheet
                                     st.DoQuery("Select U_Z_EMIAmount 'U_Z_EMIAmount' from ""@Z_PAY15"" where isnull(""U_Z_StopIns"",'N')='N' and  ""U_Z_TrnsRefCode""='" & otemp2.Fields.Item("Code").Value & "' and ""U_Z_Status""='O' and  ""U_Z_CashPaid""='N' and  ""U_Z_Month""=" & aMonth & " and ""U_Z_Year""=" & ayear)
                                 End Try
                             End If
-                          
+
                             If st.RecordCount > 0 Then
                                 '   ousertable2.UserFields.Fields.Item("U_Z_Value").Value = st.Fields.Item("U_Z_EMIAmount").Value
                                 '   ousertable2.UserFields.Fields.Item("U_Z_EarValue").Value = st.Fields.Item("U_Z_EMIAmount").Value
@@ -7139,7 +7160,7 @@ Public Class clsPayrollWorksheet
     End Sub
 
 
-    
+
     Protected Overrides Sub Finalize()
         MyBase.Finalize()
     End Sub
