@@ -106,6 +106,21 @@ Public Class clsPayrollOffCycle
         End If
     End Function
 
+    Private Function getNoofLeavDaysforEarning_OffCycle(aEmpID As String, aEarnCode As String, dtPayrolldate As Date, aMonth As Integer, aYear As Integer) As Double
+        Dim oRateRs As SAPbobsCOM.Recordset
+        Dim strQuery, stString As String
+        strQuery = "(Select U_Z_LEVCode from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFEAR,'N')='Y' and isnull(U_Z_Type,'E')='E' and U_Z_CODE='" & aEarnCode & "')"
+        'stString = "select isnull(sum(U_Z_NoofDays),0),U_Z_EmpID  from [@Z_PAY_OLETRANS] where U_Z_StartDate >='" & dtPayrolldate.ToString("yyyy-MM-dd") & "' and  isnull(U_Z_OffCycle,'N')='N' and  U_Z_Trnscode in (select Code  from [@Z_PAY_LEAVE]  where isnull(U_Z_Basic,'N')='N' ) and U_Z_month=" & aMonth & " and U_Z_Year=" & aYear & " and U_Z_EmpID='" & strEmpID & "' group by U_Z_EmpID"
+        stString = "select isnull(sum(U_Z_NoofDays),0),U_Z_EmpID  from [@Z_PAY_OLETRANS] where U_Z_Trnscode in " & strQuery & " and U_Z_month=" & aMonth & " and isnull(U_Z_OffCycle,'N')='Y' and U_Z_Year=" & aYear & " and U_Z_EmpID='" & aEmpID & "' group by U_Z_EmpID"
+        oRateRs = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+        oRateRs.DoQuery(stString)
+        If oRateRs.RecordCount > 0 Then
+            Return oRateRs.Fields.Item(0).Value
+        Else
+            Return 0
+        End If
+    End Function
+
     Private Sub AddChooseFromList(ByVal objForm As SAPbouiCOM.Form)
         Try
 
@@ -3372,14 +3387,35 @@ Public Class clsPayrollOffCycle
                                         Else
                                             dblValue = dblValue
                                         End If
+                                        'If blnEarninapplicable = False Then
+                                        '    'Return True
+                                        '    dblValue = 0
+                                        'Else
+                                        '    dblValue = dblValue
+                                        'End If
                                     Else
                                         If oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
                                             dblValue = dblValue / dblCalenderdays
                                             Dim dblLeaveDays As Double = getNoofLeavDaysforEarning(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
-                                            dblLeaveDays = dblCalenderdays - dblLeaveDays
-                                            dblValue = dblValue * dblLeaveDays
-                                            '  dblValue = dblValue * dblWorkingdays
-                                            dblValue = dblValue
+
+                                            If blnEarninapplicable = True Then
+                                                Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+                                                If dblLeaveDays1 = 0 Then
+                                                    dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                    dblValue = dblValue * dblLeaveDays
+                                                    dblValue = dblValue
+                                                Else
+                                                    dblValue = dblValue * dblWorkingdays
+                                                End If
+                                               
+                                            Else
+                                                Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+                                                If dblLeaveDays1 = 0 Then
+                                                    dblValue = 0
+                                                Else
+                                                    dblValue = dblValue * dblWorkingdays
+                                                End If
+                                            End If
                                         Else
                                             If blnEarninapplicable = False Then
                                                 'Return True
@@ -3957,8 +3993,8 @@ Public Class clsPayrollOffCycle
 
                     stTemp = "Select ""U_Z_CODE"" from [@Z_PAY_OEAR] where  isnull(U_Z_EOS,'N')='Y'"
                     otemp2.DoQuery("Select  Sum(U_Z_Amount) from [@Z_PAYROLL22] where (""U_Z_Type"" ='A' ) and U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
-                    dblEOSEarning = otemp2.Fields.Item(0).Value
-                    dblEOSEarning = dblEOSEarning + dblEOSEarning
+                    ' dblEOSEarning = otemp2.Fields.Item(0).Value
+                    dblEOSEarning = dblEOSEarning + otemp2.Fields.Item(0).Value
 
                     'stTemp = "Select Code from [@Z_PAY_OEAR1] where  isnull(U_Z_EOS,'N')='Y'"
                     'otemp2.DoQuery("Select Sum(U_Z_EarValue) from [@Z_PAYROLL2] where U_Z_Field in (" & stTemp & ") and  U_Z_RefCode='" & strPayrollRefNo & "'")
