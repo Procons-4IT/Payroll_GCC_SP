@@ -19,6 +19,7 @@ Public NotInheritable Class clsTable
             oUserTablesMD = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oUserTables)
             'Adding Table
             If Not oUserTablesMD.GetByKey(strTab) Then
+                oUserTablesMD = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oUserTables)
                 oUserTablesMD.TableName = strTab
                 oUserTablesMD.TableDescription = strDesc
                 oUserTablesMD.TableType = nType
@@ -1930,6 +1931,16 @@ Public NotInheritable Class clsTable
 
 
             addField("@Z_OADM", "Z_Currency", "Posting Currency", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "L,S", "Local Currency,System Currency", "L")
+
+            'additional fields aded in Payroll1 -2016-07-13
+
+            AddFields("Z_PAYROLL1", "Z_TotFEarning", "Total fixed Earnings", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_PAYROLL1", "Z_TotVEarning", "Total Variable Earnings", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_PAYROLL1", "Z_TotFDeduction", "Total fixed Deductions", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_PAYROLL1", "Z_TotVDeduction", "Total Variable Deductions", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_PAYROLL1", "Z_TotAccrued", "Total Accrued Allowance", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+
+            addField("@Z_PAY_OCON", "Z_Postable", "Postable", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
 
             CreateUDO()
             oApplication.Utilities.Message("Initializing Database...", SAPbouiCOM.BoStatusBarMessageType.smt_Warning)

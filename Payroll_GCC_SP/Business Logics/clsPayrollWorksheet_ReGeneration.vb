@@ -383,7 +383,7 @@ Public Class clsPayrollWorksheet_ReGeneration
                 If 1 = 1 Then
                     '  strsql = "SELECT T0.[Code], T0.[Name], T0.[U_Z_RefCode], T0.[U_Z_PersonalID], T0.[U_Z_TANO] 'TANO',T0.[U_Z_empid], T0.[U_Z_EmpName], T0.[U_Z_JobTitle], T0.[U_Z_Department], T0.[U_Z_TermName] 'Contract Term', T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary], T0.[U_Z_MonthlyBasic],T0.[U_Z_SalaryType], T0.[U_Z_CostCentre], T0.[U_Z_Earning], T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave], T0.[U_Z_Contri], T0.[U_Z_AirAmt], ""U_Z_NetPayAmt"",""U_Z_CmpPayAmt"", T0.[U_Z_AcrAmt] ,T0.[U_Z_AcrAirAmt], T0.[U_Z_Cost], T0.[U_Z_NetSalary], T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo], T0.[U_Z_EOSYTD] ,T0.[U_Z_EOSBalance],T0.[U_Z_EOS], T0.[U_Z_CompNo], T0.[U_Z_Branch], T0.[U_Z_Dept],T0.""U_Z_EOS1"",T0.""U_Z_Leave"",T0.""U_Z_Ticket"",T0.""U_Z_Saving"",T0.""U_Z_PaidExtraSalary"" FROM [dbo].[@Z_PAYROLL1]  T0 where T0.U_Z_RefCode='" & strrefcode & "'"
 
-                    strsql = "SELECT T0.[Code], T0.[Name],T0.[U_Z_TANO] 'TANO',T0.[U_Z_empid], T0.[U_Z_EmpName], Case T0.""U_Z_OnHold"" when 'H' then 'On Hold' else 'Active' end ""Status"", T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary], T0.[U_Z_MonthlyBasic],T0.[U_Z_Cost], T0.[U_Z_NetSalary], isnull(T0.U_Z_MonthlyBasic,0) + isnull(T0.U_Z_Earning,0)  'GrossSalary',T0.[U_Z_Earning], T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave],T0.""U_Z_CashOutAmt"", T0.[U_Z_Contri], T0.[U_Z_AirAmt], ""U_Z_NetPayAmt"",""U_Z_CmpPayAmt"", T0.[U_Z_AcrAmt] ,T0.[U_Z_AcrAirAmt], T0.[U_Z_EOSYTD] ,T0.[U_Z_EOSBalance],T0.[U_Z_EOS],T0.U_Z_WorkingDays1, T0.[U_Z_CalenderDays] 'Working Days of month',T0.[U_Z_TotalLeave] 'Leave Utilized ',T0.[U_Z_ActWork] 'Total Worked days',T0.[U_Z_RefCode], T0.[U_Z_PersonalID],  T0.[U_Z_JobTitle], T0.[U_Z_Department],T0.[U_Z_EmpBranch], T0.[U_Z_TermName] 'Contract Term', T0.[U_Z_SalaryType], T0.[U_Z_CostCentre],  T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo],  T0.[U_Z_CompNo], T0.[U_Z_Branch], T0.[U_Z_Dept],T0.""U_Z_EOS1"",T0.""U_Z_Leave"",T0.""U_Z_Ticket"",T0.""U_Z_Saving"",T0.""U_Z_PaidExtraSalary"",T0.""U_Z_GOVAMT"" 'Social Gov.Amt' FROM [dbo].[@Z_PAYROLL1]  T0 where " & strEmpSelection & " and  T0.U_Z_RefCode='" & strrefcode & "'"
+                    strsql = "SELECT T0.[Code], T0.[Name],T0.[U_Z_TANO] 'TANO',T0.[U_Z_empid], T0.[U_Z_EmpName], Case T0.""U_Z_OnHold"" when 'H' then 'On Hold' else 'Active' end ""Status"", T0.[U_Z_Basic], T0.[U_Z_InrAmt], T0.[U_Z_BasicSalary], T0.[U_Z_MonthlyBasic],T0.[U_Z_Cost], T0.[U_Z_NetSalary], isnull(T0.U_Z_MonthlyBasic,0) + isnull(T0.U_Z_Earning,0)  'GrossSalary', ""U_Z_TotFEarning"",""U_Z_TotVEarning"",T0.[U_Z_Earning],""U_Z_TotAccrued"" , ""U_Z_TotFDeduction""  ,""U_Z_TotVDeduction""  , T0.[U_Z_Deduction], T0.[U_Z_UnPaidLeave], T0.[U_Z_PaidLeave], T0.[U_Z_AnuLeave],T0.""U_Z_CashOutAmt"", T0.[U_Z_Contri], T0.[U_Z_AirAmt], ""U_Z_NetPayAmt"",""U_Z_CmpPayAmt"", T0.[U_Z_AcrAmt] ,T0.[U_Z_AcrAirAmt], T0.[U_Z_EOSYTD] ,T0.[U_Z_EOSBalance],T0.[U_Z_EOS],T0.U_Z_WorkingDays1, T0.[U_Z_CalenderDays] 'Working Days of month',T0.[U_Z_TotalLeave] 'Leave Utilized ',T0.[U_Z_ActWork] 'Total Worked days',T0.[U_Z_RefCode], T0.[U_Z_PersonalID],  T0.[U_Z_JobTitle], T0.[U_Z_Department],T0.[U_Z_EmpBranch], T0.[U_Z_TermName] 'Contract Term', T0.[U_Z_SalaryType], T0.[U_Z_CostCentre],  T0.[U_Z_Startdate], T0.[U_Z_TermDate], T0.[U_Z_JVNo],  T0.[U_Z_CompNo], T0.[U_Z_Branch], T0.[U_Z_Dept],T0.""U_Z_EOS1"",T0.""U_Z_Leave"",T0.""U_Z_Ticket"",T0.""U_Z_Saving"",T0.""U_Z_PaidExtraSalary"",T0.""U_Z_GOVAMT"" 'Social Gov.Amt' FROM [dbo].[@Z_PAYROLL1]  T0 where " & strEmpSelection & " and  T0.U_Z_RefCode='" & strrefcode & "'"
                     oGrid.DataTable.ExecuteQuery(strsql)
                     Formatgrid(oGrid, "Payroll")
                     oApplication.Utilities.assignMatrixLineno_Payroll(oGrid, aForm)
@@ -605,10 +605,37 @@ Public Class clsPayrollWorksheet_ReGeneration
                 oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
                 agrid.Columns.Item("U_Z_SalaryType").TitleObject.Caption = "Salary Type"
                 agrid.Columns.Item("U_Z_CostCentre").TitleObject.Caption = "Cost Center"
-                agrid.Columns.Item("U_Z_Earning").TitleObject.Caption = "Earnings"
+
+
+                agrid.Columns.Item("U_Z_TotFEarning").TitleObject.Caption = "Fixed Earnings"
+                oEditTextColumn = oGrid.Columns.Item("U_Z_TotFEarning")
+                oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
+
+
+                agrid.Columns.Item("U_Z_TotVEarning").TitleObject.Caption = "Variable Earnings"
+                oEditTextColumn = oGrid.Columns.Item("U_Z_TotVEarning")
+                oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
+
+
+                agrid.Columns.Item("U_Z_TotFDeduction").TitleObject.Caption = "Fixed Deductions"
+                oEditTextColumn = oGrid.Columns.Item("U_Z_TotFDeduction")
+                oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
+
+
+                agrid.Columns.Item("U_Z_TotVDeduction").TitleObject.Caption = "Variable Deductions"
+                oEditTextColumn = oGrid.Columns.Item("U_Z_TotVDeduction")
+                oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
+
+
+                agrid.Columns.Item("U_Z_TotAccrued").TitleObject.Caption = "Total Accruals"
+                oEditTextColumn = oGrid.Columns.Item("U_Z_TotAccrued")
+                oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
+
+
+                agrid.Columns.Item("U_Z_Earning").TitleObject.Caption = "Total  Earnings"
                 oEditTextColumn = oGrid.Columns.Item("U_Z_Earning")
                 oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
-                agrid.Columns.Item("U_Z_Deduction").TitleObject.Caption = "Deduction"
+                agrid.Columns.Item("U_Z_Deduction").TitleObject.Caption = "Total Deduction"
                 oEditTextColumn = oGrid.Columns.Item("U_Z_Deduction")
                 oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
                 agrid.Columns.Item("U_Z_UnPaidLeave").TitleObject.Caption = "UnPaid Leave"
@@ -5688,12 +5715,12 @@ Public Class clsPayrollWorksheet_ReGeneration
 
                     'new addion 17-12-2013
 
-                    stEarning = stEarning & " Union    select 'C' 'Type',T0.Code,T0.Name,1,sum(T1.U_Z_Amount) ,0.0000, T0.U_Z_DED_GLACC  ,'C' 'Posting'  from [@Z_PAY_ODED]  T0 Left Outer Join [@Z_PAY_TRANS] T1 on T1.U_Z_TrnsCode =T0.Code  where isnull(T1.U_Z_Posted,'N')='N' and isnull(T1.U_Z_OffTool,'N')='N' and  T1.U_Z_Type='D' and t1.U_Z_EmpID='" & strempID & "'  and U_Z_MOnth =" & aMonth & " and U_Z_Year=" & ayear & "  group by T0.Code,T0.Name, T0.U_Z_DED_GLACC"
+                    stEarning = stEarning & " Union    select 'T' 'Type',T0.Code,T0.Name,1,sum(T1.U_Z_Amount) ,0.0000, T0.U_Z_DED_GLACC  ,'C' 'Posting'  from [@Z_PAY_ODED]  T0 Left Outer Join [@Z_PAY_TRANS] T1 on T1.U_Z_TrnsCode =T0.Code  where isnull(T1.U_Z_Posted,'N')='N' and isnull(T1.U_Z_OffTool,'N')='N' and  T1.U_Z_Type='D' and t1.U_Z_EmpID='" & strempID & "'  and U_Z_MOnth =" & aMonth & " and U_Z_Year=" & ayear & "  group by T0.Code,T0.Name, T0.U_Z_DED_GLACC"
 
                     'New Addiotn 2014-07-21 to add Deduction from OffCycle Tool Earning
 
 
-                    stEarning = stEarning & " Union    select 'C' 'Type',T0.Code,T0.Name,1,sum(T1.U_Z_Amount) ,0.0000, T0.U_Z_DED_GLACC  ,'C' 'Posting'  from [@Z_PAY_OEAR1]  T0 Left Outer Join [@Z_PAY_TRANS] T1 on T1.U_Z_TrnsCode =T0.Code  where isnull(T1.U_Z_OffTool,'N')='Y' and  T1.U_Z_Type='E' and T1.U_Z_Posted='Y' and t1.U_Z_EmpID='" & strempID & "'  and T1.U_Z_AffDedu='Y' and  U_Z_DedMonth =" & aMonth & " and U_Z_DedYear=" & ayear & "  group by T0.Code,T0.Name, T0.U_Z_DED_GLACC"
+                    stEarning = stEarning & " Union    select 'T' 'Type',T0.Code,T0.Name,1,sum(T1.U_Z_Amount) ,0.0000, T0.U_Z_DED_GLACC  ,'C' 'Posting'  from [@Z_PAY_OEAR1]  T0 Left Outer Join [@Z_PAY_TRANS] T1 on T1.U_Z_TrnsCode =T0.Code  where isnull(T1.U_Z_OffTool,'N')='Y' and  T1.U_Z_Type='E' and T1.U_Z_Posted='Y' and t1.U_Z_EmpID='" & strempID & "'  and T1.U_Z_AffDedu='Y' and  U_Z_DedMonth =" & aMonth & " and U_Z_DedYear=" & ayear & "  group by T0.Code,T0.Name, T0.U_Z_DED_GLACC"
 
                     otemp2.DoQuery(stEarning)
 
@@ -6066,7 +6093,7 @@ Public Class clsPayrollWorksheet_ReGeneration
 
                         Dim dblValue As Double = otemp2.Fields.Item(4).Value
                         Dim dblEarvalue As Double = otemp2.Fields.Item(4).Value
-                        If otemp2.Fields.Item(0).Value = "C" Then
+                        If otemp2.Fields.Item(0).Value = "C" Or otemp2.Fields.Item(0).Value = "T" Then
 
                             st = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
                             s = "Select isnull(U_Z_PostType,'B'),isnull(""U_Z_ProRate"",'N') from [@Z_PAY_ODED] where Code='" & otemp2.Fields.Item(1).Value & "'"

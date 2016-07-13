@@ -177,7 +177,7 @@ Public Class clsPayrolLDetails
                 oGrid = aform.Items.Item("7").Specific
                 ' oGrid.DataTable.ExecuteQuery("Select  U_Z_BasicSalary,U_Z_Earning,U_Z_Deduction,U_Z_UnPaidLeave,U_Z_PaidLeave,U_Z_AnuLeave,U_Z_Contri,U_Z_Cost,U_Z_NetSalary,U_Z_AirAmt from [@Z_Payroll1] where code='" & aCode & "'")
                 Dim s As String
-                s = "Select  ""U_Z_MonthlyBasic"",""U_Z_Earning"",""U_Z_Deduction"",""U_Z_UnPaidLeave"",""U_Z_PaidLeave"",""U_Z_AnuLeave"",""U_Z_CashOutAmt"",""U_Z_Contri"",""U_Z_AirAmt"", ""U_Z_NetPayAmt"",""U_Z_CmpPayAmt"",""U_Z_Cost"",""U_Z_NetSalary"",""Code"",T0.""U_Z_EOS1"",T0.""U_Z_Leave"",T0.""U_Z_Ticket"",T0.""U_Z_Saving"" ,T0.""U_Z_PaidExtraSalary""  from [@Z_Payroll1] T0 where code='" & aCode & "'"
+                s = "Select  ""U_Z_MonthlyBasic"",""U_Z_TotFEarning"" ""Fixed Earnings"",""U_Z_TotVEarning"" ""Variable Earnings"", ""U_Z_Earning"", ""U_Z_TotAccrued"" ""Total Accrued"", ""U_Z_TotFDeduction"" ""Fixed Deductions"",""U_Z_TotVDeduction"" ""Variable Deductions"", ""U_Z_Deduction"",""U_Z_UnPaidLeave"",""U_Z_PaidLeave"",""U_Z_AnuLeave"",""U_Z_CashOutAmt"",""U_Z_Contri"",""U_Z_AirAmt"", ""U_Z_NetPayAmt"",""U_Z_CmpPayAmt"",""U_Z_Cost"",""U_Z_NetSalary"",""Code"",T0.""U_Z_EOS1"",T0.""U_Z_Leave"",T0.""U_Z_Ticket"",T0.""U_Z_Saving"" ,T0.""U_Z_PaidExtraSalary""  from [@Z_Payroll1] T0 where code='" & aCode & "'"
                 oGrid.DataTable.ExecuteQuery(s)
                 oGrid = aform.Items.Item("11").Specific
                 oGrid.DataTable.ExecuteQuery("Select * from [@Z_PAYROLL2] where U_Z_RefCode='" & aCode & "' and (""U_Z_Type""<>'B' and ""U_Z_TYPE""<>'F'and ""U_Z_TYPE""<>'E')")

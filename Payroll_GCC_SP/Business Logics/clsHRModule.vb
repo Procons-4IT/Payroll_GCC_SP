@@ -3388,7 +3388,7 @@ Public Class clsHRModule
                     If oGrid.DataTable.GetValue("U_Z_GLACC1", intRow) = "" Then
                         oUserTable.UserFields.Fields.Item("U_Z_GLACC1").Value = GLCODE("[@Z_PAY_OCON]", "Code", strType, "U_Z_CON_GLACC1") 'oGrid.DataTable.GetValue(5, intRow)
                     Else
-                        oUserTable.UserFields.Fields.Item("U_Z_GLACC1").Value = oGrid.DataTable.GetValue("U_Z_GLACC", intRow)
+                        oUserTable.UserFields.Fields.Item("U_Z_GLACC1").Value = oGrid.DataTable.GetValue("U_Z_GLACC1", intRow)
 
                     End If
                     If strstDate <> "" Then
@@ -3421,7 +3421,7 @@ Public Class clsHRModule
                     If oGrid.DataTable.GetValue("U_Z_GLACC1", intRow) = "" Then
                         oUserTable.UserFields.Fields.Item("U_Z_GLACC1").Value = GLCODE("[@Z_PAY_OCON]", "Code", strType, "U_Z_CON_GLACC1") 'oGrid.DataTable.GetValue(5, intRow)
                     Else
-                        oUserTable.UserFields.Fields.Item("U_Z_GLACC1").Value = oGrid.DataTable.GetValue("U_Z_GLACC", intRow)
+                        oUserTable.UserFields.Fields.Item("U_Z_GLACC1").Value = oGrid.DataTable.GetValue("U_Z_GLACC1", intRow)
 
                     End If
                     If strstDate <> "" Then

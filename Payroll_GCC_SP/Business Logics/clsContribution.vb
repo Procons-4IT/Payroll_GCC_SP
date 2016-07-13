@@ -75,7 +75,7 @@ Public Class clsContribution
             aform.Freeze(True)
             oGrid = aform.Items.Item("5").Specific
             dtTemp = oGrid.DataTable
-            oGrid.DataTable.ExecuteQuery("Select   ""Code"",""Name"",""U_Z_FrgnName"",""U_Z_CON_GLACC"",""U_Z_CON_GLACC1"",""U_Z_PostType"" from [@Z_PAY_OCON] order by Code")
+            oGrid.DataTable.ExecuteQuery("Select   ""Code"",""Name"",""U_Z_FrgnName"",""U_Z_CON_GLACC"",""U_Z_CON_GLACC1"",""U_Z_PostType"",""U_Z_Postable"" from [@Z_PAY_OCON] order by Code")
             ' oGrid.DataTable = dtTemp
             Formatgrid(oGrid)
             oApplication.Utilities.assignMatrixLineno(oGrid, aform)
@@ -110,7 +110,8 @@ Public Class clsContribution
         oEditTextColumn.ChooseFromListUID = "CFL2"
         oEditTextColumn.ChooseFromListAlias = "FormatCode"
         oEditTextColumn.LinkedObjectType = "1"
-
+        agrid.Columns.Item("U_Z_Postable").Type = SAPbouiCOM.BoGridColumnType.gct_CheckBox
+        agrid.Columns.Item("U_Z_Postable").TitleObject.Caption = "Postable"
         agrid.AutoResizeColumns()
         agrid.SelectionMode = SAPbouiCOM.BoMatrixSelect.ms_Single
     End Sub
@@ -147,8 +148,8 @@ Public Class clsContribution
 #Region "AddtoUDT"
     Private Function AddtoUDT1(ByVal aform As SAPbouiCOM.Form) As Boolean
         Dim oUserTable As SAPbobsCOM.UserTable
-        Dim strCode, strECode, strEname, strGLacc, strGLAcc1 As String
-
+        Dim strCode, strECode, strEname, strGLacc, strGLAcc1, strPostable As String
+        Dim oCheckBoxcolumn As SAPbouiCOM.CheckBoxColumn
         oGrid = aform.Items.Item("5").Specific
         If validation(oGrid) = False Then
             Return False
@@ -161,7 +162,12 @@ Public Class clsContribution
                 strEname = oGrid.DataTable.GetValue("Name", intRow)
                 strGLacc = oGrid.DataTable.GetValue("U_Z_CON_GLACC", intRow)
                 strGLAcc1 = oGrid.DataTable.GetValue("U_Z_CON_GLACC1", intRow)
-
+                oCheckBoxcolumn = oGrid.Columns.Item("U_Z_Postable")
+                If oCheckBoxcolumn.IsChecked(intRow) = True Then
+                    strPostable = "Y"
+                Else
+                    strPostable = "N"
+                End If
 
                 Dim stPosttype As String
                 oComboColumn = oGrid.Columns.Item("U_Z_PostType")
@@ -178,6 +184,7 @@ Public Class clsContribution
                     oUserTable.UserFields.Fields.Item("U_Z_CON_GLACC").Value = strGLacc
                     oUserTable.UserFields.Fields.Item("U_Z_CON_GLACC1").Value = strGLacc1
                     oUserTable.UserFields.Fields.Item("U_Z_PostType").Value = stPosttype
+                    oUserTable.UserFields.Fields.Item("U_Z_Postable").Value = strPostable
                     If oUserTable.Update <> 0 Then
                         oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                         Return False
@@ -193,6 +200,7 @@ Public Class clsContribution
                     oUserTable.UserFields.Fields.Item("U_Z_CON_GLACC").Value = strGLacc
                     oUserTable.UserFields.Fields.Item("U_Z_CON_GLACC1").Value = strGLacc1
                     oUserTable.UserFields.Fields.Item("U_Z_PostType").Value = stPosttype
+                    oUserTable.UserFields.Fields.Item("U_Z_Postable").Value = strPostable
                     If oUserTable.Add <> 0 Then
                         oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                         Return False
