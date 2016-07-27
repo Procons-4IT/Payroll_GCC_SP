@@ -324,7 +324,6 @@ Public Class clsPayrollWorksheet
             If oPayrec.RecordCount > 0 Then
                 If oApplication.SBO_Application.MessageBox("WorkSheet already Generated for the selected period . Do you want to regenerate the worksheet ? ", , "Yes", "No") = 1 Then
                     ResetPayrollWorksheet(intYear, intMonth, strCompany)
-                    'oPayrec.DoQuery("Select * from [@Z_PAYROLL] where U_Z_CompNo='" & strCompany & "' and  U_Z_YEAR=" & intYear & " and U_Z_MONTH=" & intMonth)
                 End If
             End If
             aForm.Freeze(False)
@@ -337,24 +336,6 @@ Public Class clsPayrollWorksheet
             oPayrec.DoQuery("Select * from [@Z_PAYROLL] where isnull(U_Z_OffCycle,'N')='N' and  U_Z_CompNo='" & strCompany & "' and  U_Z_YEAR=" & intYear & " and U_Z_MONTH=" & intMonth)
             If oPayrec.RecordCount <= 0 Then
                 strPayrollcode = AddtoPayroll(intYear, intMonth, strCompany)
-                'If strPayrollcode <> "" Then
-                '    If AddPayRoll1(strPayrollcode, intYear, intMonth, strCompany, aForm) = True Then
-                '        If 1 = 1 Then 'Addearning(strPayrollcode, intYear, intMonth, aForm) = True Then
-                '            If 1 = 1 Then 'AddDeduction(strPayrollcode, intYear, intMonth, aForm) Then
-                '                If 1 = 1 Then ' AddContribution(strPayrollcode, intYear, intMonth, aForm) Then
-                '                    If 1 = 1 Then 'AddLeaveDetails(strPayrollcode, intYear, intMonth, aForm) Then
-                '                        If 1 = 1 Then 'UpdatePayRoll1(strPayrollcode, intYear, intMonth, strCompany) Then
-                '                            If 1 = 1 Then 'oApplication.Utilities.CalculateSavingScheme(intYear, intMonth, strPayrollcode) Then
-                '                                oApplication.Utilities.UpdatePayrollTotal_Payroll(intMonth, intYear, strPayrollcode)
-                '                            End If
-                '                        End If
-                '                    End If
-                '                End If
-                '            End If
-                '        End If
-                '    End If
-                'End If
-
                 If strPayrollcode <> "" Then
                     If AddPayRoll1(strPayrollcode, intYear, intMonth, strCompany, aForm) = True Then
                         If Addearning_Emp(strPayrollcode, intYear, intMonth, aForm) = True Then
@@ -364,7 +345,6 @@ Public Class clsPayrollWorksheet
                                         If AddProjects_Emp(strPayrollcode, intYear, intMonth, aForm) Then
                                             If UpdatePayRoll1_Emp(strPayrollcode, intYear, intMonth, strCompany, aForm) Then
                                                 If oApplication.Utilities.CalculateSavingScheme(intYear, intMonth, strPayrollcode, "Regular") Then
-                                                    ' oApplication.Utilities.UpdatePayrollTotal_Payroll(intMonth, intYear, strPayrollcode)
                                                     oStaticText = aForm.Items.Item("28").Specific
                                                     oStaticText.Caption = "Finalizing Payroll Worksheet"
                                                     oApplication.Utilities.UpdatePayrollTotal_Payroll_Employee(intMonth, intYear, strPayrollcode, "2")
@@ -1443,6 +1423,12 @@ Public Class clsPayrollWorksheet
                         End If
                         'End New Additon
 
+                        If blnReJoinCycle = True Then
+                            oUserTable1.UserFields.Fields.Item("U_Z_IsRejoin").Value = "Y"
+                        Else
+                            oUserTable1.UserFields.Fields.Item("U_Z_IsRejoin").Value = "N"
+                        End If
+
                         If blnOnlyAccrual = True Then
                             If blnAcrCurrentMonth = True Then
                                 blnDedApplicable = False
@@ -2421,6 +2407,8 @@ Public Class clsPayrollWorksheet
                 blnSaving = False
                 blnExtraSalary = False
                 Dim dtJoinDt As Date
+                Dim blnRejoin As String = oTempRec1.Fields.Item("U_Z_IsRejoin").Value
+
                 dtJoinDt = oTempRec1.Fields.Item("U_Z_Startdate").Value
                 If Month(dtJoinDt) = aMonth And Year(dtJoinDt) = ayear Then
                     blnNewJoiny = True
@@ -2954,7 +2942,7 @@ Public Class clsPayrollWorksheet
                                         dblValue = dblValue + dblInc
                                     End If
                                     If blnNewJoiny = True Then
-                                        If oTst.Fields.Item(1).Value = "Y" Then
+                                        If oTst.Fields.Item(1).Value = "Y" Or oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
                                             dblValue = dblValue / dblCalenderdays
                                             dblValue = dblValue * dblWorkingdays
                                         Else
@@ -2967,17 +2955,24 @@ Public Class clsPayrollWorksheet
                                             If blnEarninapplicable = True Then
                                                 Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
                                                 If dblLeaveDays1 = 0 Then
-                                                    dblLeaveDays = dblCalenderdays - dblLeaveDays
-                                                    dblValue = dblValue * dblLeaveDays
-                                                    dblValue = dblValue
+                                                    If blnRejoin = "Y" Then
+                                                        dblValue = dblValue * dblWorkingdays
+                                                    Else
+                                                        Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
+                                                        'dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                        dblLeaveDays = dbcal - dblLeaveDays
+                                                        dblValue = dblValue * dblLeaveDays
+                                                        dblValue = dblValue
+                                                    End If
+                                                  
                                                 Else
                                                     dblValue = dblValue * dblWorkingdays
                                                 End If
                                             Else
                                                 Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
                                                 If dblLeaveDays1 = 0 Then
-                                                    ' dblValue = 0
-                                                    dblValue = dblValue * dblWorkingdays
+                                                    dblValue = 0
+                                                    ' dblValue = dblValue * dblWorkingdays
                                                 Else
                                                     dblValue = dblValue * dblWorkingdays
                                                 End If

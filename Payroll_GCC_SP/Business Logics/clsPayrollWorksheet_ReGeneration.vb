@@ -1679,6 +1679,11 @@ Public Class clsPayrollWorksheet_ReGeneration
                         End If
                         'End newly added for accural posting 2013-01-03
 
+                        If blnReJoinCycle = True Then
+                            oUserTable1.UserFields.Fields.Item("U_Z_IsRejoin").Value = "Y"
+                        Else
+                            oUserTable1.UserFields.Fields.Item("U_Z_IsRejoin").Value = "N"
+                        End If
                         'Newly added for Payroll Start Date
                         If blnOnlyAccrual = False Then
                             oUserTable1.UserFields.Fields.Item("U_Z_PayStart").Value = dtPayStartDate
@@ -2637,6 +2642,8 @@ Public Class clsPayrollWorksheet_ReGeneration
                 blnSaving = False
                 blnExtraSalary = False
                 Dim dtJoinDt As Date
+                Dim blnRejoin As String = oTempRec1.Fields.Item("U_Z_IsRejoin").Value
+
                 dtJoinDt = oTempRec1.Fields.Item("U_Z_Startdate").Value
                 If Month(dtJoinDt) = aMonth And Year(dtJoinDt) = ayear Then
                     blnNewJoiny = True
@@ -3154,9 +3161,6 @@ Public Class clsPayrollWorksheet_ReGeneration
                                 Else
                                     blnEarningapply = False
                                 End If
-
-
-
                                 If otemp2.Fields.Item(0).Value = "D" Then
                                     stString = " select * from [@Z_PAY21] where U_Z_EmpID='" & strempID & "' and U_Z_AllCode='" & strEarnCode & "'  and '" & dtPayrollDate.ToString("yyyy-MM-dd") & "'>=U_Z_StartDate order by  U_Z_StartDate Desc  "
                                     otemp3.DoQuery(stString)
@@ -3170,9 +3174,8 @@ Public Class clsPayrollWorksheet_ReGeneration
                                         dblEarValue = dblEarValue + dblInc
                                         dblValue = dblValue + dblInc
                                     End If
-
                                     If blnNewJoiny = True Then
-                                        If oTst.Fields.Item(1).Value = "Y" Then
+                                        If oTst.Fields.Item(1).Value = "Y" Or oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
                                             dblValue = dblValue / dblCalenderdays
                                             dblValue = dblValue * dblWorkingdays
                                         Else
@@ -3182,20 +3185,40 @@ Public Class clsPayrollWorksheet_ReGeneration
                                         If oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
                                             dblValue = dblValue / dblCalenderdays
                                             Dim dblLeaveDays As Double = getNoofLeavDaysforEarning(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
-                                            dblLeaveDays = dblCalenderdays - dblLeaveDays
-                                            dblValue = dblValue * dblLeaveDays
-                                            '  dblValue = dblValue * dblWorkingdays
+                                            If blnEarninapplicable = True Then
+                                                Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+                                                If dblLeaveDays1 = 0 Then
+                                                    If blnRejoin = "Y" Then
+                                                        dblValue = dblValue * dblWorkingdays
+                                                    Else
+                                                        '  dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                        Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
+                                                        'dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                        dblLeaveDays = dbcal - dblLeaveDays
+                                                        dblValue = dblValue * dblLeaveDays
+                                                        dblValue = dblValue
+                                                    End If
+
+                                                Else
+                                                    dblValue = dblValue * dblWorkingdays
+                                                End If
+                                            Else
+                                                Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+                                                If dblLeaveDays1 = 0 Then
+                                                    dblValue = 0
+                                                Else
+                                                    dblValue = dblValue * dblWorkingdays
+                                                End If
+                                            End If
                                         Else
                                             If blnEarninapplicable = False Then
-                                                'Return True
                                                 dblValue = 0
                                             Else
                                                 dblValue = dblValue
                                             End If
-
-
                                         End If
                                     End If
+
                                 Else
                                     dblValue = dblValue
                                 End If
@@ -3213,63 +3236,39 @@ Public Class clsPayrollWorksheet_ReGeneration
                                 dblValue = otemp2.Fields.Item(4).Value
                                 dblOverTimeRate = otemp2.Fields.Item(3).Value
                             End If
-                            ' ousertable2.UserFields.Fields.Item("U_Z_Value").Value = dblValue ' dotemp2.Fields.Item(4).Value
-                            ' ousertable2.UserFields.Fields.Item("U_Z_EarValue").Value = dblEarValue
                             oDRow.Item("Value") = dblValue
                             oDRow.Item("EarValue") = dblEarValue
                         End If
-                        '  ousertable2.UserFields.Fields.Item("U_Z_Rate").Value = dblOverTimeRate ' otemp2.Fields.Item(3).Value
                         oDRow.Item("Rate") = dblOverTimeRate
                         If otemp2.Fields.Item(0).Value = "B" Then
                             Dim oOvGL As SAPbobsCOM.Recordset
                             oOvGL = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
                             oOvGL.DoQuery("Select isnull(U_Z_OVGL,'') from OHEM where empID=" & strempID)
                             If oOvGL.Fields.Item(0).Value <> "" Then
-                                '   ousertable2.UserFields.Fields.Item("U_Z_GLACC").Value = oOvGL.Fields.Item(0).Value
                                 oDRow.Item("GLACC") = oOvGL.Fields.Item(0).Value
                             Else
-                                '   ousertable2.UserFields.Fields.Item("U_Z_GLACC").Value = otemp2.Fields.Item(6).Value
                                 oDRow.Item("GLACC") = otemp2.Fields.Item(6).Value
                             End If
 
                         Else
-                            '     ousertable2.UserFields.Fields.Item("U_Z_GLACC").Value = otemp2.Fields.Item(6).Value
                             oDRow.Item("GLACC") = otemp2.Fields.Item(6).Value
                         End If
 
-                        ' ousertable2.UserFields.Fields.Item("U_Z_PostType").Value = otemp2.Fields.Item("Posting").Value
+
                         oDRow.Item("PostType") = otemp2.Fields.Item("Posting").Value
-                        'If blnEarningapply = True Then
-                        '    If strCustomerCode = "" Then
-                        '        ousertable2.UserFields.Fields.Item("U_Z_CardCode").Value = ""
-                        '    Else
-                        '        ousertable2.UserFields.Fields.Item("U_Z_CardCode").Value = strCustomerCode
-                        '    End If
-                        'Else
-                        '    ousertable2.UserFields.Fields.Item("U_Z_CardCode").Value = ""
-                        'End If
+                     
                         If blnEarningapply = True Then
                             If strCustomerCode = "" Then
                                 '   ousertable2.UserFields.Fields.Item("U_S_PCardCode").Value = ""
                                 oDRow.Item("CardCode") = ""
                             Else
-                                '  ousertable2.UserFields.Fields.Item("U_S_PCardCode").Value = strCustomerCode
                                 oDRow.Item("CardCode") = strCustomerCode
                             End If
                         Else
-                            ' ousertable2.UserFields.Fields.Item("U_S_PCardCode").Value = ""
                             oDRow.Item("CardCode") = ""
                         End If
                         ds.Tables.Item("Earning").Rows.Add(oDRow)
-                        'If ousertable2.Add <> 0 Then
-                        '    oApplication.Utilities.Message(oApplication.Company.GetLastErrorDescription, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
-                        '    'If oApplication.Company.InTransaction Then
-                        '    '    oApplication.Company.EndTransaction(SAPbobsCOM.BoWfTransOpt.wf_RollBack)
-                        '    'End If
-                        '    System.Runtime.InteropServices.Marshal.ReleaseComObject(ousertable2)
-                        '    Return False
-                        'End If
-                        'System.Runtime.InteropServices.Marshal.ReleaseComObject(ousertable2)
+                      
                         otemp2.MoveNext()
                     Next
                 End If
@@ -3277,33 +3276,11 @@ Public Class clsPayrollWorksheet_ReGeneration
             Next
             Dim Rfc4180Writer As System.IO.TextWriter
 
-            'Using writer As StreamWriter = New StreamWriter("C:\Temp\dump.csv")
-            '    Rfc4180Writer.WriteDataTable(ds.Tables.Item("Earning"), writer, True)
-            'End Using
-
             Dim strString As String
             strString = getXMLstring(ds.Tables.Item("Earning"))
             strString = strString.Replace("<Worksheet xmlns=""http://tempuri.org/Worksheet.xsd"">", "<Worksheet>")
             Dim st1 As String = "Exec [Insert_EarningDetails] '" + strString + "'"
             otemp2.DoQuery("Exec [Insert_EarningDetails] '" + strString + "'")
-            'For Each intRow As DataRow In ds.Tables.Item("Earning").Rows
-            '    ousertable2 = oApplication.Company.UserTables.Item("S_PWRSTEA")
-            '    strCode = oApplication.Utilities.getMaxCode("@S_PWRSTEA", "Code")
-            '    ousertable2.Code = strCode
-            '    ousertable2.Name = strCode & "N"
-            '    ousertable2.UserFields.Fields.Item("U_S_PRefCode").Value = intRow.Item("RefCode")
-            '    ousertable2.UserFields.Fields.Item("U_S_PType").Value = intRow.Item("Type")
-            '    ousertable2.UserFields.Fields.Item("U_S_PField").Value = intRow.Item("Field")
-            '    ousertable2.UserFields.Fields.Item("U_S_PFieldName").Value = intRow.Item("FieldName")
-            '    ousertable2.UserFields.Fields.Item("U_S_PRate").Value = intRow.Item("Rate")
-            '    ousertable2.UserFields.Fields.Item("U_S_PValue").Value = intRow.Item("Value")
-            '    ousertable2.UserFields.Fields.Item("U_S_PPostType").Value = intRow.Item("PostType")
-            '    '     ousertable2.UserFields.Fields.Item("U_S_PGLACC").Value = intRow.Item("GLACC").trim()
-            '    ousertable2.UserFields.Fields.Item("U_S_PCardCode").Value = intRow.Item("CardCode")
-            '    ousertable2.UserFields.Fields.Item("U_S_PEarValue").Value = intRow.Item("EarValue")
-            '    If ousertable2.Add <> 0 Then
-            '    End If
-            'Next
             otemp2.DoQuery("Update [@Z_PAYROLL2] set  U_Z_Amount=U_Z_Rate*U_Z_Value where U_Z_RefCode='" & strPayrollRefNo & "'")
             otemp2.DoQuery("Update [@Z_PAYROLL2] set  U_Z_Amount=Round(U_Z_Amount," & intRoundingNumber & ") where U_Z_RefCode='" & strPayrollRefNo & "'")
         End If
@@ -3314,7 +3291,19 @@ Public Class clsPayrollWorksheet_ReGeneration
         Return True
     End Function
 
-
+    Private Function getNoofLeavDaysforEarning_OffCycle(aEmpID As String, aEarnCode As String, dtPayrolldate As Date, aMonth As Integer, aYear As Integer) As Double
+        Dim oRateRs As SAPbobsCOM.Recordset
+        Dim strQuery, stString As String
+        strQuery = "(Select U_Z_LEVCode from [@Z_PAY_OLEMAP] where isnull(U_Z_EFFEAR,'N')='Y' and isnull(U_Z_Type,'E')='E' and U_Z_CODE='" & aEarnCode & "')"
+        stString = "select isnull(sum(U_Z_NoofDays),0),U_Z_EmpID  from [@Z_PAY_OLETRANS] where U_Z_Trnscode in " & strQuery & " and U_Z_month=" & aMonth & " and isnull(U_Z_OffCycle,'N')='Y' and U_Z_Year=" & aYear & " and U_Z_EmpID='" & aEmpID & "' group by U_Z_EmpID"
+        oRateRs = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+        oRateRs.DoQuery(stString)
+        If oRateRs.RecordCount > 0 Then
+            Return oRateRs.Fields.Item(0).Value
+        Else
+            Return 0
+        End If
+    End Function
     Private Function Addearning_Accural_Emp(ByVal arefCode As String, ByVal ayear As Integer, ByVal aMonth As Integer, ByVal aform As SAPbouiCOM.Form) As Boolean
         Dim oUserTable, oUserTable1, ousertable2, ousertable3 As SAPbobsCOM.UserTable
         Dim strCode, strCustomerCode, strECode, strEname, strGLacc, strRefCode, strPayrollRefNo, strempID, stAirStartDate, str13thPay, str14thPay As String

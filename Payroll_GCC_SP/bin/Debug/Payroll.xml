@@ -6,7 +6,56 @@ Payroll
 </name>
 </assembly>
 <members>
-<member name="T:Payroll.dtPayroll.PayHeaderDataTable">
+<member name="F:Payroll.clsUtilities.toDate">
+	<summary>
+ contain To Date
+ </summary>
+</member><member name="F:Payroll.clsUtilities.year1">
+	<summary>
+ this three variable for output representation..
+ </summary>
+</member><member name="T:Payroll.dtHouseFile.HeaderDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Payroll.dtHouseFile.DetailsDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Payroll.dtHouseFile.HeaderRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Payroll.dtHouseFile.DetailsRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Payroll.dtHouseFile.HeaderRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Payroll.dtHouseFile.DetailsRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Payroll.dtHouseFile">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="P:Payroll.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Payroll.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Payroll.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="T:Payroll.dtPayroll.PayHeaderDataTable">
 	<summary>
 Represents the strongly named DataTable class.
 </summary>
@@ -55,34 +104,6 @@ Row event argument class
 Row event argument class
 </summary>
 </member><member name="T:Payroll.dtPayroll">
-	<summary>
-Represents a strongly typed in-memory cache of data.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.HeaderDataTable">
-	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.DetailsDataTable">
-	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.HeaderRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.DetailsRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Payroll.dtHouseFile.HeaderRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Payroll.dtHouseFile.DetailsRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Payroll.dtHouseFile">
 	<summary>
 Represents a strongly typed in-memory cache of data.
 </summary>
@@ -162,27 +183,6 @@ Row event argument class
 	<summary>
 Represents a strongly typed in-memory cache of data.
 </summary>
-</member><member name="P:Payroll.My.Resources.Resources.ResourceManager">
-	<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member><member name="P:Payroll.My.Resources.Resources.Culture">
-	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member><member name="T:Payroll.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member><member name="F:Payroll.clsUtilities.toDate">
-	<summary>
- contain To Date
- </summary>
-</member><member name="F:Payroll.clsUtilities.year1">
-	<summary>
- this three variable for output representation..
- </summary>
 </member>
 </members>
 </doc>

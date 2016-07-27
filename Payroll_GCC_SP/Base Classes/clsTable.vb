@@ -1941,6 +1941,7 @@ Public NotInheritable Class clsTable
             AddFields("Z_PAYROLL1", "Z_TotAccrued", "Total Accrued Allowance", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
 
             addField("@Z_PAY_OCON", "Z_Postable", "Postable", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
+            addField("@Z_PAYROLL1", "Z_IsRejoin", "Is Rejoin", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
 
             CreateUDO()
             oApplication.Utilities.Message("Initializing Database...", SAPbouiCOM.BoStatusBarMessageType.smt_Warning)

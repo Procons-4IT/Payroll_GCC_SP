@@ -1473,7 +1473,7 @@ Public Class clsPayrollOffCycle
                         oUserTable1.UserFields.Fields.Item("U_Z_IsTerm").Value = "Y"
                         oUserTable1.UserFields.Fields.Item("U_Z_DedType").Value = "Y"
                     End If
-
+                    oUserTable1.UserFields.Fields.Item("U_Z_IsRejoin").Value = "N"
                     'oUserTable1.UserFields.Fields.Item("U_Z_PayDate").Value = strPayEndDate
                     oUserTable1.UserFields.Fields.Item("U_Z_InrAmt").Value = dblInc ' oTempRec.Fields.Item(4).Value
                     oUserTable1.UserFields.Fields.Item("U_Z_BasicSalary").Value = Math.Round(dblbasic, intRoundingNumber) + dblInc
@@ -3408,7 +3408,7 @@ Public Class clsPayrollOffCycle
                                         dblValue = dblValue + dblInc
                                     End If
                                     If blnNewJoiny = True Then
-                                        If oTst.Fields.Item(1).Value = "Y" Then
+                                        If oTst.Fields.Item(1).Value = "Y" Or oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
                                             dblValue = dblValue / dblCalenderdays
                                             dblValue = dblValue * dblWorkingdays
                                         Else
@@ -3428,7 +3428,10 @@ Public Class clsPayrollOffCycle
                                             If blnEarninapplicable = True Then
                                                 Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
                                                 If dblLeaveDays1 = 0 Then
-                                                    dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                    '  dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                    Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
+                                                    'dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                    dblLeaveDays = dbcal - dblLeaveDays
                                                     dblValue = dblValue * dblLeaveDays
                                                     dblValue = dblValue
                                                 Else
