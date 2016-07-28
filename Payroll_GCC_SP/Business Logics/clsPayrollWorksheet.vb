@@ -2949,23 +2949,38 @@ Public Class clsPayrollWorksheet
                                             dblValue = dblValue
                                         End If
                                     Else
+
                                         If oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
-                                            dblValue = dblValue / dblCalenderdays
+                                            Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
+                                            ' dblValue = dblValue / dblCalenderdays
                                             Dim dblLeaveDays As Double = getNoofLeavDaysforEarning(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
                                             If blnEarninapplicable = True Then
                                                 Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
                                                 If dblLeaveDays1 = 0 Then
                                                     If blnRejoin = "Y" Then
+                                                        dblValue = dblValue / dblCalenderdays
                                                         dblValue = dblValue * dblWorkingdays
                                                     Else
-                                                        Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
-                                                        'dblLeaveDays = dblCalenderdays - dblLeaveDays
-                                                        dblLeaveDays = dbcal - dblLeaveDays
+                                                        If dblLeaveDays = 0 Then
+                                                            dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                            dblValue = dblValue / dblCalenderdays
+                                                        Else
+                                                            dblLeaveDays = dbcal - dblLeaveDays
+                                                            If aMonth = 2 Then
+                                                                Dim dblesetudays As Double = oApplication.Utilities.GetnumberofworkgDays(ayear, aMonth, strempID)
+                                                                dblValue = dblValue / dblesetudays
+                                                            Else
+                                                                dblValue = dblValue / dblCalenderdays
+                                                            End If
+
+                                                        End If
+
                                                         dblValue = dblValue * dblLeaveDays
                                                         dblValue = dblValue
                                                     End If
-                                                  
+
                                                 Else
+                                                    dblValue = dblValue / dblCalenderdays
                                                     dblValue = dblValue * dblWorkingdays
                                                 End If
                                             Else
@@ -2974,6 +2989,13 @@ Public Class clsPayrollWorksheet
                                                     dblValue = 0
                                                     ' dblValue = dblValue * dblWorkingdays
                                                 Else
+                                                    If aMonth = 2 Then
+                                                        Dim dblesetudays As Double = oApplication.Utilities.GetnumberofworkgDays(ayear, aMonth, strempID)
+                                                        dblValue = dblValue / dblesetudays
+                                                    Else
+                                                        dblValue = dblValue / dblCalenderdays
+                                                    End If
+                                                    '  dblValue = dblValue / dblCalenderdays
                                                     dblValue = dblValue * dblWorkingdays
                                                 End If
                                             End If

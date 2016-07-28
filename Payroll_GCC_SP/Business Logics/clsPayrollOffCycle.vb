@@ -3422,38 +3422,105 @@ Public Class clsPayrollOffCycle
                                         'End If
                                     Else
                                         If oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
-                                            dblValue = dblValue / dblCalenderdays
+                                            Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
+                                            ' dblValue = dblValue / dblCalenderdays
                                             Dim dblLeaveDays As Double = getNoofLeavDaysforEarning(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
-
                                             If blnEarninapplicable = True Then
                                                 Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+
+                                                '  If dblLeaveDays1 = 0 Then
+                                                '            '  dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                '            Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
+                                                '            'dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                '            dblLeaveDays = dbcal - dblLeaveDays
+                                                '            dblValue = dblValue * dblLeaveDays
+                                                '            dblValue = dblValue
+                                                '        Else
+                                                '            dblValue = dblValue * dblWorkingdays
+                                                '        End If
                                                 If dblLeaveDays1 = 0 Then
-                                                    '  dblLeaveDays = dblCalenderdays - dblLeaveDays
-                                                    Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
-                                                    'dblLeaveDays = dblCalenderdays - dblLeaveDays
-                                                    dblLeaveDays = dbcal - dblLeaveDays
-                                                    dblValue = dblValue * dblLeaveDays
-                                                    dblValue = dblValue
+                                                    If 1 = 2 Then 'blnRejoin = "Y" Then
+                                                        dblValue = dblValue / dblCalenderdays
+                                                        dblValue = dblValue * dblWorkingdays
+                                                    Else
+                                                        If dblLeaveDays = 0 Then
+                                                            dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                                            dblValue = dblValue / dblCalenderdays
+                                                        Else
+                                                            dblLeaveDays = dbcal - dblLeaveDays
+                                                            If aMonth = 2 Then
+                                                                Dim dblesetudays As Double = oApplication.Utilities.GetnumberofworkgDays(ayear, aMonth, strempID)
+                                                                dblValue = dblValue / dblesetudays
+                                                            Else
+                                                                dblValue = dblValue / dblCalenderdays
+                                                            End If
+
+                                                        End If
+
+                                                        dblValue = dblValue * dblLeaveDays
+                                                        dblValue = dblValue
+                                                    End If
+
                                                 Else
+                                                    dblValue = dblValue / dblCalenderdays
                                                     dblValue = dblValue * dblWorkingdays
                                                 End If
-                                               
                                             Else
                                                 Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
                                                 If dblLeaveDays1 = 0 Then
                                                     dblValue = 0
+                                                    ' dblValue = dblValue * dblWorkingdays
                                                 Else
+                                                    If aMonth = 2 Then
+                                                        Dim dblesetudays As Double = oApplication.Utilities.GetnumberofworkgDays(ayear, aMonth, strempID)
+                                                        dblValue = dblValue / dblesetudays
+                                                    Else
+                                                        dblValue = dblValue / dblCalenderdays
+                                                    End If
+                                                    '  dblValue = dblValue / dblCalenderdays
                                                     dblValue = dblValue * dblWorkingdays
                                                 End If
                                             End If
                                         Else
                                             If blnEarninapplicable = False Then
-                                                'Return True
                                                 dblValue = 0
                                             Else
                                                 dblValue = dblValue
                                             End If
                                         End If
+                                        'If oTst.Fields.Item("U_Z_PaidWkd").Value = "Y" Then
+                                        '    dblValue = dblValue / dblCalenderdays
+                                        '    Dim dblLeaveDays As Double = getNoofLeavDaysforEarning(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+
+                                        '    If blnEarninapplicable = True Then
+                                        '        Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+                                        '        If dblLeaveDays1 = 0 Then
+                                        '            '  dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                        '            Dim dbcal As Double = DateTime.DaysInMonth(ayear, aMonth)
+                                        '            'dblLeaveDays = dblCalenderdays - dblLeaveDays
+                                        '            dblLeaveDays = dbcal - dblLeaveDays
+                                        '            dblValue = dblValue * dblLeaveDays
+                                        '            dblValue = dblValue
+                                        '        Else
+                                        '            dblValue = dblValue * dblWorkingdays
+                                        '        End If
+
+                                        '    Else
+                                        '        Dim dblLeaveDays1 As Double = getNoofLeavDaysforEarning_OffCycle(strempID, strEarnCode, dtPayrollDate, aMonth, ayear)
+                                        '        If dblLeaveDays1 = 0 Then
+                                        '            dblValue = 0
+                                        '        Else
+                                        '            dblValue = dblValue * dblWorkingdays
+                                        '        End If
+                                        '    End If
+                                        'Else
+                                        '    If blnEarninapplicable = False Then
+                                        '        'Return True
+                                        '        dblValue = 0
+                                        '    Else
+                                        '        dblValue = dblValue
+                                        '    End If
+                                        'End If
                                     End If
                                 Else
                                     dblValue = dblValue
